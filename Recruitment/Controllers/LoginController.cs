@@ -18,37 +18,66 @@ namespace Recruitment.Controllers
         [ActionName("Login")]
         public ActionResult Login(Users users)
         {
+            bool isExist = false;
             using (RecruitmentEntities RE = new RecruitmentEntities())
             {
-                string pass = MD5Encryption.encryption(users.Password);
-                var user = RE.USERs.Where(e => e.USERNAME == users.Username && e.PASSWORD == pass).FirstOrDefault();
-                var role = RE.ROLEs.Where(e => e.ROLE_ID == user.ROLE_ID).FirstOrDefault();
-                if (user == null)
+
+                isExist = RE.USERs.Where(e => e.USERNAME.Trim().ToLower() == users.Username.Trim().ToLower()).Any();
+                if (isExist)
                 {
-                    Response.Write("Username Atau Password Anda Salah");
-                }
-                else
-                {
-                    if (user.ROLE_ID == role.ROLE_ID)
+                    Users usr = RE.USERs.Where(x => x.USERNAME.Trim().ToLower() == users.Username.Trim().ToLower()).Select(x => new Users {
+                        Username = x.USERNAME,
+                        Roleid = x.ROLE_ID,
+                    }).FirstOrDefault();
+
+                    //cek login
+                    string[] mn = usr.Roleid.Split(',');
+                    List<MenuModels> menus = RE.MENUs.Where(x => x.ROLE_ID.Split(',').Contains(usr.Roleid)).Select(x => new MenuModels
                     {
-                        if (role.ROLE_NAME.Equals("Admin"))
-                        {
-                            Session["admin"] = users.Username;
-                            Session["role"] = role.ROLE_NAME;
-                            return Redirect("Home");
-                        }else if (role.ROLE_NAME.Equals("Pra Seleksi"))
-                        {
-                            Session["pra seleksi"] = users.Username;
-                            Session["role"] = role.ROLE_NAME;
-                            return Redirect("Home");
-                        }else if (role.ROLE_NAME.Equals("Call"))
-                        {
-                            Session["call"] = users.Username;
-                            Session["role"] = role.ROLE_NAME;
-                            return Redirect("Home");
-                        }
-                    }
+                        MenuId = x.MENU_ID,
+                        MenuName = x.MENU_NAME,
+                        Action = x.ACTION,
+                        Controller = x.CONTROLLER,
+                        RoleId = x.ROLE_ID
+                    }).ToList();
+                    Session["user"] = usr;
+                    Session["menu"] = menus;
+                    Session["username"] = usr.Username;
+                    return RedirectToAction("Index","Home");
+                }else
+                {
+                    TempData["cek"] = "Username tidak terdaftar";
+                    return View("Index");
                 }
+                //string pass = MD5Encryption.encryption(users.Password);
+                //var user = RE.USERs.Where(e => e.USERNAME == users.Username && e.PASSWORD == pass).FirstOrDefault();
+                //var role = RE.ROLEs.Where(e => e.ROLE_ID == user.ROLE_ID).FirstOrDefault();
+                //if (user == null)
+                //{
+                //    Response.Write("Username Atau Password Anda Salah");
+                //}
+                //else
+                //{
+                //    if (user.ROLE_ID == role.ROLE_ID)
+                //    {
+                //        if (role.ROLE_NAME.Equals("Admin"))
+                //        {
+                //            Session["admin"] = users.Username;
+                //            Session["role"] = role.ROLE_NAME;
+                //            return Redirect("Home");
+                //        }else if (role.ROLE_NAME.Equals("Pra Seleksi"))
+                //        {
+                //            Session["pra seleksi"] = users.Username;
+                //            Session["role"] = role.ROLE_NAME;
+                //            return Redirect("Home");
+                //        }else if (role.ROLE_NAME.Equals("Call"))
+                //        {
+                //            Session["call"] = users.Username;
+                //            Session["role"] = role.ROLE_NAME;
+                //            return Redirect("Home");
+                //        }
+                //    }
+                //}
                 return View("Index");
             }
 

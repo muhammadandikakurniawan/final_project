@@ -53,26 +53,20 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3>General</h3>
-
-                            <div id="navcontainer"></div>
-                            @if (Session["admin"] != null)
-                            {
-                                <ul class="nav side-menu">
-                                    <li>
-                                        <a>Master Management<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li>@Html.ActionLink("MENU", "ListMenu", "Menu")</li>
-                                            <li>@Html.ActionLink("USER", "ListUser", "Users")</li>
-                                            <li>@Html.ActionLink("ROLE", "Index", "Role")</li>
-                                            <li>@Html.ActionLink("STATE", "ListAllStates", "StateView")</li>
-                                            <li>@Html.ActionLink("POSITION", "ListPosition", "Position")</li>
-                                            <li>@Html.ActionLink("SOURCE", "Index", "Source")</li>
-                                        </ul>
-                                    </li>
-
-                                </ul>
-                            }
-
+                        <div id="navcontainer"></div>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a>Master Management<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>@Html.ActionLink("MENU", "ListMenu", "Menu")</li>
+                                        <li>@Html.ActionLink("USER", "ListUser", "Users")</li>
+                                        <li>@Html.ActionLink("ROLE", "Index", "Role")</li>
+                                        <li>@Html.ActionLink("STATE", "ListAllStates", "StateView")</li>
+                                        <li>@Html.ActionLink("POSITION", "ListPosition", "Position")</li>
+                                        <li>@Html.ActionLink("SOURCE", "Index", "Source")</li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
 
                     </div>

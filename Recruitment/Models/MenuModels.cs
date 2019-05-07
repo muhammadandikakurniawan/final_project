@@ -9,7 +9,6 @@ namespace Recruitment.Models
     public class MenuModels
     {
         
-
         public string MenuId { get; set; }
         public string MenuName { get; set; }
         public string RoleId { get; set; }

@@ -12,6 +12,12 @@
                 <img src="~/Content/build/images/logo ACE.png" />
             </div>
             <section class="login_content">
+                @if (TempData["cek"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <strong>@TempData["cek"]</strong>
+                    </div>
+                }
                 <h1>Login Form</h1>
                 @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                 {
@@ -19,7 +25,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
-                            @Html.TextBoxFor(m => m.Username,"", new { @class="form-control", @placeholder="Username" })
+                            @Html.TextBoxFor(m => m.Username, "", new { @class = "form-control", @placeholder = "Username" })
                         </div>
                     </div>
                     <div class="form-group">
