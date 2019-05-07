@@ -22,7 +22,8 @@ namespace Recruitment.Controllers
 
         public ActionResult Tambah()
         {
-            return View(new RoleModels());
+            HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("MaxId").Result;
+            return View(response.Content.ReadAsAsync<RoleModels>().Result);
         }
 
         [HttpPost]

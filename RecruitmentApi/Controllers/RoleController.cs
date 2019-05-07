@@ -28,6 +28,35 @@ namespace RecruitmentApi.Controllers
             return (roles);
         }
 
+        [Route("api/MaxId")]
+        public IHttpActionResult GetMaxId()
+        {
+            List<Roles> roles = db.ROLEs.Select(x => new Roles
+            {
+                RoleId = x.ROLE_ID,
+                RoleName = x.ROLE_NAME
+            }).ToList();
+
+            string maxId = roles.Max(x => x.RoleId);
+            int angka = 0;
+            if (roles.Count != 0)
+            {
+                angka = int.Parse(maxId.Substring(maxId.Length - 3)) + 1;
+            }
+            string newRole = "RL" + string.Format("{0:D3}", angka);
+
+            Roles ListRole = new Roles
+            {
+                RoleId = newRole,
+                RoleName = null
+            };
+            if (roles == null)
+            {
+                return NotFound();
+            }
+            return Ok(ListRole);
+        }
+        
         // GET: api/Role/5
         [ResponseType(typeof(ROLE))]
         public IHttpActionResult GetROLE(string id)
