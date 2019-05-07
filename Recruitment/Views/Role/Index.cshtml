@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Recruitment.Models.RoleModels>
+
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<h2>Halaman Roles</h2>
+<hr />
+<p>
+    @Html.ActionLink(" Tambah Data", "Tambah", "Role", null, new { @class = "btn btn-primary fa fa-plus" })
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>
+                Role Id
+            </th>
+            <th>
+                Role Name
+            </th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    @{ int i = 1; }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@i</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.ActionLink(" Edit", "Edit", "Role", new { id = item.RoleId }, new { @class = "btn btn-info fa fa-edit" }) |
+                <a onclick="Delete('@item.RoleId')" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var status = '@TempData["status"]'
+            if (status != '') {
+                alertify.success(status);
+            }
+        });
+
+        function Delete(id) {
+            alertify.confirm('Confirmasi Delete Role', 'Yakin Ingin Menghapus Data?', function () {
+                //alertify.success('Ok')
+                window.location.href = '@Url.Action("Delete", "Role")/' + id;
+            }, null);
+        }
+    </script>
+}

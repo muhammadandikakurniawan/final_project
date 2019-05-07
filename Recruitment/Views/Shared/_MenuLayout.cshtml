@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Recruitment.Models.MenuModels>
+
+<ul class="nav side-menu">
+
+    @foreach ( var menu in Model)
+    {
+        <li>@Html.ActionLink(menu.MenuName,menu.Action,menu.Controller)</li>
+    }
+</ul>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Recruitment.Models.StateDTO>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListStates</title>
+</head>
+<body>
+    <p>
+        <a href="~/state/add">Create New State</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateNext)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateNext)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditState", new { item.StateId }) |
+                    @Html.ActionLink("Delete", "DeleteState", new { item.StateId })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

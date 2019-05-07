@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Tambah Sumber";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    @model Recruitment.Models.Sumber
+    @using Recruitment.Models;
+<div class="mx-auto" style="width: 300px;">
+    <div class="card border-primary mb-3" style="max-width: 18rem;">
+        <div class="card-header bg-primary border-primary text-white">Tambah</div>
+        <div class="card-body ">
+            @using (Html.BeginForm("Insert", "Source", FormMethod.Post))
+            {<div class="mx-auto" style="width: 200px;">
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.SumberNama, "Sumber Nama ", new { @class = "info-title" })
+                     @Html.EditorFor(m => m.SumberNama, new { @class = "form-control unicase-form-control text-input" })
+                     @Html.ValidationMessageFor(m => m.SumberNama)
+                 </div>
+                    <div class="form-group">
+                        <input class="btn-primary" type="submit" value="Tambah" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+

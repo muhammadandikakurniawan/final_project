@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Recruitment.Models.Users>
+
+@{
+    ViewBag.Title = "ListUser";
+}
+
+<h2>ListUser</h2>
+
+<body>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><a href="/users/new">Tambah</a></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Full Name</th>
+                <th>Role Id</th>
+                <th>Button Function</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var users in Model)
+            {
+                <tr>
+                    <td>@users.Username</td>
+                    <td>@users.Fullname</td>
+                    <td>@users.Roleid</td>
+                    <td>
+                        <form action="/users/@users.Username/delete" method="post">
+                            <input type="submit" value="Delete" class="btn btn-primary"/>
+                        </form>
+                        <form action="/users/@users.Username/edit" method="get">
+                            <input type="submit" value="Edit" class="btn btn-primary"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

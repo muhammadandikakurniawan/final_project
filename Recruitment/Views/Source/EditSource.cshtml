@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Edit Sumber";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Sumber sumber = (Sumber)TempData.Peek("Sumber");
+}
+
+@using Recruitment.Models;
+@model Recruitment.Models.Sumber
+
+    <div class="body-content outer-top-bd">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+
+                <div class="mx-auto" style="width: 300px;">
+                    <div class="card border-primary mb-3" style="max-width: 18rem;">
+                        <div class="card-header bg-primary border-primary text-white">Edit</div>
+                        <div class="card-body ">
+                            @using (Html.BeginForm("Update", "Source", FormMethod.Post))
+                            {
+                                <div class="form-group">
+                                    @Html.Label("Sumber ID ", new { @class = "info-title" })
+                                    @Html.TextBoxFor(m => m.SumberId, new { @class = "form-control unicase-form-control text-input", @Value = sumber.SumberId, @readonly = "readonly" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Sumber Nama ", new { @class = "info-title" })
+                                    @Html.TextBoxFor(m => m.SumberNama, new { @class = "form-control unicase-form-control text-input", @Value = sumber.SumberNama })
+
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn-primary" type="submit" value="Update" />
+                                </div>
+                            }
+                        </div>
+                   
+                    </div>
+                </div>
+                    </div>
+                </div>
+        </div>
+
