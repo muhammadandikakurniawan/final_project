@@ -346,3 +346,12 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+RecruitmentApi/Models/RecruitmentDB.edmx.diagram
+RecruitmentApi/Models/RecruitmentDB.edmx
+RecruitmentApi/Models/RecruitmentDB.Designer.cs
+Recruitment/Models/RecruitmentDB.edmx.diagram
+Recruitment/Models/RecruitmentDB.Designer.cs
+RecruitmentApi/Web.config
+Recruitment/Models/RecruitmentDB.edmx
+Recruitment/Web.config
+RecruitmentApi/RecruitmentApi.csproj
