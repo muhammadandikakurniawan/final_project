@@ -133,8 +133,8 @@ namespace Recruitment.Controllers
         }
 
         [Route("edit")]
-        [HttpPost]
         [ActionName("editform")]
+        [HttpPost]
         public ActionResult UpdateUser(Users edittedUser)
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())

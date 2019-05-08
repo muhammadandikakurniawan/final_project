@@ -23,36 +23,51 @@ namespace Recruitment.Controllers
             {
 
                 isExist = RE.USERs.Where(e => e.USERNAME.Trim().ToLower() == users.Username.Trim().ToLower()).Any();
+                var GetUser = RE.USERs.Where(e => e.USERNAME == users.Username).FirstOrDefault();
+                string pass = MD5Encryption.encryption(users.Password);
                 if (isExist)
                 {
-                    Users usr = RE.USERs.Where(x => x.USERNAME.Trim().ToLower() == users.Username.Trim().ToLower()).Select(x => new Users {
-                        Username = x.USERNAME,
-                        Roleid = x.ROLE_ID,
-                    }).FirstOrDefault();
-
-                    //cek login
-                    
-                    List<MenuModels> tempMenus = RE.MENUs.Select(x => new MenuModels
+                    if (GetUser.PASSWORD.Equals(pass))
                     {
-                        MenuId = x.MENU_ID,
-                        MenuName = x.MENU_NAME,
-                        Action = x.ACTION,
-                        Controller = x.CONTROLLER,
-                        RoleId = x.ROLE_ID
-                    }).ToList();
+                        Users usr = RE.USERs.Where(x => x.USERNAME.Trim().ToLower() == users.Username.Trim().ToLower()).Select(x => new Users
+                        {
+                            Username = x.USERNAME,
+                            Fullname = x.FULLNAME,
+                            Roleid = x.ROLE_ID,
+                        }).FirstOrDefault();
 
-                    List<MenuModels> menus = new List<MenuModels>();
-                    foreach(MenuModels menuModels in tempMenus) {
-                        String[] roleArr = menuModels.RoleId.Split(',');
-                        if (roleArr.Contains(usr.Roleid)){
-                            menus.Add(menuModels);
+                        //cek login
+
+                        List<MenuModels> tempMenus = RE.MENUs.Select(x => new MenuModels
+                        {
+                            MenuId = x.MENU_ID,
+                            MenuName = x.MENU_NAME,
+                            Action = x.ACTION,
+                            Controller = x.CONTROLLER,
+                            RoleId = x.ROLE_ID
+                        }).ToList();
+
+                        List<MenuModels> menus = new List<MenuModels>();
+                        foreach (MenuModels menuModels in tempMenus)
+                        {
+                            String[] roleArr = menuModels.RoleId.Split(',');
+                            if (roleArr.Contains(usr.Roleid))
+                            {
+                                menus.Add(menuModels);
+                            }
                         }
-                    }
 
-                    Session["user"] = usr;
-                    Session["menu"] = menus;
-                    Session["username"] = usr.Username;
-                    return RedirectToAction("Index","Home");
+                        Session["user"] = usr;
+                        Session["menu"] = menus;
+                        Session["username"] = usr.Username;
+                        Session["name"] = usr.Fullname;
+                        return RedirectToAction("Index", "Home");
+                    }else
+                    {
+                        TempData["cek"] = "Password Salah";
+                        return View("Index");
+                    }
+                    
                 }else
                 {
                     TempData["cek"] = "Username tidak terdaftar";
@@ -89,7 +104,13 @@ namespace Recruitment.Controllers
                 //}
                 return View("Index");
             }
+        }
 
+        [ActionName("Logout")]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return Redirect("Index");
         }
     }
 } 

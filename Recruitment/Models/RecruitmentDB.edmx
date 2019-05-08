@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RecruitmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="MENU_ID" />
+          </Key>
+          <Property Name="MENU_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MENU_NAME" Type="varchar" MaxLength="20" />
+          <Property Name="ROLE_ID" Type="varchar" MaxLength="50" />
+          <Property Name="ACTION" Type="varchar" MaxLength="20" />
+          <Property Name="CONTROLLER" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="POSITION">
+          <Key>
+            <PropertyRef Name="POSITION_ID" />
+          </Key>
+          <Property Name="POSITION_ID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="POSITION_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ROLE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOURCE">
+          <Key>
+            <PropertyRef Name="SOURCE_ID" />
+          </Key>
+          <Property Name="SOURCE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SOURCE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STATE">
+          <Key>
+            <PropertyRef Name="STATE_ID" />
+          </Key>
+          <Property Name="STATE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="STATE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATE_NEXT" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="USERNAME" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FULLNAME" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="225" />
+          <Property Name="ROLE_ID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_USER_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecruitmentModelStoreContainer">
+          <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POSITION" EntityType="Self.POSITION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOURCE" EntityType="Self.SOURCE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATE" EntityType="Self.STATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RecruitmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="MENU_ID" />
+          </Key>
+          <Property Name="MENU_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MENU_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACTION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLLER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="POSITION">
+          <Key>
+            <PropertyRef Name="POSITION_ID" />
+          </Key>
+          <Property Name="POSITION_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="POSITION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ROLE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USERs" Relationship="Self.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="SOURCE">
+          <Key>
+            <PropertyRef Name="SOURCE_ID" />
+          </Key>
+          <Property Name="SOURCE_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SOURCE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STATE">
+          <Key>
+            <PropertyRef Name="STATE_ID" />
+          </Key>
+          <Property Name="STATE_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATE_NEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="USERNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FULLNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ROLE" Relationship="Self.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+        </EntityType>
+        <Association Name="FK_USER_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecruitmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MENUs" EntityType="Self.MENU" />
+          <EntitySet Name="POSITIONs" EntityType="Self.POSITION" />
+          <EntitySet Name="ROLEs" EntityType="Self.ROLE" />
+          <EntitySet Name="SOURCEs" EntityType="Self.SOURCE" />
+          <EntitySet Name="STATEs" EntityType="Self.STATE" />
+          <EntitySet Name="USERs" EntityType="Self.USER" />
+          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="USER" EntitySet="USERs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RecruitmentModelStoreContainer" CdmEntityContainer="RecruitmentEntities">
+          <EntitySetMapping Name="MENUs">
+            <EntityTypeMapping TypeName="RecruitmentModel.MENU">
+              <MappingFragment StoreEntitySet="MENU">
+                <ScalarProperty Name="MENU_ID" ColumnName="MENU_ID" />
+                <ScalarProperty Name="MENU_NAME" ColumnName="MENU_NAME" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
+                <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSITIONs">
+            <EntityTypeMapping TypeName="RecruitmentModel.POSITION">
+              <MappingFragment StoreEntitySet="POSITION">
+                <ScalarProperty Name="POSITION_ID" ColumnName="POSITION_ID" />
+                <ScalarProperty Name="POSITION_NAME" ColumnName="POSITION_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLEs">
+            <EntityTypeMapping TypeName="RecruitmentModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="ROLE_NAME" ColumnName="ROLE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOURCEs">
+            <EntityTypeMapping TypeName="RecruitmentModel.SOURCE">
+              <MappingFragment StoreEntitySet="SOURCE">
+                <ScalarProperty Name="SOURCE_ID" ColumnName="SOURCE_ID" />
+                <ScalarProperty Name="SOURCE_NAME" ColumnName="SOURCE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATEs">
+            <EntityTypeMapping TypeName="RecruitmentModel.STATE">
+              <MappingFragment StoreEntitySet="STATE">
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
+                <ScalarProperty Name="STATE_NEXT" ColumnName="STATE_NEXT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="RecruitmentModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

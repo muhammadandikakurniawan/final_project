@@ -50,7 +50,7 @@ namespace Recruitment.Controllers
             }
         }
 
-        [Route("{id}/edit")]
+        [Route("edit/{id}")]
         [HttpGet]
         [ActionName("editposition")]
         public ActionResult EditPosition(string id)
