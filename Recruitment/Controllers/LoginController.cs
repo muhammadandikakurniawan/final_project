@@ -31,8 +31,8 @@ namespace Recruitment.Controllers
                     }).FirstOrDefault();
 
                     //cek login
-                    string[] mn = usr.Roleid.Split(',');
-                    List<MenuModels> menus = RE.MENUs.Where(x => x.ROLE_ID.Split(',').Contains(usr.Roleid)).Select(x => new MenuModels
+                    
+                    List<MenuModels> tempMenus = RE.MENUs.Select(x => new MenuModels
                     {
                         MenuId = x.MENU_ID,
                         MenuName = x.MENU_NAME,
@@ -40,6 +40,15 @@ namespace Recruitment.Controllers
                         Controller = x.CONTROLLER,
                         RoleId = x.ROLE_ID
                     }).ToList();
+
+                    List<MenuModels> menus = new List<MenuModels>();
+                    foreach(MenuModels menuModels in tempMenus) {
+                        String[] roleArr = menuModels.RoleId.Split(',');
+                        if (roleArr.Contains(usr.Roleid)){
+                            menus.Add(menuModels);
+                        }
+                    }
+
                     Session["user"] = usr;
                     Session["menu"] = menus;
                     Session["username"] = usr.Username;
