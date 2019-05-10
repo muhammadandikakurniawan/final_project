@@ -24,6 +24,7 @@ namespace Recruitment
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Content/vendors/bootstrap/dist/css/bootstrap.min.css",
+                    "~/Content/datatables/jquery.dataTables.min.css",
                     "~/Content/vendors/font-awesome/css/font-awesome.min.css",
                     "~/Content/vendors/nprogress/nprogress.css",
                     "~/Content/vendors/bootstrap-daterangepicker/daterangepicker.css",
@@ -31,6 +32,7 @@ namespace Recruitment
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                     "~/Content/vendors/jquery/dist/jquery.min.js",
                     "~/Content/vendors/bootstrap/dist/js/bootstrap.min.js",
+                    "~/Content/datatables/jquery.dataTables.min.js",
                     "~/Content/vendors/fastclick/lib/fastclick.js",
                     "~/Content/vendors/nprogress/nprogress.js",
                     "~/Content/vendors/Chart.js/dist/Chart.min.js",

@@ -1,0 +1,151 @@
+﻿@model PagedList.IPagedList<Recruitment.Models.CandidateJoin>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@*@model IEnumerable<Recruitment.Models.CandidateJoin>*@
+@using Recruitment.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> position = (List<string>)TempData.Peek("position");
+    List<string> state = (List<string>)TempData.Peek("state");
+}
+
+<div class="container">
+    <h2>Halaman Candidate</h2>
+    <hr />
+    <p>
+        @Html.ActionLink(" Tambah Data", "add", "Candidate", null, new { @class = "btn btn-primary fa fa-pencil" })
+    </p>
+    @using (Html.BeginForm("Index", "Candidate", FormMethod.Post))
+    {
+        <div class="pull-right">
+            @Html.TextBox("searchString")
+            <input id="submit" type="submit" class="btn btn-danger btn-xs" value="Seacrch" />
+            @Html.DropDownList("searchPosisi", new SelectList(position))
+            @Html.DropDownList("searchState", new SelectList(state))
+            <input id="submit" type="submit" class="btn btn-warning btn-xs" value="Filter" />
+        </div>
+        <div>
+
+        </div>
+    }
+    <table class="table table-striped" id="candidateTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Lengkap</th>
+                <th>Applied Position</th>
+                <th>Source</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>PIC</th>
+                <th>Sourcing Date</th>
+                <th>State</th>
+                <th>Notes</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        @{ int i = 1; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.NamaLengkap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.JudulPosisi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SumberDetails.SumberNama)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.NoHP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.UserCreate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.DateTimeCreate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateDetails.StateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CandidateDetails.Catatan)
+                </td>
+                <td>
+                    @Html.ActionLink(" Edit", "Edit", "Role", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-info fa fa-edit" }) |
+                    @Html.ActionLink(" ", "edit", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
+                    <a onclick="Delete('@item.CandidateDetails.CandidateId')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>
+                    @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
+                </td>
+            </tr>
+            i++;
+        }
+
+    </table>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+</div>
+@section scripts{
+    <script>
+
+            //$(document).ready(function () {
+            //    $('#candidateTable').DataTable({
+            //        "ajax": {
+            //            "url": "/Candidate/GetData",
+            //            "type": "POST",
+            //            "dataType": "json"
+            //        },
+            //        "columns": [
+            //            { "data": "NamaLengkap", "name": "NamaLengkap"},
+            //            { "data": "AppliedPosition", "name": "AppliedPosition"},
+            //            { "data": "Source", "name": "Source"},
+            //            { "data": "PhoneNumber", "name": "PhoneNumber"},
+            //            { "data": "Email", "name": "Email"},
+            //            { "data": "PIC", "name": "PIC"},
+            //            { "data": "SourcingDate", "name": "SourcingDate"},
+            //            { "data": "State", "name": "State"},
+            //            { "data": "Notes", "name": "Notes"},
+            //        ],
+
+            //        "serverSide": "true",
+            //        "order": [0, "asc"],
+            //        "processing": "true",
+            //        "language": {
+            //            "processing":"Processing...."
+            //        }
+            //    });
+
+            //    oTable = $('#candidateTable').DataTable();
+            //    $('#btnFilter').click(function () {
+            //        oTable.columns(1).search($('#pst').val().trim());
+            //        oTable.columns(7).search($('#sts').val().trim());
+            //        oTable.draw();
+            //    });
+            //});
+
+        $(function () {
+            var status = '@TempData["status"]'
+            if (status != '') {
+                alertify.success(status);
+            }
+        });
+
+        function Delete(id) {
+            alertify.confirm('Confirmasi Delete Role', 'Yakin Ingin Menghapus Data?', function () {
+                //alertify.success('Ok')
+                window.location.href = '@Url.Action("Delete", "Role")/' + id;
+            }, null);
+        }
+    </script>
+}
+

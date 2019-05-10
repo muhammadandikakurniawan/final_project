@@ -59,19 +59,19 @@ namespace Recruitment.Controllers
 
                         Session["user"] = usr;
                         Session["menu"] = menus;
-                        Session["username"] = usr.Username;
+                        Session["username"] = usr.Roleid;
                         Session["name"] = usr.Fullname;
                         return RedirectToAction("Index", "Home");
                     }else
                     {
                         TempData["cek"] = "Password Salah";
-                        return View("Index");
+                        return Redirect("Index");
                     }
                     
                 }else
                 {
                     TempData["cek"] = "Username tidak terdaftar";
-                    return View("Index");
+                    return Redirect("Index");
                 }
                 //string pass = MD5Encryption.encryption(users.Password);
                 //var user = RE.USERs.Where(e => e.USERNAME == users.Username && e.PASSWORD == pass).FirstOrDefault();

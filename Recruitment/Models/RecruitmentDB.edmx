@@ -4,7 +4,72 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RecruitmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RecruitmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CANDIDATE">
+          <Key>
+            <PropertyRef Name="CANDIDATE_ID" />
+          </Key>
+          <Property Name="CANDIDATE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NAMA_LENGKAP" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAMA_PANGGILAN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="KD_JENIS_KELAMIN" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="TEMPAT_LAHIR" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TANGGAL_LAHIR" Type="date" Nullable="false" />
+          <Property Name="AGAMA" Type="varchar" MaxLength="25" />
+          <Property Name="STATUS_PERKAWINAN" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="ALAMAT_RUMAH" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ALAMAT_ORTU" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TELP_RUMAH" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOHP" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="NO_KTP" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="IS_DELETED" Type="int" Nullable="false" />
+          <Property Name="FOTO" Type="varchar" MaxLength="100" />
+          <Property Name="USER_CREATE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DATETIME_CREATE" Type="datetime" Nullable="false" />
+          <Property Name="USER_UPDATE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DATETIME_UPDATE" Type="datetime" Nullable="false" />
+          <Property Name="KODE_POS" Type="int" Nullable="false" />
+          <Property Name="EXPECTED_SALARY" Type="int" Nullable="false" />
+          <Property Name="JUDUL_POSISI" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CATATAN" Type="text" />
+          <Property Name="STATE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SOURCE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="REFERER" Type="varchar" MaxLength="25" />
+          <Property Name="NPWP" Type="int" Nullable="false" />
+          <Property Name="CV" Type="varchar" MaxLength="255" />
+          <Property Name="AVAIABLE_JOIN" Type="date" />
+        </EntityType>
+        <EntityType Name="EDUCATION">
+          <Key>
+            <PropertyRef Name="EDUCATION_ID" />
+          </Key>
+          <Property Name="EDUCATION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EDUCATION_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="MAJOR" Type="varchar" MaxLength="30" />
+          <Property Name="DEGREE" Type="varchar" MaxLength="10" />
+          <Property Name="GPA" Type="real" />
+          <Property Name="TAHUN_MASUK" Type="date" />
+          <Property Name="TAHUN_LULUS" Type="date" />
+          <Property Name="CANDIDATE_ID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="EXPERIENCE">
+          <Key>
+            <PropertyRef Name="EXPERIENCE_ID" />
+          </Key>
+          <Property Name="EXPERIENCE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXPERIENCE_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="INDUSTRI" Type="varchar" MaxLength="50" />
+          <Property Name="POSISI" Type="varchar" MaxLength="50" />
+          <Property Name="START_DATE" Type="date" />
+          <Property Name="END_DATE" Type="date" />
+          <Property Name="JOB_DESC" Type="varchar" MaxLength="200" />
+          <Property Name="SKILL" Type="varchar" MaxLength="200" />
+          <Property Name="SALARY" Type="int" />
+          <Property Name="PROJECT" Type="varchar" MaxLength="100" />
+          <Property Name="BENEFIT" Type="varchar" MaxLength="100" />
+          <Property Name="CANDIDATE_ID" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="MENU">
           <Key>
             <PropertyRef Name="MENU_ID" />
@@ -66,6 +131,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RecruitmentModelStoreContainer">
+          <EntitySet Name="CANDIDATE" EntityType="Self.CANDIDATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EDUCATION" EntityType="Self.EDUCATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXPERIENCE" EntityType="Self.EXPERIENCE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="POSITION" EntityType="Self.POSITION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
@@ -77,8 +145,7 @@
             <End Role="USER" EntitySet="USER" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecruitmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -155,7 +222,75 @@
             <End Role="ROLE" EntitySet="ROLEs" />
             <End Role="USER" EntitySet="USERs" />
           </AssociationSet>
+          <EntitySet Name="CANDIDATEs" EntityType="RecruitmentModel.CANDIDATE" />
+          <EntitySet Name="EDUCATIONs" EntityType="RecruitmentModel.EDUCATION" />
+          <EntitySet Name="EXPERIENCEs" EntityType="RecruitmentModel.EXPERIENCE" />
         </EntityContainer>
+        <EntityType Name="CANDIDATE">
+          <Key>
+            <PropertyRef Name="CANDIDATE_ID" />
+          </Key>
+          <Property Name="CANDIDATE_ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAMA_LENGKAP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAMA_PANGGILAN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KD_JENIS_KELAMIN" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TEMPAT_LAHIR" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TANGGAL_LAHIR" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AGAMA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS_PERKAWINAN" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="ALAMAT_RUMAH" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ALAMAT_ORTU" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELP_RUMAH" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOHP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NO_KTP" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="IS_DELETED" Type="Int32" Nullable="false" />
+          <Property Name="FOTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_CREATE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DATETIME_CREATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USER_UPDATE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DATETIME_UPDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KODE_POS" Type="Int32" Nullable="false" />
+          <Property Name="EXPECTED_SALARY" Type="Int32" Nullable="false" />
+          <Property Name="JUDUL_POSISI" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CATATAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="STATE_ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOURCE_ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REFERER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="NPWP" Type="Int32" Nullable="false" />
+          <Property Name="CV" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AVAIABLE_JOIN" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="EDUCATION">
+          <Key>
+            <PropertyRef Name="EDUCATION_ID" />
+          </Key>
+          <Property Name="EDUCATION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EDUCATION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAJOR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DEGREE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GPA" Type="Single" />
+          <Property Name="TAHUN_MASUK" Type="DateTime" Precision="0" />
+          <Property Name="TAHUN_LULUS" Type="DateTime" Precision="0" />
+          <Property Name="CANDIDATE_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EXPERIENCE">
+          <Key>
+            <PropertyRef Name="EXPERIENCE_ID" />
+          </Key>
+          <Property Name="EXPERIENCE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXPERIENCE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INDUSTRI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="POSISI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="START_DATE" Type="DateTime" Precision="0" />
+          <Property Name="END_DATE" Type="DateTime" Precision="0" />
+          <Property Name="JOB_DESC" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SKILL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SALARY" Type="Int32" />
+          <Property Name="PROJECT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BENEFIT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CANDIDATE_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -213,6 +348,74 @@
                 <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CANDIDATEs">
+            <EntityTypeMapping TypeName="RecruitmentModel.CANDIDATE">
+              <MappingFragment StoreEntitySet="CANDIDATE">
+                <ScalarProperty Name="AVAIABLE_JOIN" ColumnName="AVAIABLE_JOIN" />
+                <ScalarProperty Name="CV" ColumnName="CV" />
+                <ScalarProperty Name="NPWP" ColumnName="NPWP" />
+                <ScalarProperty Name="REFERER" ColumnName="REFERER" />
+                <ScalarProperty Name="SOURCE_ID" ColumnName="SOURCE_ID" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="CATATAN" ColumnName="CATATAN" />
+                <ScalarProperty Name="JUDUL_POSISI" ColumnName="JUDUL_POSISI" />
+                <ScalarProperty Name="EXPECTED_SALARY" ColumnName="EXPECTED_SALARY" />
+                <ScalarProperty Name="KODE_POS" ColumnName="KODE_POS" />
+                <ScalarProperty Name="DATETIME_UPDATE" ColumnName="DATETIME_UPDATE" />
+                <ScalarProperty Name="USER_UPDATE" ColumnName="USER_UPDATE" />
+                <ScalarProperty Name="DATETIME_CREATE" ColumnName="DATETIME_CREATE" />
+                <ScalarProperty Name="USER_CREATE" ColumnName="USER_CREATE" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="NO_KTP" ColumnName="NO_KTP" />
+                <ScalarProperty Name="NOHP" ColumnName="NOHP" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="TELP_RUMAH" ColumnName="TELP_RUMAH" />
+                <ScalarProperty Name="ALAMAT_ORTU" ColumnName="ALAMAT_ORTU" />
+                <ScalarProperty Name="ALAMAT_RUMAH" ColumnName="ALAMAT_RUMAH" />
+                <ScalarProperty Name="STATUS_PERKAWINAN" ColumnName="STATUS_PERKAWINAN" />
+                <ScalarProperty Name="AGAMA" ColumnName="AGAMA" />
+                <ScalarProperty Name="TANGGAL_LAHIR" ColumnName="TANGGAL_LAHIR" />
+                <ScalarProperty Name="TEMPAT_LAHIR" ColumnName="TEMPAT_LAHIR" />
+                <ScalarProperty Name="KD_JENIS_KELAMIN" ColumnName="KD_JENIS_KELAMIN" />
+                <ScalarProperty Name="NAMA_PANGGILAN" ColumnName="NAMA_PANGGILAN" />
+                <ScalarProperty Name="NAMA_LENGKAP" ColumnName="NAMA_LENGKAP" />
+                <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EDUCATIONs">
+            <EntityTypeMapping TypeName="RecruitmentModel.EDUCATION">
+              <MappingFragment StoreEntitySet="EDUCATION">
+                <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
+                <ScalarProperty Name="TAHUN_LULUS" ColumnName="TAHUN_LULUS" />
+                <ScalarProperty Name="TAHUN_MASUK" ColumnName="TAHUN_MASUK" />
+                <ScalarProperty Name="GPA" ColumnName="GPA" />
+                <ScalarProperty Name="DEGREE" ColumnName="DEGREE" />
+                <ScalarProperty Name="MAJOR" ColumnName="MAJOR" />
+                <ScalarProperty Name="EDUCATION_NAME" ColumnName="EDUCATION_NAME" />
+                <ScalarProperty Name="EDUCATION_ID" ColumnName="EDUCATION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXPERIENCEs">
+            <EntityTypeMapping TypeName="RecruitmentModel.EXPERIENCE">
+              <MappingFragment StoreEntitySet="EXPERIENCE">
+                <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
+                <ScalarProperty Name="BENEFIT" ColumnName="BENEFIT" />
+                <ScalarProperty Name="PROJECT" ColumnName="PROJECT" />
+                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="SKILL" ColumnName="SKILL" />
+                <ScalarProperty Name="JOB_DESC" ColumnName="JOB_DESC" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="POSISI" ColumnName="POSISI" />
+                <ScalarProperty Name="INDUSTRI" ColumnName="INDUSTRI" />
+                <ScalarProperty Name="EXPERIENCE_NAME" ColumnName="EXPERIENCE_NAME" />
+                <ScalarProperty Name="EXPERIENCE_ID" ColumnName="EXPERIENCE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

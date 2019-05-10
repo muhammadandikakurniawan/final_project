@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Halaman Utama</title>
-    @Styles.Render("~/bundles/css")
+    @Styles.Render("~/Content/css")
     <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
     <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    <link href="~/Content/datatables/dataTables.bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap -->
     <link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -62,7 +63,7 @@
                                     }
                                     else
                                     {
-                                        if (Session["username"].Equals("admin"))
+                                        if (Session["username"].Equals("RL001"))
                                         {
                                         <a>Master Management<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
@@ -150,7 +151,6 @@
     @Scripts.Render("~/bundles/js")
     <!-- jQuery -->
     @*<script src="~/Content/vendors/jquery/dist/jquery.min.js"></script>*@
-    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
     <!-- Bootstrap -->
     <script src="~/Scripts/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -162,6 +162,7 @@
     <script src="~/Content/build/js/custom.min.js"></script>
     <script src="~/Scripts/alertify.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Content/datatables/jquery.dataTables.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
@@ -188,7 +189,8 @@ $(document).ready(function () {
                         }
                 });
    }
-});
+    });
+    
 </script>
 
 </html>

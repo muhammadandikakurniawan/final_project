@@ -1,0 +1,191 @@
+﻿@model Recruitment.Models.CandidateDTO
+@using Recruitment.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Update", "AddCandidate", FormMethod.Post))
+        {
+            
+            <div class="form-group">
+                @Html.Label("State", new { @class = "title control-label" })
+
+                @Html.DropDownListFor(c => c.StateId, new SelectList(new List<string> { "ST000", "ST001" }), new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Nama Lengkap", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.NamaLengkap, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Nama Panggilan", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.NamaPanggilan, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Jenis Kelamin", new { @class = "title control-label" })
+
+                @Html.DropDownListFor(c => c.JenisKelamin, new SelectList(new List<string> { "P", "L" }), new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Tempat Lahir", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.TempatLahir, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Tanggal Lahir", new { @class = "title control-label" })
+                <div class="input-group">
+                    @Html.EditorFor(c => c.TanggalLahir, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Agama", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Agama, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Status Perkawinan", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.StatusPerkawinan, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Alamat Rumah", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.AlamatRumah, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Alamat Orang Tua", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.AlamatOrtu, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Telepon Rumah", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.TelpRumah, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("No HP", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.NoHP, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("KTP", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.NoKTP, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Kode Pos", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.KodePos, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Gaji yang diharapakan", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.ExpectedSalary, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Catatan", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Catatan, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Posisi", new { @class = "title control-label" })
+
+                @Html.DropDownListFor(c => c.JudulPosisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Rekomendasi", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Referer, new { @class = "form-control" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Source ID", new { @class = "title control-label" })
+
+                @Html.DropDownListFor(c => c.SourceId, new DropListSource().DropListName(), new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.Label("NPWP", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.NPWP, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("CV", new { @class = "title control-label" })
+
+                @*<label for="file">Upload CV:</label>
+                <input type="file" name="filecv" id="filecv" /><br><br>
+                <input type="submit" value="Upload CV" />
+                <br><br>*@
+
+                @Html.TextBoxFor(c => c.CV, new { @class = "form-control" })
+                @ViewBag.Message
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Foto", new { @class = "title control-label" })
+
+                @*<label for="file">Upload Image:</label>
+                <input type="file" name="filefoto" id="filefoto" /><br><br>
+                <input type="submit" value="Upload Image" />
+                <br><br>*@
+                @Html.TextBoxFor(c => c.Foto, new { @class = "form-control" })
+                @ViewBag.Message
+
+
+            </div>
+            <div class="form-group">
+                <input class="btn-primary" type="submit" value="Create" />
+
+            </div>
+        }
+    </div>
+</body>
+</html>
+

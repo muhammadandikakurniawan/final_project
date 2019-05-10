@@ -148,7 +148,7 @@ namespace Recruitment.Controllers
                         {
                             USERNAME = edittedUser.Username,
                             FULLNAME = edittedUser.Fullname,
-                            PASSWORD = edittedUser.Password,
+                            //PASSWORD = edittedUser.Password,
                             ROLE_ID = edittedUser.Roleid
                         };
                         recruitment.Entry(addedusr).State = System.Data.Entity.EntityState.Modified;
