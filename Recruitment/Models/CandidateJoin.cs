@@ -13,5 +13,6 @@ namespace Recruitment.Models
         public StateDTO StateDetails { get; set; }
         public ExperienceDTO Experience { get; set; }
         public EducationDTO Education { get; set; }
+        public PositionPoco Position { get; set; }
     }
 }

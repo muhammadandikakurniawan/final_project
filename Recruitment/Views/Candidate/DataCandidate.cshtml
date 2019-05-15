@@ -1,0 +1,154 @@
+﻿@model  IEnumerable<Recruitment.Models.CandidateJoin>
+@{
+    ViewBag.Title = "DataCandidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Bagian panel pembungkus paling luar*@
+<style>
+    table th {
+        text-align: center;
+    }
+</style>
+
+<h3>Halaman Detail Profile</h3>
+<hr class="bg-blue" />
+<div class="panel">
+    <div class="panel panel-default">
+        @*bagian panel untuk menampilkan data bagian kanan berupa foto dan kawan2nya*@
+        <div class="panel-heading text-center col-lg-5" style="width: 25rem; border:1px solid silver;">
+
+            @*<img class="panel-img-top" src="@Url.Content(Model.Foto)" width="150" height="150" style="border:1px solid silver;" alt="panel image cap">
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">@Model.NamaLengkap</div>
+            </div>*@
+
+            @foreach (var item in Model)
+            {
+                <div class="panel">
+                    <div class="panel-heading">
+                        <img class="panel-img-top" src="@Url.Content(item.CandidateDetails.Foto)" width="200" height="200" style="border:1px solid silver;" alt="panel image cap">
+                    </div>
+                    <div class="panel-body bg-primary">@item.CandidateDetails.NamaLengkap</div>
+                </div>
+
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Expected</div>
+                    <div class="panel-body fixed">Rp. @item.CandidateDetails.ExpectedSalary.ToString("n0")</div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Uploaded CV</div>
+                    <div class="panel-body fixed">@item.CandidateDetails.CV</div>
+                </div>
+                @* <button onclick="window.open='@Url.Content(Model.CV)'" type="button" formtarget="_blank" class="btn btn-primary">Get Resume</button>*@
+                if (item.CandidateDetails.CV != "Cv belum di upload")
+                {
+                    <form target="_blank">
+                        <button class="btn btn-primary" formaction="@Url.Content(item.CandidateDetails.CV)">Get Resume</button>
+                    </form>
+                }
+
+            }
+
+        </div>
+    </div>
+
+    @*bagian untuk menampilkan menu dan data*@
+
+    <div class="panel text-center col-lg-9">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#coba">Personal Information</a></li>
+                    <li><a data-toggle="tab" href="#education">Education</a></li>
+                    <li><a data-toggle="tab" href="#Experience">Job Experiens</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="coba" class="tab-pane in active">
+                        <br>
+                        <table>
+                            <tr>
+                                <th width="200">Agama</th>
+                                <th width="200">Email</th>
+                                <th width="200">Tempat Lahir</th>
+                                <th width="200">Tanggal Lahir</th>
+                                <th width="200">Referer</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.CandidateDetails.Agama</td>
+                                    <td>@item.CandidateDetails.Email</td>
+                                    <td>@item.CandidateDetails.TempatLahir</td>
+                                    <td>@item.CandidateDetails.TanggalLahir</td>
+                                    <td>@item.CandidateDetails.Referer</td>
+                                </tr>
+                            }
+
+                        </table><br><br>
+                        <table>
+                            <tr>
+                                <th width="200">Alamat Orangtua</th>
+                                <th width="200">Alamat Rumah</th>
+                                <th width="200">Jenis Kelamin</th>
+                                <th width="200">Posisi</th>
+                                <th width="200">Status Kawin</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{
+                                        if (item.CandidateDetails.JenisKelamin == "L")
+                                        {
+                                            item.CandidateDetails.JenisKelamin = "Laki-Laki";
+                                        }
+                                        else
+                                        {
+                                            item.CandidateDetails.JenisKelamin = "Perempuan";
+                                        }
+                                    }
+                                    <td>@item.CandidateDetails.AlamatOrtu</td>
+                                    <td>@item.CandidateDetails.AlamatRumah</td>
+                                    <td>@item.CandidateDetails.JenisKelamin</td>
+                                    <td>@item.Position.Nama</td>
+                                    <td>@item.CandidateDetails.StatusPerkawinan</td>
+                                </tr>
+                            }
+
+                        </table><br><br>
+                        <table>
+                            <tr>
+                                <th width="200">Kode Pos</th>
+                                <th width="200">No HP</th>
+                                <th width="200">No KTP</th>
+                                <th width="200">NPWP</td>
+                                <th width="200">Telepon Rumah</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.CandidateDetails.KodePos</td>
+                                    <td>@item.CandidateDetails.NoHP</td>
+                                    <td>@item.CandidateDetails.NoKTP</td>
+                                    <td>@item.CandidateDetails.NPWP</td>
+                                    <td>@item.CandidateDetails.TelpRumah</td>
+                                </tr>
+                            }
+
+                        </table><br>
+                        @foreach (var item in Model)
+                        {
+                            <div align="right"> <button onclick="location.href='../../@item.CandidateDetails.CandidateId/Edit'" type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i>Edit</button></div>
+
+                        }
+
+                    </div>
+                    <div id="education" class="tab-pane fade">@Html.Action("getEducation")</div>
+                    <div id="Experience" class="tab-pane fade">@Html.Action("getExperience")</div>
+                </div>
+            </ul>
+        </div>
+    </div>

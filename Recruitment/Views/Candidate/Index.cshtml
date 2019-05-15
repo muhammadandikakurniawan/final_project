@@ -12,24 +12,24 @@
 
 <div class="container">
     <h2>Halaman Candidate</h2>
-    <hr />
+    <hr class="bg-blue" />
     <p>
         @Html.ActionLink(" Tambah Data", "add", "Candidate", null, new { @class = "btn btn-primary fa fa-pencil" })
     </p>
     @using (Html.BeginForm("Index", "Candidate", FormMethod.Post))
     {
         <div class="pull-right">
-            @Html.TextBox("searchString")
-            <input id="submit" type="submit" class="btn btn-danger btn-xs" value="Seacrch" />
-            @Html.DropDownList("searchPosisi", new SelectList(position))
-            @Html.DropDownList("searchState", new SelectList(state))
-            <input id="submit" type="submit" class="btn btn-warning btn-xs" value="Filter" />
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+            <input id="submit" type="submit" class="btn btn-danger btn-xs" value="Search" />
+            @Html.DropDownList("searchPosition", new SelectList(position), "", ViewBag.CurrentPosition as string)
+            @Html.DropDownList("searchState", new SelectList(state), "", ViewBag.CurrentState as string)
+            <input id="submit" type="submit" class="btn btn-warning btn-xs" value="Filter" />            
         </div>
         <div>
 
         </div>
     }
-    <table class="table table-striped" id="candidateTable">
+    <table class="table table-striped table-responsive" id="candidateTable">
         <thead>
             <tr>
                 <th>No</th>
@@ -55,7 +55,7 @@
                     @Html.DisplayFor(modelItem => item.CandidateDetails.NamaLengkap)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CandidateDetails.JudulPosisi)
+                    @Html.DisplayFor(modelItem => item.Position.Nama)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SumberDetails.SumberNama)
@@ -79,9 +79,10 @@
                     @Html.DisplayFor(modelItem => item.CandidateDetails.Catatan)
                 </td>
                 <td>
-                    @Html.ActionLink(" Edit", "Edit", "Role", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-info fa fa-edit" }) |
-                    @Html.ActionLink(" ", "edit", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-warning glyphicon glyphicon-pencil" })
-                    <a onclick="Delete('@item.CandidateDetails.CandidateId')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>
+                    @Html.ActionLink(" ", "edit", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-warning fa fa-pencil" })
+                    @Html.ActionLink(" ", "getDetails", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-info fa fa-file-o" })
+                    @*<i class="fa fa-id"></i><i class="fa fa-id-card"></i>
+                        <a onclick="Delete('@item.CandidateDetails.CandidateId')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>*@
                     @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
                 </td>
             </tr>
@@ -92,8 +93,7 @@
 
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter= ViewBag.CurrentFilter, currentPosition = ViewBag.CurrentPosition, currentState = ViewBag.CurrentState }))
 </div>
 @section scripts{
     <script>

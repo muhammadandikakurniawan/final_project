@@ -149,6 +149,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\ExperienceController.cs" />
     <Compile Include="Models\AddCandidateDTO.cs" />
     <Compile Include="Models\CandidateJoin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -4709,9 +4711,18 @@
     <Content Include="Views\Candidate\Index.cshtml" />
     <Content Include="Views\Candidate\EditCandidate.cshtml" />
     <Content Include="Views\Candidate\FormCandidate.cshtml" />
+    <Content Include="Views\Candidate\DataCandidate.cshtml" />
+    <Content Include="Views\Education\AddEducation.cshtml" />
+    <Content Include="Views\Education\EditEducation.cshtml" />
+    <Content Include="Views\Candidate\EducationList.cshtml" />
+    <Content Include="Views\Experience\AddExperience.cshtml" />
+    <Content Include="Views\Experience\EditExperiences.cshtml" />
+    <Content Include="Views\Candidate\JobExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Cv\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

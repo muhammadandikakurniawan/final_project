@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Recruitment.Models.CandidateJoin>
+@using Recruitment.Models;
+@{
+    ViewBag.Title = "JobExperience";
+    Layout = null;
+}
+
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.launch-modal').click(function () {
+            var idex = $(this).data('id');
+            var benefit = $(this).data('benefit');
+            var skill = $(this).data('skill');
+            var job = $(this).data('job');
+            $(".modal-body .panel-body #benefit").val(benefit);
+            $(".modal-body .panel-body #skill").val(skill);
+            $(".modal-body .panel-body #job").val(job);
+            $('#myModal').modal({
+                backdrop: 'static'
+            });
+        });
+    });
+</script>
+<style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+</style>
+<br />
+<a class="btn btn-primary pull-right " href="~/experience/AddExperience"><i class="fa fa-pencil"></i> Add Experiences</a>
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading"></div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>Posisi</td>
+                <td>Company</td>
+                <td>Period</td>
+                <td>Last Salary</td>
+                <td>Action</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Position.Nama</td>
+                    <td>@item.Experience.Industri</td>
+                    <td>@item.Experience.StartDate</td>
+                    <td>Rp. @item.Experience.Salary.ToString("n0")</td>
+                    <td>
+                        <a id="Detail" class="launch-modal" data-toggle="modal" data-id="@item.Experience.ExperienceId" data-benefit="@item.Experience.Benefit" data-skill="@item.Experience.Skill" data-job="@item.Experience.JobDesc">
+                            <button type="button" class="btn btn-lg btn-info btn-sm" value="Detail"><i class="fa fa-search"> </i></button>
+                        </a>
+                        <a class="btn btn-warning btn-sm" href="/experience/EditExperiences/@item.Experience.ExperienceId"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
+
+<div class="bs-example">
+    <!-- Button HTML (to Trigger Modal) -->
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h4>Benefit</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea id="benefit" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4>Skill</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea id="skill" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h4>Job Desc</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea id="job" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                        
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+

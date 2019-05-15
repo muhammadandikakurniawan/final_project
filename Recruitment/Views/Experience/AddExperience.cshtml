@@ -1,0 +1,110 @@
+﻿@model Recruitment.Models.ExperienceDTO
+@using Recruitment.Models;
+    @{ 
+        List<string> candidateID = (List<string>)TempData.Peek("candidateID");
+    }
+
+
+<h3>Tambah Data Experience</h3>
+<hr class="bg-blue" />
+    <div>
+        @using (Html.BeginForm("AddNewExperience", "Experience", FormMethod.Post))
+        {
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Nama Perusahaan ", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.ExperienceName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.ExperienceName,null, new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Bidang Industri", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Industri, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Industri,null, new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Tanggal Masuk", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.StartDate, new { @class = "form-control", @type = "date" })
+                @Html.ValidationMessageFor(c => c.StartDate, null, new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Tanggal Keluar", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.EndDate, new { @class = "form-control", @type = "date" })
+                @Html.ValidationMessageFor(c => c.EndDate, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Deskripsi Pekerjaan", new { @class = "title control-label" })
+
+                @Html.TextAreaFor(c => c.JobDesc, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.JobDesc, null, new { @class = "text-danger" })
+
+
+            </div>
+        </div>
+            
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Posisi", new { @class = "title control-label" })
+                @Html.DropDownListFor(c => c.Posisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Posisi, null, new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Gaji", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Salary, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Salary, null, new { @class = "text-danger" })
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label("Project", new { @class = "title control-label" })
+
+                @Html.TextBoxFor(c => c.Project, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Project, null, new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Kemampuan", new { @class = "title control-label" })
+
+                @Html.TextAreaFor(c => c.Skill, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Skill, null, new { @class = "text-danger" })
+                <small class="text-danger">Gunakan koma (,) untuk pemisah</small>
+
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Benefit", new { @class = "title control-label" })
+
+                @Html.TextAreaFor(c => c.Benefit, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Benefit, null, new { @class = "text-danger" })
+                <small class="text-danger">Gunakan koma (,) untuk pemisah</small>
+            </div>
+        </div>
+         
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Id Candidate", new { @class = "title control-label" })
+
+                <input type="text" name="CandidateId" value="@candidateID.FirstOrDefault()" readonly="readonly" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input class="btn btn-info btn-sm" type="submit" value="Create" />
+            </div>
+        </div>
+            
+        }
+    </div>

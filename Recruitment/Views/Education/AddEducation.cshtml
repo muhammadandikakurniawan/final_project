@@ -1,0 +1,72 @@
+﻿@model Recruitment.Models.EducationDTO
+
+@{
+    ViewBag.Title = "Add Education";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> candidateID = (List<string>)TempData.Peek("candidateID");
+}
+
+<h3>Tambah Data Pendidikan</h3>
+<hr class="bg-blue" />
+
+@using (Html.BeginForm("addNewEducation", "Education", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Nama Sekolah</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.EducationName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.EducationName, "", new { @class = "text-danger" })
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Jurusan</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
+        <br />
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Gelar</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">GPA</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.GPA, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.GPA, "", new { @class = "text-danger" })
+        <br />
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Tahun Masuk</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.TahunMasuk, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+        @Html.ValidationMessageFor(model => model.TahunMasuk, "", new { @class = "text-danger" })
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Tahun Lulus</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        @Html.EditorFor(model => model.TahunLulus, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+        @Html.ValidationMessageFor(model => model.TahunLulus, "", new { @class = "text-danger" })
+        <br />
+
+    </div>
+    </div>
+
+    <label class="col-lg-2 col-md-2 col-sm-12">Candidate Id</label>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <input type="text" name="CandidateId" value="@candidateID.FirstOrDefault()" readonly="readonly" class="form-control" />
+        @Html.ValidationMessageFor(model => model.CandidateId, "", new { @class = "text-danger" })
+        <br />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Tambah" class="btn btn-info btn-sm" />
+        </div>
+    </div>
+}
