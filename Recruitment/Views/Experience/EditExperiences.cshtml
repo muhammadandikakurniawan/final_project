@@ -5,28 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditExperiences</h2>
+<h2>Update Experiences</h2>
+<hr class="bg-blue" />
 
 @using (Html.BeginForm("UpdateExperience", "Experience", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ExperienceDTO</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.TextBoxFor(model => model.ExperienceId, new { @type = "hidden" })
 
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                @Html.Label("Nama Perusahaan ", new { @class = "title control-label" })
+                @Html.Label("Company Name", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.ExperienceName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.ExperienceName, null, new { @class = "text-danger" })
 
             </div>
             <div class="form-group">
-                @Html.Label("Bidang Industri", new { @class = "title control-label" })
+                @Html.Label("Industri", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.Industri, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Industri, null, new { @class = "text-danger" })
@@ -34,7 +33,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Tanggal Masuk", new { @class = "title control-label" })
+                @Html.Label("Start Date", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                 @Html.ValidationMessageFor(c => c.StartDate, null, new { @class = "text-danger" })
@@ -42,14 +41,14 @@
 
 
             <div class="form-group">
-                @Html.Label("Tanggal Keluar", new { @class = "title control-label" })
+                @Html.Label("End Date", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                 @Html.ValidationMessageFor(c => c.EndDate, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.Label("Deskripsi Pekerjaan", new { @class = "title control-label" })
+                @Html.Label("Jobs Desc", new { @class = "title control-label" })
 
                 @Html.TextAreaFor(c => c.JobDesc, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.JobDesc, null, new { @class = "text-danger" })
@@ -60,14 +59,14 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                @Html.Label("Posisi", new { @class = "title control-label" })
+                @Html.Label("Position", new { @class = "title control-label" })
                 @Html.DropDownListFor(c => c.Posisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Posisi, null, new { @class = "text-danger" })
             </div>
 
 
             <div class="form-group">
-                @Html.Label("Gaji", new { @class = "title control-label" })
+                @Html.Label("Salary", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.Salary, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Salary, null, new { @class = "text-danger" })
@@ -84,7 +83,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Kemampuan", new { @class = "title control-label" })
+                @Html.Label("Skill", new { @class = "title control-label" })
 
                 @Html.TextAreaFor(c => c.Skill, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Skill, null, new { @class = "text-danger" })
@@ -106,7 +105,7 @@
             <div class="form-group">
                 @Html.Label("Id Candidate", new { @class = "title control-label" })
 
-                @Html.EditorFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control", @readonly="readonly" } })
                 @Html.ValidationMessageFor(model => model.CandidateId, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">

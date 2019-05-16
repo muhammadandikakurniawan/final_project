@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Recruitment.Controllers
 {
+    [RoutePrefix("position")]
     public class PositionController : Controller
     {
         // GET: Position
@@ -46,7 +47,7 @@ namespace Recruitment.Controllers
                 };
                 re.POSITIONs.Add(posisi);
                 re.SaveChanges();
-                return Redirect("~/list");
+                return Redirect("~/position/list");
             }
         }
 
@@ -82,7 +83,7 @@ namespace Recruitment.Controllers
                 };
                 re.Entry(addedPosition).State = System.Data.Entity.EntityState.Modified;
                 re.SaveChanges();
-                return Redirect("~/list");
+                return Redirect("~/position/list");
             }
         }
 
@@ -95,7 +96,7 @@ namespace Recruitment.Controllers
                 POSITION posisi = re.POSITIONs.Find(id);
                 re.POSITIONs.Remove(posisi);
                 re.SaveChanges();
-                return Redirect("~/list");
+                return Redirect("~/position/list");
             }
 
         }

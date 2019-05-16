@@ -89,6 +89,7 @@ namespace Recruitment.Models
         }
 
         [Required(ErrorMessage = "KTP Harus Diisi")]
+        [RegularExpression(@"([0-9]{16})", ErrorMessage = "No KTP tidak valid")]
         public string NoKTP
         {
             get; set;
@@ -166,7 +167,8 @@ namespace Recruitment.Models
         }
 
         [Required(ErrorMessage = "NPWP Harus Diisi")]
-        public int NPWP
+        //[RegularExpression(@"([0-9]{15})", ErrorMessage = "NPWP tidak valid")]
+        public string NPWP
         {
             get; set;
         }

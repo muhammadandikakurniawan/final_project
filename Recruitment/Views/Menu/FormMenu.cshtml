@@ -1,5 +1,5 @@
 ﻿@model Recruitment.Models.MenuModels
-
+@using Recruitment.Models;
 @{
     ViewBag.Title = "Form Menu";
 }
@@ -12,63 +12,86 @@
     <title>FormMenu</title>
 </head>
 <body>
-    @using (Html.BeginForm("addmainmenu", "Menu",FormMethod.Post))
+    @using (Html.BeginForm("addmainmenu", "Menu", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        
-    <div class="form-horizontal">
-        <h4>MenuModels</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MenuId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MenuId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MenuId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MenuName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MenuName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="form-horizontal">
+            <h2><center>CREATE NEW MENU</center></h2>
+            <hr />
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Action, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MenuName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MenuName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Controller, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Controller, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Controller, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ddListRole", new DropListSource().DropListRole(), new { htmlAttributes = new { @class = "form-control", @id = "ddListRole" } })
+                    <button type="button" onclick="addToTxt()">Add</button><button type="button" onclick="removeTxt()">Remove</button><br />
+                    @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "form-control", @id = "txtListRole", @readonly = "readonly" } })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                @Html.ActionLink("Cencel", "ListMenu","Menu", new { @class="btn btn-success"})
+                    @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Action, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Controller, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Controller, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Controller, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    @Html.ActionLink("Cencel", "ListMenu", "Menu", new { @class = "btn btn-success" })
+                </div>
             </div>
         </div>
-    </div>
     }
-    
-    
+
+
 </body>
 </html>
+
+@section scripts{
+    <script>
+        function addToTxt() {
+            var boxTextArr = document.getElementById("txtListRole").value.split(',');
+
+            var dropdown = document.getElementById("ddListRole");
+            var selectedText = dropdown.options[dropdown.selectedIndex].value.substring(0, 5);
+
+            if (dropdown.selectedIndex != 0) {
+                if (boxTextArr.indexOf(selectedText) == -1) {
+                    if (document.getElementById("txtListRole").value == "") {
+                        document.getElementById("txtListRole").value += selectedText;
+                    }
+                    else {
+                        document.getElementById("txtListRole").value += "," + selectedText;
+                    }
+                }
+            }
+        }
+
+        function removeTxt() {
+            document.getElementById("txtListRole").value = document.getElementById("txtListRole").value.slice(0, -6);
+        }
+    </script>
+}

@@ -1,0 +1,191 @@
+﻿@model Recruitment.Models.CallModelProses
+@using Recruitment.Models;
+
+@{
+    ViewBag.Title = "Call Next";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NextProses</title>
+</head>
+<body>
+    @using (Html.BeginForm("PostNextProses", "Call",FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        @*<h4>CallModel</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <h4 style="color:#0094ff">Caller Interview</h4>
+                <hr />
+                <div class="form-group">
+
+                    @Html.HiddenFor(Model => Model.CandidateId)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.NamaLengkap)
+                    </div>
+                    @Html.EditorFor(Model => Model.NamaLengkap)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.NamaPanggilan)
+                    </div>
+                    @Html.EditorFor(Model => Model.NamaPanggilan)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.StatusPerkawinan)
+                    </div>
+                    @Html.EditorFor(Model => Model.StatusPerkawinan)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.Agama)
+                    </div>
+                    @Html.EditorFor(Model => Model.Agama)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.TempatLahir)
+                    </div>
+                    @Html.EditorFor(Model => Model.TempatLahir)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.TanggalLahir)
+                    </div>
+                    @Html.EditorFor(Model => Model.TanggalLahir)
+                </div>
+                <hr />
+                <h4 style="color:#0094ff">Job Experienced</h4>
+                <hr />
+                <div class="form-group">
+                    @*List Experience*@
+
+                    @foreach (string exp in new DropListSource().ListExperience(Model.CandidateId)) {
+                        @Html.DisplayFor(model => exp) <br />
+                    }
+                </div>
+
+                <div>
+                    @Html.ActionLink("Add Experienced", "addExperienced", "Call", new { @class = "btn btn-primary" })                    
+                </div>
+
+            </div>            
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.Salary)
+                    </div>
+                    @Html.EditorFor(Model => Model.Salary)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.ExpectedSalary)
+                    </div>
+                    @Html.EditorFor(Model => Model.ExpectedSalary)
+                </div>
+                <hr />
+                <h4 style="color:#0094ff">Benefit</h4>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.Benefit)
+                    </div>
+                    @Html.TextAreaFor(Model => Model.Benefit)
+                </div>
+
+                <hr />
+                <h4 style="color:#0094ff">Caller Notes</h4>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.Catatan)
+                    </div>
+                    @Html.TextAreaFor(Model => Model.Catatan)
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.StateId)
+                    </div>
+                    @*@Html.EditorFor(Model => Model.StateId)*@
+                    @Html.DropDownListFor(Model => Model.StateId, new DropListSource().DropListState(Model))
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.AvailableJoin)
+                    </div>
+                    @Html.EditorFor(Model => Model.AvailableJoin, new { htmlAttributes = new { @type = "date" } })
+                </div>
+            </div>
+
+        </div>
+
+        @* hidden *@
+        @Html.HiddenFor(model => model.JenisKelamin, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.AlamatRumah, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.AlamatOrtu, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.TelpRumah, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.NoHP, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.NoKTP, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.IsDeleted, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.UserCreate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.DateTimeCreate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.UserUpdate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.DateTimeUpdate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.KodePos, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.JudulPosisi, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.SourceId, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Referer, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.NPWP, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.CV, new { htmlAttributes = new { @class = "form-control" } })
+
+       
+
+
+
+        @* ------- *@
+
+        @Html.HiddenFor(model => model.ExperienceId, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.ExperienceName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Industri, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Posisi, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.JobDesc, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Skill, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Project, new { htmlAttributes = new { @class = "form-control" } })
+
+
+       
+
+        <div class="row">
+
+            <div class="col-md-offset-2 col-md-10 text-right">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a href="~/call" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+
+    </div>
+    }
+    
+    <div>
+        
+    </div>
+</body>
+</html>

@@ -16,20 +16,20 @@
 
     @Html.TextBoxFor(model => model.EducationId, new  { @type="hidden" })
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Nama Sekolah</label>
+    <label class="col-lg-2 col-md-2 col-sm-12">University / School</label>
     <div class="col-lg-4 col-md-4 col-sm-12">
         @Html.EditorFor(model => model.EducationName, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.EducationName, "", new { @class = "text-danger" })
     </div>
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Jurusan</label>
+    <label class="col-lg-2 col-md-2 col-sm-12">Major</label>
     <div class="col-lg-4 col-md-4 col-sm-12">
         @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
         <br />
     </div>
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Gelar</label>
+    <label class="col-lg-2 col-md-2 col-sm-12">Degree</label>
     <div class="col-lg-4 col-md-4 col-sm-12">
         @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
@@ -42,13 +42,13 @@
         <br />
     </div>
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Tahun Masuk</label>
+    <label class="col-lg-2 col-md-2 col-sm-12">Start Date</label>
     <div class="col-lg-4 col-md-4 col-sm-12">
         @Html.TextBoxFor(model => model.TahunMasuk, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
         @Html.ValidationMessageFor(model => model.TahunMasuk, "", new { @class = "text-danger" })
     </div>
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Tahun Lulus</label>
+    <label class="col-lg-2 col-md-2 col-sm-12">End Date</label>
     <div class="col-lg-4 col-md-4 col-sm-12">
         @Html.TextBoxFor(model => model.TahunLulus, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
         @Html.ValidationMessageFor(model => model.TahunLulus, "", new { @class = "text-danger" })
@@ -63,73 +63,7 @@
         @Html.ValidationMessageFor(model => model.CandidateId, "", new { @class = "text-danger" })
         <br />
     </div>
-
-    //tes
-
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.EducationId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EducationId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EducationId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EducationName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EducationName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EducationName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Major, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Degree, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.GPA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.GPA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.GPA, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TahunMasuk, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TahunMasuk, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.TahunMasuk, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TahunLulus, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TahunLulus, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.TahunLulus, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CandidateId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CandidateId, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-
+    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Update" class="btn btn-primary" />

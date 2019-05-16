@@ -8,10 +8,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Halaman Roles</h2>
+<h2>Roles Page</h2>
 <hr />
 <p>
-    @Html.ActionLink(" Tambah Data", "Tambah", "Role", null, new { @class = "btn btn-primary fa fa-plus" })
+    @Html.ActionLink(" Add Role", "Tambah", "Role", null, new { @class = "btn btn-primary fa fa-plus" })
 </p>
 <table class="table table-striped">
     <thead>
@@ -23,7 +23,7 @@
             <th>
                 Role Name
             </th>
-            <th>Aksi</th>
+            <th>Action</th>
         </tr>
     </thead>
     @{ int i = 1; }
@@ -39,7 +39,7 @@
             </td>
             <td>
                 @Html.ActionLink(" Edit", "Edit", "Role", new { id = item.RoleId }, new { @class = "btn btn-info fa fa-edit" }) |
-                <a onclick="Delete('@item.RoleId')" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                <a onclick="Delete('@item.RoleId')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
                 @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
             </td>
         </tr>

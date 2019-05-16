@@ -5,21 +5,21 @@
     }
 
 
-<h3>Tambah Data Experience</h3>
+<h3>Add Experience</h3>
 <hr class="bg-blue" />
     <div>
         @using (Html.BeginForm("AddNewExperience", "Experience", FormMethod.Post))
         {
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                @Html.Label("Nama Perusahaan ", new { @class = "title control-label" })
+                @Html.Label("Company Name", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.ExperienceName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.ExperienceName,null, new { @class = "text-danger" })
 
             </div>
             <div class="form-group">
-                @Html.Label("Bidang Industri", new { @class = "title control-label" })
+                @Html.Label("Industi", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.Industri, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Industri,null, new { @class = "text-danger" })
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Tanggal Masuk", new { @class = "title control-label" })
+                @Html.Label("Start Date", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.StartDate, new { @class = "form-control", @type = "date" })
                 @Html.ValidationMessageFor(c => c.StartDate, null, new { @class = "text-danger" })
@@ -35,14 +35,14 @@
 
 
             <div class="form-group">
-                @Html.Label("Tanggal Keluar", new { @class = "title control-label" })
+                @Html.Label("End Date", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.EndDate, new { @class = "form-control", @type = "date" })
                 @Html.ValidationMessageFor(c => c.EndDate, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.Label("Deskripsi Pekerjaan", new { @class = "title control-label" })
+                @Html.Label("Jobs Desc", new { @class = "title control-label" })
 
                 @Html.TextAreaFor(c => c.JobDesc, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.JobDesc, null, new { @class = "text-danger" })
@@ -53,14 +53,14 @@
             
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                @Html.Label("Posisi", new { @class = "title control-label" })
+                @Html.Label("Position", new { @class = "title control-label" })
                 @Html.DropDownListFor(c => c.Posisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Posisi, null, new { @class = "text-danger" })
             </div>
 
 
             <div class="form-group">
-                @Html.Label("Gaji", new { @class = "title control-label" })
+                @Html.Label("Salary", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.Salary, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Salary, null, new { @class = "text-danger" })
@@ -77,7 +77,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Kemampuan", new { @class = "title control-label" })
+                @Html.Label("Skill", new { @class = "title control-label" })
 
                 @Html.TextAreaFor(c => c.Skill, new { @class = "form-control" })
                 @Html.ValidationMessageFor(c => c.Skill, null, new { @class = "text-danger" })

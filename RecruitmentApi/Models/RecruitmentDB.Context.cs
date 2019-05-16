@@ -25,6 +25,9 @@ namespace RecruitmentApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CANDIDATE> CANDIDATEs { get; set; }
+        public virtual DbSet<EDUCATION> EDUCATIONs { get; set; }
+        public virtual DbSet<EXPERIENCE> EXPERIENCEs { get; set; }
         public virtual DbSet<MENU> MENUs { get; set; }
         public virtual DbSet<POSITION> POSITIONs { get; set; }
         public virtual DbSet<ROLE> ROLEs { get; set; }

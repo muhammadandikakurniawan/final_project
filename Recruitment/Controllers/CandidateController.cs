@@ -76,6 +76,7 @@ namespace Recruitment.Controllers
                            from st in table2.DefaultIfEmpty()
                            join p in positions on c.JudulPosisi equals p.IdPosisi into table3
                            from p in table3.DefaultIfEmpty()
+                           where c.StateId == "ST000" || c.StateId == "ST001" && c.IsDeleted == 0
                            select new CandidateJoin { CandidateDetails = c, SumberDetails = s, StateDetails = st, Position = p };
                 List<string> position = db.POSITIONs.Select(e => e.POSITION_NAME).ToList();
                 TempData["position"] = position;
@@ -99,24 +100,24 @@ namespace Recruitment.Controllers
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    join = join = join.Where(x => x.CandidateDetails.NamaLengkap.ToLower().Contains(searchString.ToLower()) || x.CandidateDetails.JudulPosisi.ToLower().Contains(searchString.ToLower())
+                    join = join = join.Where(x => x.CandidateDetails.NamaLengkap.ToLower().Contains(searchString.ToLower()) || x.Position.Nama.ToLower().Contains(searchString.ToLower())
                     || x.SumberDetails.SumberNama.ToLower().Contains(searchString.ToLower()) || x.CandidateDetails.NoHP.ToString().Contains(searchString.ToLower()) || x.CandidateDetails.Email.ToLower().Contains(searchString.ToLower()) ||
                     x.CandidateDetails.UserCreate.ToLower().Contains(searchString.ToLower()) || x.CandidateDetails.DateTimeCreate.ToString().Contains(searchString.ToLower()) || x.StateDetails.StateName.ToLower().Contains(searchString.ToLower()) ||
                     x.CandidateDetails.Catatan.ToLower().Contains(searchString.ToLower())
                     );
                 }
 
-                if (!string.IsNullOrEmpty(searchPosition))
+                if (!string.IsNullOrEmpty(searchState) && !string.IsNullOrEmpty(searchPosition))
                 {
-                    join = join.Where(x => x.Position.Nama == searchPosition);
+                    join = join.Where(x => x.Position.Nama == searchPosition && x.StateDetails.StateName == searchState);
                 }
                 else if (!string.IsNullOrEmpty(searchState))
                 {
                     join = join.Where(x => x.StateDetails.StateName == searchState);
                 }
-                else if (!string.IsNullOrEmpty(searchState) && !string.IsNullOrEmpty(searchPosition))
+                else if (!string.IsNullOrEmpty(searchPosition))
                 {
-                    join = join.Where(x => x.Position.Nama == searchPosition && x.StateDetails.StateName == searchState);
+                    join = join.Where(x => x.Position.Nama == searchPosition);
                 }
 
                 int pageSize = 5;
@@ -338,7 +339,7 @@ namespace Recruitment.Controllers
                         EXPECTED_SALARY = newCandidate.CandidateDetails.ExpectedSalary,
                         JUDUL_POSISI = newCandidate.CandidateDetails.JudulPosisi,
                         CATATAN = newCandidate.CandidateDetails.Catatan,
-                        STATE_ID = newCandidate.CandidateDetails.StateId,
+                        STATE_ID = "ST000",
                         SOURCE_ID = newCandidate.CandidateDetails.SourceId,
                         REFERER = newCandidate.CandidateDetails.Referer,
                         NPWP = newCandidate.CandidateDetails.NPWP,
@@ -439,10 +440,21 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities db = new RecruitmentEntities())
             {
+
                 ModelState.Remove("TanggalLahir");
                 ModelState.Remove("AvailableJoin");
+                CandidateDTO temp = (CandidateDTO)TempData.Peek("candidateEdit");
+                if (edittedCandidate.Foto == null)
+                {
+                    edittedCandidate.Foto = temp.Foto;
+                }
+                if (edittedCandidate.CV == null)
+                {
+                    edittedCandidate.CV = temp.CV;
+                }
                 if (ModelState.IsValid)
                 {
+                    
                     if (edittedCandidate.GambarFile != null)
                     {
                         string fileNameFoto = edittedCandidate.NamaLengkap;
@@ -459,15 +471,6 @@ namespace Recruitment.Controllers
                         edittedCandidate.CV = "~/Cv/" + fileNameCV;
                         fileNameCV = Path.Combine(Server.MapPath("~/Cv/"), fileNameCV);
                         edittedCandidate.CvFile.SaveAs(fileNameCV);
-                    }
-                    CandidateDTO temp = (CandidateDTO)TempData.Peek("candidateEdit");
-                    if(edittedCandidate.Foto == null)
-                    {
-                        edittedCandidate.Foto = temp.Foto;
-                    }
-                    if(edittedCandidate.CV == null)
-                    {
-                        edittedCandidate.CV = temp.CV;
                     }
                     CANDIDATE candidate = new CANDIDATE
                     {
@@ -507,7 +510,7 @@ namespace Recruitment.Controllers
                     TempData["status"] = "Data Berhasil Di Edit";
                     return Redirect("~/candidate");
                 }
-                return View("EditCandidate");
+                return View("EditCandidate", edittedCandidate);
             }
         }
 

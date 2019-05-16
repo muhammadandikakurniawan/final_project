@@ -1,31 +1,149 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@using Recruitment.Models
+<html>
+<head>
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainerPie", {
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Source CV"
+	},
+	subtitles: [{
+		text: "2019"
+	}],
+	data: [{
+		type: "pie",
+		startAngle: 180,
+		toolTipContent: "<b>{label}</b>: {y}",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabel: "{label} - {y}",
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+    });
+var chartbar = new CanvasJS.Chart("chartContainerBar", {
+
+	animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2",
+    exportEnabled: true,
+	title: {
+        text: "Total Stock VS Total Called CV"
+	},
+    axisY: [{
+        title: "People",
+        interval: 1,
+        lineColor: "#369EAD",
+        titleFontColor: "#369EAD",
+        labelFontColor: "#369EAD"
+    }],
+	data: [{
+        type: "column",
+        showInLegend: true,
+        //axisYIndex: 0, //Defaults to Zero
+        name: "Stock",
+        xValueFormatString: "####",
+		dataPoints: @Html.Raw(ViewBag.DataPointsBar)
+	},
+    {
+        type: "column",
+        showInLegend: true,
+
+        interval: 1,
+        //axisYIndex: 0, //Defaults to Zero
+        name: "Call",
+        xValueFormatString: "####",
+		dataPoints: @Html.Raw(ViewBag.DataPointsBar2)
+	}]
+});
+chartbar.render();
+chart.render();
+
 }
+    </script>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    @{ List<MostPosition> topposition = (List<MostPosition>)TempData.Peek("topposition");
+        List<MostPosition> toppositionmonth = (List<MostPosition>)TempData.Peek("toppositionmonth");
+        List<MostPosition> toppositionyear = (List<MostPosition>)TempData.Peek("toppositionyear");
+    }
+</head>
+<body>
+    <div id="chartContainerPie" class="col-md-6" style="height: 300px; width: 49%;"></div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
+
+        <thead>
+            <p class="text-center">All CV (Most)</p>
+            <tr>
+                <td>Position</td>
+                <td>QTY</td>
+                <td>State</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MostPosition m in topposition)
+            {
+                <tr>
+                    <td>@m.mostposition</td>
+                    <td>@m.mostqty</td>
+                    <td>Most @m.moststate</td>
+
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+    <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
+        <thead>
+            <p class="text-center">(Most) In Year</p>
+            <tr>
+                <td>Position</td>
+                <td>QTY</td>
+                <td>State</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MostPosition m in toppositionyear)
+            {
+                <tr>
+                    <td>@m.mostposition</td>
+                    <td>@m.mostqty</td>
+                    <td>Most @m.moststate</td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
+        <thead>
+            <p class="text-center">(Most) In Month</p>
+            <tr>
+                <td>Position</td>
+                <td>QTY</td>
+                <td>State</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MostPosition m in toppositionmonth)
+            {
+                <tr>
+                    <td>@m.mostposition</td>
+                    <td>@m.mostqty</td>
+                    <td>Most @m.moststate</td>
+
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+    <div id="chartContainerBar" class="col-md-8" style="height: 300px; width: 100%;"></div>
+</body>
+</html>

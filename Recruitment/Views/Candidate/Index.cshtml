@@ -11,10 +11,10 @@
 }
 
 <div class="container">
-    <h2>Halaman Candidate</h2>
+    <h2>List Candidate</h2>
     <hr class="bg-blue" />
     <p>
-        @Html.ActionLink(" Tambah Data", "add", "Candidate", null, new { @class = "btn btn-primary fa fa-pencil" })
+        @Html.ActionLink(" Add Candidate", "add", "Candidate", null, new { @class = "btn btn-primary fa fa-pencil" })
     </p>
     @using (Html.BeginForm("Index", "Candidate", FormMethod.Post))
     {
@@ -33,7 +33,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Lengkap</th>
+                <th>Full Name</th>
                 <th>Applied Position</th>
                 <th>Source</th>
                 <th>Phone Number</th>
@@ -42,7 +42,7 @@
                 <th>Sourcing Date</th>
                 <th>State</th>
                 <th>Notes</th>
-                <th>Aksi</th>
+                <th>Action</th>
             </tr>
         </thead>
 

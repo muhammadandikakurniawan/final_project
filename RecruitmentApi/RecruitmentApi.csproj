@@ -175,6 +175,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CANDIDATE.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EDUCATION.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EXPERIENCE.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MENU.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>

@@ -148,10 +148,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CallController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\ExperienceController.cs" />
     <Compile Include="Models\AddCandidateDTO.cs" />
+    <Compile Include="Models\CallModelProses.cs" />
+    <Compile Include="Models\CANDIDATE.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidateCallDTO.cs" />
     <Compile Include="Models\CandidateJoin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -166,10 +172,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
-    <Compile Include="Models\CANDIDATE.cs">
-      <DependentUpon>RecruitmentDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CandidateDTO.cs" />
+    <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DropListSource.cs" />
     <Compile Include="Models\EDUCATION.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
@@ -179,11 +183,14 @@
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ExperienceDTO.cs" />
+    <Compile Include="Models\FormEmailViewModel.cs" />
     <Compile Include="Models\FormViewModel.cs" />
+    <Compile Include="Models\ListCallViewModel.cs" />
     <Compile Include="Models\MENU.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MenuModels.cs" />
+    <Compile Include="Models\MostPosition.cs" />
     <Compile Include="Models\POSITION.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -203,6 +210,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RecruitmentDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResetViewModel.cs" />
     <Compile Include="Models\ROLE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -247,6 +255,7 @@
     <Content Include="Content\build\images\back_disabled.png" />
     <Content Include="Content\build\images\back_enabled.png" />
     <Content Include="Content\build\images\back_enabled_hover.png" />
+    <Content Include="Content\build\images\bgs.png" />
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
@@ -257,6 +266,62 @@
     <Content Include="Content\datatables\dataTables.bootstrap.min.css" />
     <Content Include="Content\datatables\jquery.dataTables.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\summernote\lang\summernote-ar-AR.js" />
+    <Content Include="Content\summernote\lang\summernote-bg-BG.js" />
+    <Content Include="Content\summernote\lang\summernote-ca-ES.js" />
+    <Content Include="Content\summernote\lang\summernote-cs-CZ.js" />
+    <Content Include="Content\summernote\lang\summernote-da-DK.js" />
+    <Content Include="Content\summernote\lang\summernote-de-DE.js" />
+    <Content Include="Content\summernote\lang\summernote-el-GR.js" />
+    <Content Include="Content\summernote\lang\summernote-es-ES.js" />
+    <Content Include="Content\summernote\lang\summernote-es-EU.js" />
+    <Content Include="Content\summernote\lang\summernote-fa-IR.js" />
+    <Content Include="Content\summernote\lang\summernote-fi-FI.js" />
+    <Content Include="Content\summernote\lang\summernote-fr-FR.js" />
+    <Content Include="Content\summernote\lang\summernote-gl-ES.js" />
+    <Content Include="Content\summernote\lang\summernote-he-IL.js" />
+    <Content Include="Content\summernote\lang\summernote-hr-HR.js" />
+    <Content Include="Content\summernote\lang\summernote-hu-HU.js" />
+    <Content Include="Content\summernote\lang\summernote-id-ID.js" />
+    <Content Include="Content\summernote\lang\summernote-it-IT.js" />
+    <Content Include="Content\summernote\lang\summernote-ja-JP.js" />
+    <Content Include="Content\summernote\lang\summernote-ko-KR.js" />
+    <Content Include="Content\summernote\lang\summernote-lt-LT.js" />
+    <Content Include="Content\summernote\lang\summernote-lt-LV.js" />
+    <Content Include="Content\summernote\lang\summernote-mn-MN.js" />
+    <Content Include="Content\summernote\lang\summernote-nb-NO.js" />
+    <Content Include="Content\summernote\lang\summernote-nl-NL.js" />
+    <Content Include="Content\summernote\lang\summernote-pl-PL.js" />
+    <Content Include="Content\summernote\lang\summernote-pt-BR.js" />
+    <Content Include="Content\summernote\lang\summernote-pt-PT.js" />
+    <Content Include="Content\summernote\lang\summernote-ro-RO.js" />
+    <Content Include="Content\summernote\lang\summernote-ru-RU.js" />
+    <Content Include="Content\summernote\lang\summernote-sk-SK.js" />
+    <Content Include="Content\summernote\lang\summernote-sl-SI.js" />
+    <Content Include="Content\summernote\lang\summernote-sr-RS-Latin.js" />
+    <Content Include="Content\summernote\lang\summernote-sr-RS.js" />
+    <Content Include="Content\summernote\lang\summernote-sv-SE.js" />
+    <Content Include="Content\summernote\lang\summernote-ta-IN.js" />
+    <Content Include="Content\summernote\lang\summernote-th-TH.js" />
+    <Content Include="Content\summernote\lang\summernote-tr-TR.js" />
+    <Content Include="Content\summernote\lang\summernote-uk-UA.js" />
+    <Content Include="Content\summernote\lang\summernote-uz-UZ.js" />
+    <Content Include="Content\summernote\lang\summernote-vi-VN.js" />
+    <Content Include="Content\summernote\lang\summernote-zh-CN.js" />
+    <Content Include="Content\summernote\lang\summernote-zh-TW.js" />
+    <Content Include="Content\summernote\plugin\databasic\summernote-ext-databasic.css" />
+    <Content Include="Content\summernote\plugin\databasic\summernote-ext-databasic.js" />
+    <Content Include="Content\summernote\plugin\hello\summernote-ext-hello.js" />
+    <Content Include="Content\summernote\plugin\specialchars\summernote-ext-specialchars.js" />
+    <Content Include="Content\summernote\summernote-bs4.css" />
+    <Content Include="Content\summernote\summernote-bs4.js" />
+    <Content Include="Content\summernote\summernote-bs4.min.js" />
+    <Content Include="Content\summernote\summernote-lite.css" />
+    <Content Include="Content\summernote\summernote-lite.js" />
+    <Content Include="Content\summernote\summernote-lite.min.js" />
+    <Content Include="Content\summernote\summernote.css" />
+    <Content Include="Content\summernote\summernote.js" />
+    <Content Include="Content\summernote\summernote.min.js" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -4657,6 +4722,9 @@
     <Content Include="Models\RecruitmentDB.edmx.diagram">
       <DependentUpon>RecruitmentDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\summernote\font\summernote.eot" />
+    <Content Include="Content\summernote\font\summernote.ttf" />
+    <Content Include="Content\summernote\font\summernote.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4679,7 +4747,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\ResetForm.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Menu\FormEditMenu.cshtml" />
@@ -4718,6 +4786,12 @@
     <Content Include="Views\Experience\AddExperience.cshtml" />
     <Content Include="Views\Experience\EditExperiences.cshtml" />
     <Content Include="Views\Candidate\JobExperience.cshtml" />
+    <Content Include="Views\Call\addExperienced.cshtml" />
+    <Content Include="Views\Call\FormEmail.cshtml" />
+    <Content Include="Views\Call\ListCall.cshtml" />
+    <Content Include="Views\Call\ListCalled.cshtml" />
+    <Content Include="Views\Call\NextProses.cshtml" />
+    <Content Include="Views\Home\HomeRecruitment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

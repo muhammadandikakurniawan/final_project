@@ -41,7 +41,7 @@ namespace Recruitment.Models
         public string STATE_ID { get; set; }
         public string SOURCE_ID { get; set; }
         public string REFERER { get; set; }
-        public int NPWP { get; set; }
+        public string NPWP { get; set; }
         public string CV { get; set; }
         public Nullable<System.DateTime> AVAIABLE_JOIN { get; set; }
     }

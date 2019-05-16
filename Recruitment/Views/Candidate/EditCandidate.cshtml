@@ -1,7 +1,7 @@
 ﻿@model Recruitment.Models.CandidateDTO
 @using Recruitment.Models;
 
-<h3>Edit Personal Data</h3>
+<h3>Update Personal Data</h3>
 <hr class="bg-blue" />
     <div>
         @using (Html.BeginForm("Update", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Nama Lengkap", new { @class = "title control-label" })
+                    @Html.Label("Full Name", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.NamaLengkap, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.NamaLengkap, null, new { @class = "text-danger" })
@@ -23,39 +23,39 @@
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Nama Panggilan", new { @class = "title control-label" })
+                    @Html.Label("Call Name", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.NamaPanggilan, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.NamaPanggilan, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Jenis Kelamin", new { @class = "title control-label" })
+                    @Html.Label("Gender", new { @class = "title control-label" })
 
                     @Html.DropDownListFor(c => c.JenisKelamin, new SelectList(new List<string> { "P", "L" }), new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.JenisKelamin, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Tempat Lahir", new { @class = "title control-label" })
+                    @Html.Label("Place Of Birth", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.TempatLahir, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.TempatLahir, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Tanggal Lahir", new { @class = "title control-label" })
+                    @Html.Label("Date Of Birth", new { @class = "title control-label" })
                     @Html.TextBoxFor(c => c.TanggalLahir, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                     @Html.ValidationMessageFor(c => c.TanggalLahir, null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Agama", new { @class = "title control-label" })
+                    @Html.Label("Religion", new { @class = "title control-label" })
 
                     @Html.DropDownListFor(c => c.Agama, new SelectList(new List<string> { "Islam", "Kristen", "Katolik", "Budha", "Hindu", "Kong Hu Cu" }), new { @class = "form-control" })
-                    @Html.ValidationMessageFor(c => c.Agama, null, new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(c => c.Agama, null, new { @class="text-danger" })
 
                 </div>               
-
+                
                 <img src="@Url.Content(Model.Foto)" width="60" height="60" />
                 <div class="form-group">
                     <label for="file">Upload Image:</label>
@@ -64,21 +64,21 @@
             </div>
             <div class="col-lg-4 col-md-4  col-sm-12">
                 <div class="form-group">
-                    @Html.Label("Alamat Rumah", new { @class = "title control-label" })
+                    @Html.Label("Address", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.AlamatRumah, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.AlamatRumah, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Alamat Orang Tua", new { @class = "title control-label" })
+                    @Html.Label("Parent's Address", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.AlamatOrtu, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.AlamatOrtu, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Telepon Rumah", new { @class = "title control-label" })
+                    @Html.Label("Telephone Number", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.TelpRumah, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.TelpRumah, null, new { @class = "text-danger" })
@@ -91,34 +91,27 @@
                     @Html.ValidationMessageFor(c => c.Email, null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("No HP", new { @class = "title control-label" })
+                    @Html.Label("Phone Number", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.NoHP, null, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(c => c.NoHP, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("KTP", new { @class = "title control-label" })
+                    @Html.Label("Resident Card Number", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.NoKTP, null, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(c => c.NoKTP, null, new { @class = "text-danger" })
 
                 </div>
                 <div class="form-group">
-                    @Html.Label("Kode Pos", new { @class = "title control-label" })
+                    @Html.Label("Zip Code", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.KodePos, null, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(c => c.KodePos, null, new { @class = "text-danger" })
 
                 </div>
-                @if (Model.CV == null)
-                {
-                    <span class="text-danger">CV BELUM ADA SILAHKAN UPLOAD</span>
-                }
-                else
-                {
-                    @Model.CV
-                }
+                @Model.CV
                 <div class="form-group">
                     <label for="file">Upload CV:</label>
                     <input type="file" name="CvFile" id="CV" accept=".pdf,.docx" />
@@ -126,19 +119,19 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="form-group">
-                    @Html.Label("Status Perkawinan", new { @class = "title control-label" })
+                    @Html.Label("Martial Status", new { @class = "title control-label" })
 
                     @Html.DropDownListFor(c => c.StatusPerkawinan, new SelectList(new List<string> { "Lajang", "Menikah" }), new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.StatusPerkawinan, null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Posisi", new { @class = "title control-label" })
+                    @Html.Label("Position", new { @class = "title control-label" })
 
                     @Html.DropDownListFor(c => c.JudulPosisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.JudulPosisi, null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Rekomendasi", new { @class = "title control-label" })
+                    @Html.Label("Recomendation", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.Referer, new { @class = "form-control" })
 
@@ -153,8 +146,9 @@
                 <div class="form-group">
                     @Html.Label("NPWP", new { @class = "title control-label" })
 
-                    @Html.TextBoxFor(c => c.NPWP, null, new { @class = "form-control", @type = "number" })
+                    @Html.TextBoxFor(c => c.NPWP, null, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.NPWP, null, new { @class = "text-danger" })
+                    <small class="text-danger">Jika Tidak ada isi dengan (-)</small>
                 </div>
                 <div class="form-group">
                     @Html.Label("Avaiable Join", new { @class = "title control-label" })
@@ -163,14 +157,14 @@
                     @Html.ValidationMessageFor(c => c.AvailableJoin, null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Gaji yang diharapakan", new { @class = "title control-label" })
+                    @Html.Label("Expected Salary", new { @class = "title control-label" })
 
                     @Html.TextBoxFor(c => c.ExpectedSalary, null, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessageFor(c => c.ExpectedSalary, null, new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Catatan", new { @class = "title control-label" })
+                    @Html.Label("Notes", new { @class = "title control-label" })
 
                     @Html.TextAreaFor(c => c.Catatan, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.Catatan, null, new { @class = "text-danger" })
@@ -182,7 +176,7 @@
         <div class="form-group">
             @Html.Label("State", new { @class = "title control-label" })
 
-            @Html.DropDownListFor(model => model.StateId, new DropListSource().DropListState(), new { @class = "form-control", @readonly ="readonly" })
+            @Html.DropDownListFor(model => model.StateId, new DropListSource().DropListStatePraSelect(), new { @class = "form-control" })
 
         </div>
         <div class="form-group">

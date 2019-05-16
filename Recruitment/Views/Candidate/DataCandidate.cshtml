@@ -11,7 +11,7 @@
     }
 </style>
 
-<h3>Halaman Detail Profile</h3>
+<h3>DetailS Profile</h3>
 <hr class="bg-blue" />
 <div class="panel">
     <div class="panel panel-default">
@@ -152,3 +152,15 @@
             </ul>
         </div>
     </div>
+@section scripts {
+    <script>
+         $(function () {
+            var status = '@TempData["status"]'
+            if (status != '') {
+                alertify.success(status);
+            }
+        });
+        
+    </script>
+    
+    }

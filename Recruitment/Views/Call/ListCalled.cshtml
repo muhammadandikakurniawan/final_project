@@ -1,0 +1,151 @@
+﻿@model PagedList.IPagedList<Recruitment.Models.CandidateCallDTO>
+@using PagedList.Mvc;
+@using Recruitment.Models;
+
+@{
+    ViewBag.Title = "Call";
+}
+
+<h2>List Called Candidate</h2>
+
+<ul class="nav nav-tabs">
+    <li><a href="~/call">List Candidate</a></li>
+    <li class="active"><a data-toggle="tab" href="#tabcalled">List Called Candidate</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="tabcall" class="tab-pane fade">
+        UNUSED SPACE
+    </div>
+    <div id="tabcalled" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div class="col-sm-3">
+                @using (Html.BeginForm()) {
+                    <p>
+                        Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
+                        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
+                    </p>
+                }
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Applied Position
+                </th>
+                <th>
+                    Source
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Pra Selection PIC
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Pra Selection Notes
+                </th>
+                <th>
+
+                </th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PreSelectPIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-zoom-in input-sm" onclick="showDetail('@item.CandidateId')"></button>
+                        @Html.ActionLink("Email", "FormEmail", "Call", new { id = item.CandidateId }, new { @class = "btn btn-primary input-sm" })
+                    </td>
+                </tr>
+                <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
+                    <td colspan="9" align="right">
+                        <table frame="box">
+                            <tr>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Expected Salary</strong><br />
+                                    <input value="@item.ExpectedSalary" readonly="readonly" /><br />
+                                    <strong>Available to Join</strong><br />
+                                    <input value="@item.AvaliableJoinDate" readonly="readonly" /> <br />
+                                    <strong>Benefit</strong><br />
+                                    <textarea readonly="readonly">@item.AllBenefits1Line</textarea>
+                                </td>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Skills Set</strong><br />
+                                    <ul style="padding-left: 1.2em">
+                                        @foreach (string skill in item.AllSkills) {
+                                            <li>@skill</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Job Experiences</strong><br />
+                                    @foreach (EXPERIENCE exp in item.Experiences) {
+                                        string startYear = (((DateTime)exp.START_DATE).Year).ToString();
+                                        string endYear = (((DateTime)exp.END_DATE).Year).ToString();
+                                        <textarea readonly="readonly">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentSearch = ViewBag.currentSearch, currentFilter = ViewBag.currentFilter }))
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function showDetail(candidateId) {
+            rowDetail = document.getElementById("rowDetail_" + candidateId);
+            if (rowDetail.style.display == "none") {
+                rowDetail.style.display = "contents";
+            }
+            else {
+                rowDetail.style.display = "none";
+            }
+        }
+    </script>
+}

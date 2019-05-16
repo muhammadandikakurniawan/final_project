@@ -85,5 +85,81 @@ namespace Recruitment.Models
 
             return result;
         }
+
+        //Populate dropdownlist based on stateNext
+        public List<SelectListItem> DropListState(CallModelProses candidate)
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            using (RecruitmentEntities RE = new RecruitmentEntities())
+            {
+                List<string> stateNext = new List<string>();
+                try
+                {
+                    stateNext = RE.STATEs.Find(candidate.StateId).STATE_NEXT.Split(',').ToList();
+                }
+                catch (NullReferenceException)
+                {
+                }
+
+                foreach (string s in stateNext)
+                {
+                    string stateName = RE.STATEs.Find(s).STATE_NAME;
+                    result.Add(new SelectListItem { Text = stateName, Value = s });
+                }
+            }
+
+            return result;
+        }
+
+        public List<string> ListExperience(string id)
+        {
+            RecruitmentEntities db = new RecruitmentEntities();
+            List<string> exps = db.EXPERIENCEs.Where(m => m.CANDIDATE_ID == id)
+                                              .Select(x => x.EXPERIENCE_NAME + " " + x.INDUSTRI).ToList();
+
+            return exps;
+        }
+
+        public List<SelectListItem> DropListStatePraSelect()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();          
+                try
+                {
+                    result.Add(new SelectListItem { Text = "Pra-Selection", Value = "ST000" });
+                    result.Add(new SelectListItem { Text = "Pra-Selected", Value = "ST001" });
+                }
+                catch (NullReferenceException)
+                {
+
+                }            
+            return result;
+        }
+
+        public List<SelectListItem> DropListRole()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            RecruitmentEntities db = new RecruitmentEntities();
+            List<RoleModels> roles = db.ROLEs.Select(m => new RoleModels
+            {
+                RoleId = m.ROLE_ID,
+                RoleName = m.ROLE_NAME
+
+            }).ToList();
+            result.Add(new SelectListItem { Text = "None", Value = null });
+            try
+            {
+                foreach (RoleModels role in roles)
+                {
+                    result.Add(new SelectListItem { Text = role.RoleId + " (" + role.RoleName + ")", Value = role.RoleId });
+                }
+            }
+            catch (NullReferenceException e)
+            {
+
+            }
+
+            return result;
+        }
+
     }
 }
