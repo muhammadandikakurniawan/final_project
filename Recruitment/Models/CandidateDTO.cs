@@ -16,80 +16,79 @@ namespace Recruitment.Models
             get; set;
         }
 
-        [Required(ErrorMessage = "Nama Lengkap Harus Diisi")]
+        [Required(ErrorMessage = "Full Name Is Required")]
         public string NamaLengkap
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Nama Panggilan Harus Diisi")]
+        [Required(ErrorMessage = "Call Name Is Required")]
         public string NamaPanggilan
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Jenis Kelamin Harus Diisi")]
+        [Required(ErrorMessage = "Gender Is Required")]
         public string JenisKelamin
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Tempat Lahir Harus Diisi")]
+        [Required(ErrorMessage = "Place Of Birth Is Required")]
         public string TempatLahir
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Tanggal Lahir Harus Diisi")]
+        [Required(ErrorMessage = "Date Of Birth Is Required")]
         public DateTime TanggalLahir
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Agama Harus Diisi")]
+        [Required(ErrorMessage = "Religion Is Required")]
         public string Agama
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Status Harus Diisi")]
+        [Required(ErrorMessage = "Marital Status Is Required")]
         public string StatusPerkawinan
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Alamat Harus Diisi")]
+        [Required(ErrorMessage = "Address Is Required")]
         public string AlamatRumah
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Alamat Orang Tua Harus Diisi")]
+        [RegularExpression("-|[A-Z]|[0-9]", ErrorMessage ="Address Must Char or number or - ")]
         public string AlamatOrtu
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Telephone Harus Diisi")]
+
         public string TelpRumah
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Email Harus Diisi")]
+        [Required(ErrorMessage = "Email Is Required")]
         public string Email
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "No Hp Harus Diisi")]
+        [Required(ErrorMessage = "Phone Number Is Required")]
         public string NoHP
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "KTP Harus Diisi")]
-        [RegularExpression(@"([0-9]{16})", ErrorMessage = "No KTP tidak valid")]
+        [RegularExpression("-|[0-9]", ErrorMessage ="Resident Card Must Number Or -")]
         public string NoKTP
         {
             get; set;
@@ -125,37 +124,37 @@ namespace Recruitment.Models
             get; set;
         }
 
-        [Required(ErrorMessage = "Kode Pos Harus Diisi")]
+        [Required(ErrorMessage = "Zip Code Is Required")]
         public int KodePos
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Expected Salary Harus Diisi")]
+        [Required(ErrorMessage = "Expected Salary Is Required")]
         public int ExpectedSalary
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Posisi Harus Diisi")]
+        [Required(ErrorMessage = "Position Is Required")]
         public string JudulPosisi
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Catatan Harus Diisi")]
+        [Required(ErrorMessage = "Notes Is Required")]
         public string Catatan
         {
             get; set;
         }
 
-        //[Required(ErrorMessage = "State Harus Diisi")]
+
         public string StateId
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Source Harus Diisi")]
+        [Required(ErrorMessage = "Source Is Required")]
         public string SourceId
         {
             get; set;
@@ -166,8 +165,7 @@ namespace Recruitment.Models
             get; set;
         }
 
-        [Required(ErrorMessage = "NPWP Harus Diisi")]
-        //[RegularExpression(@"([0-9]{15})", ErrorMessage = "NPWP tidak valid")]
+        [RegularExpression("-|[0-9]", ErrorMessage = "NPWP Must Number Or -")]
         public string NPWP
         {
             get; set;

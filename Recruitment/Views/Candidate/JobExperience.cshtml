@@ -6,7 +6,8 @@
 }
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
   
 <script type="text/javascript">
     $(document).ready(function () {
@@ -50,7 +51,7 @@
                 <tr>
                     <td>@item.Position.Nama</td>
                     <td>@item.Experience.Industri</td>
-                    <td>@item.Experience.StartDate</td>
+                    <td>@item.Experience.StartDate.ToShortDateString() <h6>-</h6>@item.Experience.EndDate.ToShortDateString()</td>
                     <td>Rp. @item.Experience.Salary.ToString("n0")</td>
                     <td>
                         <a id="Detail" class="launch-modal" data-toggle="modal" data-id="@item.Experience.ExperienceId" data-benefit="@item.Experience.Benefit" data-skill="@item.Experience.Skill" data-job="@item.Experience.JobDesc">
@@ -77,35 +78,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4>Benefit</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <textarea id="benefit" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                    <textarea id="benefit" readonly="readonly" style="resize:none;width:200px;height:120px;"></textarea>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h4>Skill</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <textarea id="skill" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                    <textarea id="skill" readonly="readonly" style="resize:none;width:200px;height:120px;"></textarea>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="panel panel-success">
                                 <div class="panel-heading">
                                     <h4>Job Desc</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <textarea id="job" readonly="readonly" style="resize:none;width:150px;height:100px;"></textarea>
+                                    <textarea id="job" readonly="readonly" style="resize:none;width:525px;height:150px;"></textarea>
                                 </div>
 
                             </div>

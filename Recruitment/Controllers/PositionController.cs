@@ -69,7 +69,7 @@ namespace Recruitment.Controllers
             }
         }
 
-        [Route("edit")]
+        //[Route("edit")]
         [ActionName("UpdatePosition")]
         [HttpPost]
         public ActionResult UpdatePosition(PositionPoco edittedposition)

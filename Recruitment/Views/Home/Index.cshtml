@@ -6,7 +6,7 @@
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainerPie", {
-	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
@@ -71,30 +71,33 @@ chart.render();
     }
 </head>
 <body>
-    <div id="chartContainerPie" class="col-md-6" style="height: 300px; width: 49%;"></div>
+    <div id="chartContainerPie" class="col-md-6" style="height: 370px; width: 49%;"></div>
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-    <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
+    <table class="table  table-hover table-condensed col-md-6" style=" width: 49%;">
 
         <thead>
             <p class="text-center">All CV (Most)</p>
-            <tr>
+            <tr class="info">
                 <td>Position</td>
                 <td>QTY</td>
                 <td>State</td>
             </tr>
         </thead>
         <tbody>
-            @foreach (MostPosition m in topposition)
+            @if (topposition != null)
             {
-                <tr>
-                    <td>@m.mostposition</td>
-                    <td>@m.mostqty</td>
-                    <td>Most @m.moststate</td>
+                foreach (MostPosition m in topposition)
+                {
+                    <tr>
+                        <td>@m.mostposition</td>
+                        <td>@m.mostqty</td>
+                        <td>Most @m.moststate</td>
 
-                </tr>
+                    </tr>
 
+                }
             }
 
         </tbody>
@@ -102,46 +105,51 @@ chart.render();
     <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
         <thead>
             <p class="text-center">(Most) In Year</p>
-            <tr>
+            <tr class="info">
                 <td>Position</td>
                 <td>QTY</td>
                 <td>State</td>
             </tr>
         </thead>
         <tbody>
-            @foreach (MostPosition m in toppositionyear)
+            @if (toppositionyear != null)
             {
-                <tr>
-                    <td>@m.mostposition</td>
-                    <td>@m.mostqty</td>
-                    <td>Most @m.moststate</td>
+                foreach (MostPosition m in toppositionyear)
+                {
+                    <tr>
+                        <td>@m.mostposition</td>
+                        <td>@m.mostqty</td>
+                        <td>Most @m.moststate</td>
 
-                </tr>
+                    </tr>
 
+                }
             }
         </tbody>
     </table>
     <table class="table table-hover table-condensed col-md-6" style=" width: 49%;">
         <thead>
             <p class="text-center">(Most) In Month</p>
-            <tr>
+            <tr class="info">
                 <td>Position</td>
                 <td>QTY</td>
                 <td>State</td>
             </tr>
         </thead>
         <tbody>
-            @foreach (MostPosition m in toppositionmonth)
+            @if (toppositionmonth != null)
             {
-                <tr>
-                    <td>@m.mostposition</td>
-                    <td>@m.mostqty</td>
-                    <td>Most @m.moststate</td>
+                foreach (MostPosition m in toppositionmonth)
+                {
+                    <tr>
+                        <td>@m.mostposition</td>
+                        <td>@m.mostqty</td>
+                        <td>Most @m.moststate</td>
 
-                </tr>
+                    </tr>
 
+                }
             }
-
         </tbody>
     </table>
     <div id="chartContainerBar" class="col-md-8" style="height: 300px; width: 100%;"></div>

@@ -139,7 +139,7 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                ModelState.Remove("Password");
+                
                 try
                 {
                     if (ModelState.IsValid)

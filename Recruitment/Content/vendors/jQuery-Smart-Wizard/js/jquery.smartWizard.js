@@ -446,4 +446,4 @@ $.fn.smartWizard.defaults = {
     onFinish: null  // triggers when Finish button is clicked
 };
 
-})(jQuery);
+})/*(jQuery)*/;

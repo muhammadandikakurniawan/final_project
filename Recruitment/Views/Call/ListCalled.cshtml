@@ -23,10 +23,11 @@
             </div>
             <div class="col-sm-3">
                 @using (Html.BeginForm()) {
-                    <p>
-                        Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
-                        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
-                    </p>
+                <p>
+                    Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
+                    Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
+                    <input type="submit" value="Search" class="btn btn-primary input-sm" />
+                </p>
                 }
             </div>
         </div>
@@ -131,7 +132,7 @@
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentSearch = ViewBag.currentSearch, currentFilter = ViewBag.currentFilter }))
+        @Html.PagedListPager(Model, page => Url.Action("IndexCalled", new { page, currentSearch = ViewBag.currentSearch, currentFilter = ViewBag.currentFilter }))
 
     </div>
 </div>

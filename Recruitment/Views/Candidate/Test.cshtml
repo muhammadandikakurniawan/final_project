@@ -6,48 +6,19 @@
     List<string> max = (List<string>)TempData.Peek("maxid");
 
 }
-<h3>Add Candidate</h3><strong style="color:darkgoldenrod">Note :</strong><h5 style="color:darkgoldenrod">If you don't have data use (-)</h5>
+<h3>Add Candidate</h3>
 <hr class="bg-blue">
 <div>
 
     @using (Html.BeginForm("Insert", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div id="wizard" class="form_wizard wizard_horizontal">
-            <ul class="wizard_steps">
-                <li>
-                    <a data-toggle="tab" href="#data">
-                        <span class="step_no">1</span>
-                        <span class="step_descr">
-                            Step 1<br />
-                            <small>Step 1 Personal Information</small>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a data-toggle="tab" href="#education">
-                        <span class="step_no">2</span>
-                        <span class="step_descr">
-                            Step 2<br />
-                            <small>Step 2 Education</small>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a data-toggle="tab" href="#experience">
-                        <span class="step_no">3</span>
-                        <span class="step_descr">
-                            Step 3<br />
-                            <small>Step 3 Experiences</small>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
-        <!-- End SmartWizard Content -->
-
-
         <div class="row">
+
+            <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="tab" href="#data">Step 1</a></li>
+                <li><a data-toggle="tab" href="#education">Step 2</a></li>
+                <li><a data-toggle="tab" href="#experience">Step 3</a></li>
+            </ul>
 
             <div class="tab-content">
                 <div id="data" class="tab-pane fade in active">
@@ -125,7 +96,8 @@
 
                             @Html.TextBoxFor(c => c.CandidateDetails.TelpRumah, new { @class = "form-control" })
                             @Html.ValidationMessageFor(c => c.CandidateDetails.TelpRumah, null, new { @class = "text-danger" })
-                            
+                            <small class="text-danger">Jika Tidak ada isi menggunakan tanda (-) </small>
+
                         </div>
                         <div class="form-group">
                             @Html.Label("Email", new { @class = "title control-label" })
@@ -143,7 +115,7 @@
                         <div class="form-group">
                             @Html.Label("Resident Card Number", new { @class = "title control-label" })
 
-                            @Html.TextBoxFor(c => c.CandidateDetails.NoKTP, null, new { @class = "form-control"})
+                            @Html.TextBoxFor(c => c.CandidateDetails.NoKTP, null, new { @class = "form-control", @type = "number" })
                             @Html.ValidationMessageFor(c => c.CandidateDetails.NoKTP, null, new { @class = "text-danger" })
 
                         </div>
@@ -191,6 +163,7 @@
 
                             @Html.TextBoxFor(c => c.CandidateDetails.NPWP, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(c => c.CandidateDetails.NPWP, null, new { @class = "text-danger" })
+                            <small class="text-danger">Jika Tidak ada isi dengan (-)</small>
                         </div>
                         <div class="form-group">
                             @Html.Label("Avaiable Join", new { @class = "title control-label" })
@@ -214,50 +187,42 @@
                     </div>
                 </div>
                 <div id="education" class="tab-pane">
-                    @*<div class="col-lg-4 col-md-4 col-sm-12">*@
-                            <label class="col-lg-2 col-md-2 col-sm-12">University / School</label>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                @Html.TextBoxFor(model => model.Education.EducationName, null, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Education.EducationName, null, new { @class = "text-danger" })
-                            </div>
-
-                        <label class="col-lg-2 col-md-2 col-sm-12">Major</label>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>University / School</label>
+                            @Html.TextBoxFor(model => model.Education.EducationName, null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Education.EducationName, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Major</label>
                             @Html.TextBoxFor(model => model.Education.Major, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Education.Major, null, new { @class = "text-danger" })
-                            <br />
                         </div>
-
-                        <label class="col-lg-2 col-md-2 col-sm-12">Degree</label>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Degree</label>
                             @Html.TextBoxFor(model => model.Education.Degree, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Education.Degree, null, new { @class = "text-danger" })
                         </div>
-
-                        <label class="col-lg-2 col-md-2 col-sm-12">GPA</label>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>GPA</label>
                             @Html.TextBoxFor(model => model.Education.GPA, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Education.GPA, null, new { @class = "text-danger" })
-                            <small style="color: darkgoldenrod">Gunakan koma (,)</small>
-                            <br />
+                            <small class="text-danger">Gunakan koma(,)</small>
                         </div>
-
-                        <label class="col-lg-2 col-md-2 col-sm-12">Start Date</label>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Start Date</label>
                             @Html.TextBoxFor(model => model.Education.TahunMasuk, null, new { @class = "form-control", @type = "date" })
                             @Html.ValidationMessageFor(model => model.Education.TahunMasuk, null, new { @class = "text-danger" })
                         </div>
-
-                        <label class="col-lg-2 col-md-2 col-sm-12">End Date</label>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>End Date</label>
                             @Html.TextBoxFor(model => model.Education.TahunLulus, null, new { @class = "form-control", @type = "date" })
                             @Html.ValidationMessageFor(model => model.Education.TahunLulus, null, new { @class = "text-danger" })
-                            <br />
-
                         </div>
+                    </div>
                 </div>
                 <div id="experience" class="tab-pane">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="form-group">
                             <label for="Company Name">Company Name</label>
                             @Html.EditorFor(model => model.Experience.ExperienceName, new { htmlAttributes = new { @class = "form-control" } })
@@ -285,15 +250,15 @@
                         <div class="form-group">
                             <label class="control-label">Skill</label>
                             @*<input id="skill" type="text" name="Experience_Skill" class="tags form-control" data-role="tagsinput" />*@
-                            @Html.TextAreaFor(model => model.Experience.Skill, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Experience.Skill, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Experience.Skill, "", new { @class = "text-danger" })
-                            <small style="color: darkgoldenrod">Gunakan koma(,) untuk memisahkan</small>
+                            <small class="text-danger">Gunakan koma(,) untuk memisahkan</small>
                             @*<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>*@
 
                         </div>
 
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="form-group">
 
                             <label>Start Date</label>
@@ -304,6 +269,7 @@
 
                         <div class="form-group">
                             <label>End Date</label>
+
                             @Html.EditorFor(model => model.Experience.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                             @Html.ValidationMessageFor(model => model.Experience.EndDate, "", new { @class = "text-danger" })
 
@@ -316,31 +282,32 @@
                         </div>
                         <div class="form-group">
                             <label for="project">Project</label>
-                            @Html.TextAreaFor(model => model.Experience.Project, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Experience.Project, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Experience.Project, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label class="control-label">Benefit</label>
                             @*<input id="benefit" type="text" name="Experience_Benefit" class="tags form-control" data-role="tagsinput"/>*@
-                            @Html.TextAreaFor(model => model.Experience.Benefit , new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Experience.Benefit, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Experience.Benefit, "", new { @class = "text-danger" })
-                            <small style="color: darkgoldenrod">Gunakan koma(,) untuk memisahkan</small>
+                            <small class="text-danger">Gunakan koma(,) untuk memisahkan</small>
                             @*<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>*@
-                        </div>
-                        <div class="form-group">
-                            <input class="btn btn-info pull-right" type="submit" value="Create" />
+
+                            <div class="form-group">
+                                <input class="btn btn-info" type="submit" value="Create" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
-       
+
         <hr class="bg-blue" />
 
         <br />
-
     }
-
 </div>
 @*@section scripts{
         <script>

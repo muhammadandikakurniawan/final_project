@@ -13,13 +13,13 @@ namespace Recruitment.Models
             get; set;
         }
 
-        [Required(ErrorMessage = "School/University Harus Diisi")]
+        [Required(ErrorMessage = "School/University Is Required")]
         public string EducationName
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Major Harus Diisi")]
+        [Required(ErrorMessage = "Major Is Required")]
         public string Major
         {
             get; set;
@@ -31,19 +31,19 @@ namespace Recruitment.Models
             get; set;
         }
 
-        [Required(ErrorMessage = "GPA Harus Diisi")]
+        [Required(ErrorMessage = "GPA Is Required")]
         public float GPA
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Tahun Masuk Harus Diisi")]
+        [Required(ErrorMessage = "Start Date Is Required")]
         public DateTime TahunMasuk
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Tahun Lulus Harus Diisi")]
+        [Required(ErrorMessage = "End Date Is Required")]
         public DateTime TahunLulus
         {
             get; set;

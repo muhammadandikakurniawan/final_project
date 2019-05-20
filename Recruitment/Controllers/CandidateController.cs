@@ -287,7 +287,7 @@ namespace Recruitment.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (newCandidate.CandidateDetails.GambarFile != null)
+                if (newCandidate.CandidateDetails.GambarFile != null && newCandidate.CandidateDetails.CvFile != null)
                 {
                     string fileNameFoto = newCandidate.CandidateDetails.NamaLengkap;
                     string extensionFoto = Path.GetExtension(newCandidate.CandidateDetails.GambarFile.FileName);
@@ -295,8 +295,24 @@ namespace Recruitment.Controllers
                     newCandidate.CandidateDetails.Foto = "~/Images/" + fileNameFoto;
                     fileNameFoto = Path.Combine(Server.MapPath("~/Images/"), fileNameFoto);
                     newCandidate.CandidateDetails.GambarFile.SaveAs(fileNameFoto);
-                    
-                }else if (newCandidate.CandidateDetails.CvFile != null)
+                    string fileNameCV = newCandidate.CandidateDetails.NamaLengkap;
+                    string extensionCV = Path.GetExtension(newCandidate.CandidateDetails.CvFile.FileName);
+                    fileNameCV = fileNameCV + extensionCV;
+                    newCandidate.CandidateDetails.CV = "~/Cv/" + fileNameCV;
+                    fileNameCV = Path.Combine(Server.MapPath("~/Cv/"), fileNameCV);
+                    newCandidate.CandidateDetails.CvFile.SaveAs(fileNameCV);
+                }
+                else if (newCandidate.CandidateDetails.GambarFile != null)
+                {
+                    string fileNameFoto = newCandidate.CandidateDetails.NamaLengkap;
+                    string extensionFoto = Path.GetExtension(newCandidate.CandidateDetails.GambarFile.FileName);
+                    fileNameFoto = fileNameFoto + extensionFoto;
+                    newCandidate.CandidateDetails.Foto = "~/Images/" + fileNameFoto;
+                    fileNameFoto = Path.Combine(Server.MapPath("~/Images/"), fileNameFoto);
+                    newCandidate.CandidateDetails.GambarFile.SaveAs(fileNameFoto);
+                    newCandidate.CandidateDetails.CV = "Cv belum di upload";
+                }
+                else if (newCandidate.CandidateDetails.CvFile != null)
                 {
                     string fileNameCV = newCandidate.CandidateDetails.NamaLengkap;
                     string extensionCV = Path.GetExtension(newCandidate.CandidateDetails.CvFile.FileName);
@@ -304,6 +320,7 @@ namespace Recruitment.Controllers
                     newCandidate.CandidateDetails.CV = "~/Cv/" + fileNameCV;
                     fileNameCV = Path.Combine(Server.MapPath("~/Cv/"), fileNameCV);
                     newCandidate.CandidateDetails.CvFile.SaveAs(fileNameCV);
+                    newCandidate.CandidateDetails.Foto = "~/Images/DEFAULT.png";
                 }
                 else
                 {
@@ -512,6 +529,12 @@ namespace Recruitment.Controllers
                 }
                 return View("EditCandidate", edittedCandidate);
             }
+        }
+
+        [Route("Test")]
+        public ActionResult Test()
+        {
+            return View("Test");
         }
 
         private List<CandidateDTO> CandidateFilter(string filterStateId, string filterPositionId)

@@ -58,7 +58,7 @@
         });
 
         function Delete(id) {
-            alertify.confirm('Confirmasi Delete Role', 'Yakin Ingin Menghapus Data?', function () {
+            alertify.confirm('Confirmation Delete Role', 'Delete Data?', function () {
                 //alertify.success('Ok')
                 window.location.href = '@Url.Action("Delete", "Role")/' + id;
             }, null);

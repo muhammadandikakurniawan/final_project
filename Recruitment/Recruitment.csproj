@@ -4726,6 +4726,7 @@
     <Content Include="Content\summernote\font\summernote.ttf" />
     <Content Include="Content\summernote\font\summernote.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -4792,6 +4793,7 @@
     <Content Include="Views\Call\ListCalled.cshtml" />
     <Content Include="Views\Call\NextProses.cshtml" />
     <Content Include="Views\Home\HomeRecruitment.cshtml" />
+    <Content Include="Views\Candidate\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

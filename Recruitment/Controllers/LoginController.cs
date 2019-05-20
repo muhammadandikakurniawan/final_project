@@ -69,7 +69,7 @@ namespace Recruitment.Controllers
                         }
                         else
                         {
-                            TempData["cek"] = "Password Salah";
+                            TempData["cek"] = "Username / Password Salah";
                             return Redirect("Index");
                         }
 

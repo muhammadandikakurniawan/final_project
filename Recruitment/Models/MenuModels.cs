@@ -15,9 +15,9 @@ namespace Recruitment.Models
         public string MenuName { get; set; }
         [Required(ErrorMessage = "Role Id is Required!")]
         public string RoleId { get; set; }
-        [Required(ErrorMessage = "Action Name is Required!")]
+        
         public string Action { get; set; }
-        [Required(ErrorMessage = "Controller Name is Required!")]
+        
         public string Controller { get; set; }
 
 
