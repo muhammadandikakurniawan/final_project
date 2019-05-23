@@ -19,15 +19,21 @@
     </div>
     <div id="tabcalled" class="tab-pane fade in active">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-7">
             </div>
-            <div class="col-sm-3">
-                @using (Html.BeginForm()) {
-                <p>
-                    Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
-                    Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
-                    <input type="submit" value="Search" class="btn btn-primary input-sm" />
-                </p>
+            <div class="col-sm-5">
+                @using (Html.BeginForm())
+                {
+                    <div class="col-sm-4">
+                        Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
+                    </div>
+                    <div class="col-sm-4">
+                        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
+                    </div>
+                    <div class="col-sm-4">
+                        <br />
+                        <input type="submit" value="Search" class="btn btn-primary input-sm" />
+                    </div>
                 }
             </div>
         </div>
@@ -63,7 +69,8 @@
                 </th>
             </tr>
 
-            @foreach (var item in Model) {
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -90,6 +97,7 @@
                         @Html.DisplayFor(modelItem => item.Notes)
                     </td>
                     <td>
+                        @Html.ActionLink("Edit", "NextProses", "Call", new { id = item.CandidateId, from = "call/called" }, new { @class = "btn btn-primary input-sm" })
                         <button type="button" class="btn btn-primary glyphicon glyphicon-zoom-in input-sm" onclick="showDetail('@item.CandidateId')"></button>
                         @Html.ActionLink("Email", "FormEmail", "Call", new { id = item.CandidateId }, new { @class = "btn btn-primary input-sm" })
                     </td>
@@ -109,14 +117,16 @@
                                 <td valign="top" style="padding:10px">
                                     <strong>Skills Set</strong><br />
                                     <ul style="padding-left: 1.2em">
-                                        @foreach (string skill in item.AllSkills) {
+                                        @foreach (string skill in item.AllSkills)
+                                        {
                                             <li>@skill</li>
                                         }
                                     </ul>
                                 </td>
                                 <td valign="top" style="padding:10px">
                                     <strong>Job Experiences</strong><br />
-                                    @foreach (EXPERIENCE exp in item.Experiences) {
+                                    @foreach (EXPERIENCE exp in item.Experiences)
+                                    {
                                         string startYear = (((DateTime)exp.START_DATE).Year).ToString();
                                         string endYear = (((DateTime)exp.END_DATE).Year).ToString();
                                         <textarea readonly="readonly">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />

@@ -111,15 +111,16 @@
         </EntityType>
         <EntityType Name="USER">
           <Key>
-            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="USER_ID" />
           </Key>
-          <Property Name="USERNAME" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FULLNAME" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="PASSWORD" Type="varchar" MaxLength="225" />
-          <Property Name="ROLE_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FULLNAME" Type="varchar" MaxLength="50" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
+          <Property Name="ROLE_ID" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_USER_ROLE">
-          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+        <Association Name="FK_USER_USER">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="0..1" />
           <End Role="USER" Type="Self.USER" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ROLE">
@@ -140,7 +141,7 @@
           <EntitySet Name="SOURCE" EntityType="Self.SOURCE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATE" EntityType="Self.STATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+          <AssociationSet Name="FK_USER_USER" Association="Self.FK_USER_USER">
             <End Role="ROLE" EntitySet="ROLE" />
             <End Role="USER" EntitySet="USER" />
           </AssociationSet>
@@ -238,7 +239,7 @@
           </Key>
           <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ROLE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="USERs" Relationship="Self.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+          <NavigationProperty Name="USERs" Relationship="Self.FK_USER_USER" FromRole="ROLE" ToRole="USER" />
         </EntityType>
         <EntityType Name="SOURCE">
           <Key>
@@ -257,16 +258,17 @@
         </EntityType>
         <EntityType Name="USER">
           <Key>
-            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="USER_ID" />
           </Key>
-          <Property Name="USERNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FULLNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
-          <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ROLE" Relationship="Self.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLE" Relationship="Self.FK_USER_USER" FromRole="USER" ToRole="ROLE" />
         </EntityType>
-        <Association Name="FK_USER_ROLE">
-          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+        <Association Name="FK_USER_USER">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="0..1" />
           <End Role="USER" Type="Self.USER" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ROLE">
@@ -287,7 +289,7 @@
           <EntitySet Name="SOURCEs" EntityType="Self.SOURCE" />
           <EntitySet Name="STATEs" EntityType="Self.STATE" />
           <EntitySet Name="USERs" EntityType="Self.USER" />
-          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+          <AssociationSet Name="FK_USER_USER" Association="Self.FK_USER_USER">
             <End Role="ROLE" EntitySet="ROLEs" />
             <End Role="USER" EntitySet="USERs" />
           </AssociationSet>
@@ -413,8 +415,9 @@
           <EntitySetMapping Name="USERs">
             <EntityTypeMapping TypeName="RecruitmentModel.USER">
               <MappingFragment StoreEntitySet="USER">
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
               </MappingFragment>

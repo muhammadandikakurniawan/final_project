@@ -153,6 +153,7 @@
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\ExperienceController.cs" />
     <Compile Include="Models\AddCandidateDTO.cs" />
+    <Compile Include="Models\AllowExtensionsAttribute.cs" />
     <Compile Include="Models\CallModelProses.cs" />
     <Compile Include="Models\CANDIDATE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
@@ -222,6 +223,7 @@
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StateDTO.cs" />
+    <Compile Include="Models\StateFormViewModel.cs" />
     <Compile Include="Models\Sumber.cs" />
     <Compile Include="Models\USER.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
@@ -4715,6 +4717,9 @@
     <Content Include="Content\vendors\validator\.gitignore" />
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
+    <Content Include="Content\summernote\font\summernote.eot" />
+    <Content Include="Content\summernote\font\summernote.ttf" />
+    <Content Include="Content\summernote\font\summernote.woff" />
     <EntityDeploy Include="Models\RecruitmentDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RecruitmentDB.Designer.cs</LastGenOutput>
@@ -4722,9 +4727,6 @@
     <Content Include="Models\RecruitmentDB.edmx.diagram">
       <DependentUpon>RecruitmentDB.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\summernote\font\summernote.eot" />
-    <Content Include="Content\summernote\font\summernote.ttf" />
-    <Content Include="Content\summernote\font\summernote.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -4761,7 +4763,6 @@
     <Content Include="Views\Role\Tambah.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Users\EditForm.cshtml" />
-    <Content Include="Views\Users\form.cshtml" />
     <Content Include="Views\Users\ListUser.cshtml" />
     <Content Include="Views\Users\UserForm.cshtml" />
     <Content Include="Views\Users\Users.cshtml" />
@@ -4794,6 +4795,7 @@
     <Content Include="Views\Call\NextProses.cshtml" />
     <Content Include="Views\Home\HomeRecruitment.cshtml" />
     <Content Include="Views\Candidate\Test.cshtml" />
+    <Content Include="Views\Call\EditExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

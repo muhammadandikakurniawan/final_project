@@ -2,26 +2,27 @@
 @using Recruitment.Models;
 
 @{
-    ViewBag.Title = "addExperienced";
+    ViewBag.Title = "Edit Experience";
 }
 
-<h2>addExperienced</h2>
+<!DOCTYPE html>
 
-@using (Html.BeginForm("addEx", "Call", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditExperience</title>
+</head>
+<body>
+    @using (Html.BeginForm("PostEditExperience", "Call", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>ExperienceDTO</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.ExperienceId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ExperienceId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ExperienceId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+
+        @Html.HiddenFor(model => model.ExperienceId, new { htmlAttributes = new { @class = "form-control" } })
 
         <div class="form-group">
             @Html.LabelFor(model => model.ExperienceName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -43,7 +44,7 @@
             @Html.LabelFor(model => model.Posisi, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.Posisi, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownListFor(model => model.Posisi, new DropListSource().DropListPosition())
+                @Html.DropDownListFor(c => c.Posisi, new DropListSource().DropListPosition(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Posisi, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,13 +105,16 @@
             </div>
         </div>
 
-
+        @Html.HiddenFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control" } })
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add Experienced" class="btn btn-default" />
+                <input type="submit" value="Update" class="btn btn-default" />
                 @Html.ActionLink("Cencel", "NextProses", "Call", new { id = Session["CandidateId"] }, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
-}
+    }
+
+</body>
+</html>

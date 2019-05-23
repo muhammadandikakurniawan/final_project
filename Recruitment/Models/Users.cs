@@ -20,5 +20,7 @@ namespace Recruitment.Models
 
         [Required(ErrorMessage = "Role Id Harus Diisi")]
         public string Roleid { get; set; }
+
+        public int UserId { get; set; }
     }
 }

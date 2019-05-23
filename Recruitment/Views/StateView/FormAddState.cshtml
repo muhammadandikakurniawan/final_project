@@ -1,4 +1,4 @@
-﻿@model Recruitment.Models.FormViewModel
+﻿@model Recruitment.Models.StateFormViewModel
 
 <!DOCTYPE html>
 
@@ -17,6 +17,12 @@
             <h4>STATE</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @if (TempData["validasi"] != null)
+            {
+                <div class="alert alert-danger">
+                    <strong>@TempData["validasi"]</strong>
+                </div>
+            }
             <div class="form-group">
                 @Html.LabelFor(model => model.FormState.StateId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

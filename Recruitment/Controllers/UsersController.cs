@@ -18,7 +18,7 @@ namespace Recruitment.Controllers
             {
                 List<Users> users = recruitment.USERs.Select(e => new Users
                 {
-
+                    UserId = e.USER_ID,
                     Username = e.USERNAME,
                     Fullname = e.FULLNAME,
                     Roleid = e.ROLE_ID
@@ -39,37 +39,35 @@ namespace Recruitment.Controllers
             {
                 try
                 {
-                    if (ModelState.IsValid)
+                    var count = recruitment.USERs.Where(e => e.USERNAME == user.Username).Count();
+                    if (count > 0)
                     {
-                        USER AddUsr = new USER
+                        TempData["message"] = "Username has been used.!";
+                    }
+                    else
+                    {
+                        if (ModelState.IsValid)
                         {
-                            USERNAME = user.Username,
-                            FULLNAME = user.Fullname,
-                            PASSWORD = MD5Encryption.encryption(user.Password),
-                            ROLE_ID = user.Roleid
-                        };
-                        recruitment.USERs.Add(AddUsr);
-                        recruitment.SaveChanges();
-                        return Redirect("~/users");
+                            USER AddUsr = new USER
+                            {
+                                USER_ID = user.UserId,
+                                USERNAME = user.Username,
+                                FULLNAME = user.Fullname,
+                                PASSWORD = MD5Encryption.encryption(user.Password),
+                                ROLE_ID = user.Roleid
+                            };
+
+                            recruitment.USERs.Add(AddUsr);
+                            recruitment.SaveChanges();
+                            return Redirect("~/users");
+                        }
                     }
                     return View("UserForm");
                 }
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                catch (Exception err)
                 {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            // raise a new exception nesting  
-                            // the current instance as InnerException  
-                            raise = new InvalidOperationException(message, raise);
-                        }
-                    }
-                    throw raise;
+                    TempData["message"] = err;
+                    return Redirect("~/users");
                 }
             }
         }
@@ -88,23 +86,32 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                Users user = recruitment.USERs.Where(e => e.ROLE_ID == id).Select(e =>
-                new Users { Username = e.USERNAME, Fullname = e.FULLNAME, Roleid = e.ROLE_ID }).FirstOrDefault();
-                return View("Users", user);
+                try
+                {
+                    Users user = recruitment.USERs.Where(e => e.ROLE_ID == id).Select(e =>
+                    new Users { Username = e.USERNAME, Fullname = e.FULLNAME, Roleid = e.ROLE_ID }).FirstOrDefault();
+                    return View("Users", user);
+                }
+                catch (Exception err)
+                {
+                    TempData["message"] = err;
+                    return Redirect("~/users");
+                }
             }
         }
 
-        [Route("{Username}/edit")]
+        [Route("{id}/edit")]
         [HttpGet]
-        public ActionResult EditUser(string Username)
+        public ActionResult EditUser(int id)
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
                 try
                 {
-                    USER usrModel = recruitment.USERs.Find(Username);
+                    USER usrModel = recruitment.USERs.Find(id);
                     Users users = new Users
                     {
+                        UserId = usrModel.USER_ID,
                         Username = usrModel.USERNAME,
                         Fullname = usrModel.FULLNAME,
                         Password = usrModel.PASSWORD,
@@ -112,22 +119,10 @@ namespace Recruitment.Controllers
                     };
                     return View("EditForm", users);
                 }
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                catch (Exception err)
                 {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            // raise a new exception nesting  
-                            // the current instance as InnerException  
-                            raise = new InvalidOperationException(message, raise);
-                        }
-                    }
-                    throw raise;
+                    TempData["message"] = err;
+                    return Redirect("~/users");
                 }
             }
         }
@@ -139,13 +134,14 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                
+                ModelState.Remove("Password");
                 try
                 {
                     if (ModelState.IsValid)
                     {
                         USER addedusr = new USER
                         {
+                            USER_ID = edittedUser.UserId,
                             USERNAME = edittedUser.Username,
                             FULLNAME = edittedUser.Fullname,
                             PASSWORD = edittedUser.Password,
@@ -157,36 +153,32 @@ namespace Recruitment.Controllers
                     }
                     return View("EditForm");
                 }
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                catch (Exception err)
                 {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            // raise a new exception nesting  
-                            // the current instance as InnerException  
-                            raise = new InvalidOperationException(message, raise);
-                        }
-                    }
-                    throw raise;
+                    TempData["message"] = err;
+                    return Redirect("~/users");
                 }
             }
         }
 
-        [Route("{Username}/delete")]
+        [Route("{id}/delete")]
         [HttpPost]
-        public ActionResult DeleteUser(string Username)
+        public ActionResult DeleteUser(int id)
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                USER user = recruitment.USERs.Find(Username);
-                recruitment.USERs.Remove(user);
-                recruitment.SaveChanges();
-                return Redirect("~/users");
+                try
+                {
+                    USER user = recruitment.USERs.Find(id);
+                    recruitment.USERs.Remove(user);
+                    recruitment.SaveChanges();
+                    return Redirect("~/users");
+                }
+                catch (Exception err)
+                {
+                    TempData["message"] = err;
+                    return Redirect("~/users");
+                }
             }
         }
     }

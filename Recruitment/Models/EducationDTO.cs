@@ -14,18 +14,21 @@ namespace Recruitment.Models
         }
 
         [Required(ErrorMessage = "School/University Is Required")]
+        [RegularExpression("(.){3,50}", ErrorMessage = "School / University min 3 char max 50 char")]
         public string EducationName
         {
             get; set;
         }
 
         [Required(ErrorMessage = "Major Is Required")]
+        [RegularExpression("(.){3,30}", ErrorMessage = "Major min 3 char max 30 char")]
         public string Major
         {
             get; set;
         }
 
-        [Required(ErrorMessage = "Degree Harus Diisi")]
+        [Required(ErrorMessage = "Degree Is Required")]
+        [RegularExpression("(.){2,10}", ErrorMessage = "Degree min 2 char max 10 char")]
         public string Degree
         {
             get; set;

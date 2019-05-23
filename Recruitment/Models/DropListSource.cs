@@ -9,7 +9,7 @@ namespace Recruitment.Models
 {
     public class DropListSource
     {
-        
+
         public List<SelectListItem> DropListName()
         {
             List<SelectListItem> result = new List<SelectListItem>();
@@ -24,7 +24,7 @@ namespace Recruitment.Models
             {
                 foreach (Sumber sumber in sumbers)
                 {
-                    result.Add(new SelectListItem { Text = sumber.SumberNama , Value = sumber.SumberId });
+                    result.Add(new SelectListItem { Text = sumber.SumberNama, Value = sumber.SumberId });
                 }
             }
             catch (NullReferenceException e)
@@ -42,7 +42,7 @@ namespace Recruitment.Models
             List<PositionPoco> positions = db.POSITIONs.Select(m => new PositionPoco
             {
                 IdPosisi = m.POSITION_ID,
-                Nama =m.POSITION_NAME
+                Nama = m.POSITION_NAME
             }).ToList();
             result.Add(new SelectListItem { Text = "None", Value = null });
             try
@@ -103,35 +103,54 @@ namespace Recruitment.Models
 
                 foreach (string s in stateNext)
                 {
-                    string stateName = RE.STATEs.Find(s).STATE_NAME;
-                    result.Add(new SelectListItem { Text = stateName, Value = s });
+                    try
+                    {
+                        string stateName = RE.STATEs.Find(s).STATE_NAME;
+                        result.Add(new SelectListItem { Text = stateName, Value = s });
+                    }
+                    catch (NullReferenceException) { }
                 }
             }
 
             return result;
         }
 
-        public List<string> ListExperience(string id)
+        public List<ExperienceDTO> ListExperience(string id)
         {
             RecruitmentEntities db = new RecruitmentEntities();
-            List<string> exps = db.EXPERIENCEs.Where(m => m.CANDIDATE_ID == id)
-                                              .Select(x => x.EXPERIENCE_NAME + " " + x.INDUSTRI).ToList();
+            //List<string> exps = db.EXPERIENCEs.Where(m => m.CANDIDATE_ID == id)
+            //                                  .Select(x => x.EXPERIENCE_NAME + " " + x.INDUSTRI).ToList();
+            List<ExperienceDTO> experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == id).Select(x => new ExperienceDTO
+            {
+                ExperienceId = x.EXPERIENCE_ID,
+                ExperienceName = x.EXPERIENCE_NAME,
+                Industri = x.INDUSTRI,
+                Posisi = x.POSISI,
+                StartDate = (DateTime)x.START_DATE,
+                EndDate = (DateTime)x.END_DATE,
+                Salary = (int)x.SALARY,
+                JobDesc = x.JOB_DESC,
+                Skill = x.SKILL,
+                Project = x.PROJECT,
+                Benefit = x.BENEFIT,
+                CandidateId = x.CANDIDATE_ID
+            }).ToList();
 
-            return exps;
+            return experiences;
         }
 
         public List<SelectListItem> DropListStatePraSelect()
         {
-            List<SelectListItem> result = new List<SelectListItem>();          
-                try
-                {
-                    result.Add(new SelectListItem { Text = "Pra-Selection", Value = "ST000" });
-                    result.Add(new SelectListItem { Text = "Pra-Selected", Value = "ST001" });
-                }
-                catch (NullReferenceException)
-                {
+            List<SelectListItem> result = new List<SelectListItem>();
+            try
+            {
+                result.Add(new SelectListItem { Text = "Pra-Selection", Value = "ST000" });
+                result.Add(new SelectListItem { Text = "Pra-Selected", Value = "ST001" });
+            }
+            catch (NullReferenceException)
+            {
 
-                }            
+            }
             return result;
         }
 

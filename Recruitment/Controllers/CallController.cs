@@ -42,7 +42,7 @@ namespace Recruitment.Controllers
             ViewBag.currentFilter = filterPosition;
 
             //SEARCHING
-            if (!string.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 candidates = candidates.Where(c => c.Name.ToUpper().Contains(searchString.ToUpper()) ||
                                                    c.Position.ToUpper().Contains(searchString.ToUpper()) ||
@@ -68,8 +68,17 @@ namespace Recruitment.Controllers
             }
             int pageSize = 5; //The amount of row displayed each page
             int pageNumber = (page ?? 1);
+            IPagedList<CandidateCallDTO> pagedCandidate = candidates.ToPagedList(pageNumber, pageSize);
+            //Get Experiences for candidates of the current page
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                foreach (CandidateCallDTO candidate in pagedCandidate)
+                {
+                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
+                }
+            }
 
-            return View("ListCall", candidates.ToPagedList(pageNumber, pageSize));
+            return View("ListCall", pagedCandidate);
         }
 
         [Route("called")]
@@ -124,8 +133,17 @@ namespace Recruitment.Controllers
             }
             int pageSize = 5; //The amount of row displayed each page
             int pageNumber = (page ?? 1);
+            IPagedList<CandidateCallDTO> pagedCandidate = candidates.ToPagedList(pageNumber, pageSize);
+            //Get Experiences for candidates of the current page
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                foreach (CandidateCallDTO candidate in pagedCandidate)
+                {
+                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
+                }
+            }
 
-            return View("ListCalled", candidates.ToPagedList(pageNumber, pageSize));
+            return View("ListCalled", pagedCandidate);
         }
 
         #endregion
@@ -160,12 +178,12 @@ namespace Recruitment.Controllers
                                   AvailableJoin = (DateTime)c.AVAIABLE_JOIN
                               }).ToList();
 
-                //Insert each row of EPERENCE into List<EXPERIENCE>
+                //Insert each row of EXPERIENCE into List<EXPERIENCE>
                 //Needed for popup function
-                foreach (CandidateCallDTO candidate in candidates)
-                {
-                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
-                }
+                //foreach (CandidateCallDTO candidate in candidates)
+                //{
+                //    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
+                //}
 
                 //Populate the SelectListItem used for filter dropdown
                 List<SelectListItem> filterPositions = db.POSITIONs.Select(p => new SelectListItem
@@ -192,7 +210,7 @@ namespace Recruitment.Controllers
                               from st in table3.DefaultIfEmpty()
                               join p in db.POSITIONs on c.JUDUL_POSISI equals p.POSITION_ID into table4
                               from p in table4.DefaultIfEmpty()
-                              where c.STATE_ID == "ST002" || c.STATE_ID == "ST003"
+                              where c.STATE_ID == "ST002" || c.STATE_ID == "ST003" || c.STATE_ID == "ST009"
                               select new CandidateCallDTO
                               {
                                   CandidateId = c.CANDIDATE_ID,
@@ -208,12 +226,12 @@ namespace Recruitment.Controllers
                                   AvailableJoin = (DateTime)c.AVAIABLE_JOIN
                               }).ToList();
 
-                //Insert each row of EPERENCE into List<EXPERIENCE>
+                //Insert each row of EXPERIENCE into List<EXPERIENCE>
                 //Needed for popup function
-                foreach (CandidateCallDTO candidate in candidates)
-                {
-                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
-                }
+                //foreach (CandidateCallDTO candidate in candidates)
+                //{
+                //    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
+                //}
 
                 //Populate the SelectListItem used for filter dropdown
                 List<SelectListItem> filterPositions = db.POSITIONs.Select(p => new SelectListItem
@@ -251,7 +269,7 @@ namespace Recruitment.Controllers
         #endregion
 
         #region Hanif
-        public ActionResult NextProses(string id)
+        public ActionResult NextProses(string id, string from)
         {
             using (RecruitmentEntities RE = new RecruitmentEntities())
             {
@@ -313,6 +331,7 @@ namespace Recruitment.Controllers
                     CandidateIdinExp = x.CANDIDATE_ID
 
                 };
+                TempData["from"] = from;
                 Session["candidateId"] = c.CANDIDATE_ID;
                 return View(candidate);
             }
@@ -376,7 +395,73 @@ namespace Recruitment.Controllers
                 };
                 RE.Entry(experience).State = EntityState.Modified;
                 RE.SaveChanges();
+                if (TempData.Peek("from") != null)
+                {
+                    return Redirect("~/" + TempData["from"]);
+                }
                 return Redirect("~/call");
+            }
+        }
+
+        public ActionResult Cancel()
+        {
+            if (TempData.Peek("from") != null)
+            {
+                return Redirect("~/" + TempData["from"]);
+            }
+            return Redirect("~/call");
+        }
+
+        [HttpGet]
+        public ActionResult EditExperience(int id)
+        {
+            using (RecruitmentEntities RE = new RecruitmentEntities())
+            {
+                EXPERIENCE expModel = RE.EXPERIENCEs.Find(id);
+                ExperienceDTO experienceDTO = new ExperienceDTO
+                {
+
+                    ExperienceId = expModel.EXPERIENCE_ID,
+                    ExperienceName = expModel.EXPERIENCE_NAME,
+                    Industri = expModel.INDUSTRI,
+                    Posisi = expModel.POSISI,
+                    StartDate = (DateTime)expModel.START_DATE,
+                    EndDate = (DateTime)expModel.END_DATE,
+                    JobDesc = expModel.JOB_DESC,
+                    Skill = expModel.SKILL,
+                    Salary = (int)expModel.SALARY,
+                    Project = expModel.PROJECT,
+                    Benefit = expModel.BENEFIT,
+                    CandidateId = expModel.CANDIDATE_ID
+
+                };
+                return View(experienceDTO);
+            }
+        }
+
+        public ActionResult PostEditExperience(ExperienceDTO experienceDTO)
+        {
+            string id = (string)Session["candidateId"];
+            using (RecruitmentEntities RE = new RecruitmentEntities())
+            {
+                EXPERIENCE EditExperience = new EXPERIENCE
+                {
+                    EXPERIENCE_ID = experienceDTO.ExperienceId,
+                    EXPERIENCE_NAME = experienceDTO.ExperienceName,
+                    INDUSTRI = experienceDTO.Industri,
+                    POSISI = experienceDTO.Posisi,
+                    START_DATE = (DateTime)experienceDTO.StartDate,
+                    END_DATE = (DateTime)experienceDTO.EndDate,
+                    JOB_DESC = experienceDTO.JobDesc,
+                    SALARY = experienceDTO.Salary,
+                    SKILL = experienceDTO.Skill,
+                    PROJECT = experienceDTO.Project,
+                    BENEFIT = experienceDTO.Benefit,
+                    CANDIDATE_ID = id
+                };
+                RE.Entry(EditExperience).State = EntityState.Modified;
+                RE.SaveChanges();
+                return Redirect("/Call/NextProses/" + id);
             }
         }
         #endregion

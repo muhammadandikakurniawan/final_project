@@ -27,11 +27,11 @@
                     <td>@users.Fullname</td>
                     <td>@users.Roleid</td>
                     <td>
-                        <form action="/users/@users.Username/delete" method="post">
-                            <input type="submit" value="Delete" class="btn btn-primary"/>
+                        <form action="/users/@users.UserId/delete" method="post">
+                            <input type="submit" value="Delete" class="btn btn-primary" />
                         </form>
-                        <form action="/users/@users.Username/edit" method="get">
-                            <input type="submit" value="Edit" class="btn btn-primary"/>
+                        <form action="/users/@users.UserId/edit" method="get">
+                            <input type="submit" value="Edit" class="btn btn-primary" />
                         </form>
                     </td>
                 </tr>

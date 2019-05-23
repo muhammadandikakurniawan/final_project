@@ -1,11 +1,12 @@
 ﻿@model Recruitment.Models.CandidateDTO
 @using Recruitment.Models;
 
-<h3>Update Personal Data</h3>
+<h3>Update Personal Data</h3><strong style="color:darkgoldenrod">Note :</strong>
+<h5 style="color:darkgoldenrod">If you don't have data use (-)</h5>
 <hr class="bg-blue" />
-    <div>
-        @using (Html.BeginForm("Update", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
+<div>
+    @using (Html.BeginForm("Update", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
         <div class="row">
             <div class="col-lg-4 col-md-4  col-sm-12">
                 <div class="form-group">
@@ -52,14 +53,15 @@
                     @Html.Label("Religion", new { @class = "title control-label" })
 
                     @Html.DropDownListFor(c => c.Agama, new SelectList(new List<string> { "Islam", "Kristen", "Katolik", "Budha", "Hindu", "Kong Hu Cu" }), new { @class = "form-control" })
-                    @Html.ValidationMessageFor(c => c.Agama, null, new { @class="text-danger" })
+                    @Html.ValidationMessageFor(c => c.Agama, null, new { @class = "text-danger" })
 
-                </div>               
-                
+                </div>
+
                 <img src="@Url.Content(Model.Foto)" width="60" height="60" />
                 <div class="form-group">
                     <label for="file">Upload Image:</label>
                     <input type="file" name="GambarFile" id="filefoto" accept="image/png, image/jpeg, image/jpg" />
+                    @Html.ValidationMessageFor(c => c.GambarFile, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-lg-4 col-md-4  col-sm-12">
@@ -100,7 +102,7 @@
                 <div class="form-group">
                     @Html.Label("Resident Card Number", new { @class = "title control-label" })
 
-                    @Html.TextBoxFor(c => c.NoKTP, null, new { @class = "form-control", @type = "number" })
+                    @Html.TextBoxFor(c => c.NoKTP, null, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.NoKTP, null, new { @class = "text-danger" })
 
                 </div>
@@ -115,6 +117,7 @@
                 <div class="form-group">
                     <label for="file">Upload CV:</label>
                     <input type="file" name="CvFile" id="CV" accept=".pdf,.docx" />
+                    @Html.ValidationMessageFor(c => c.CvFile, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -148,7 +151,6 @@
 
                     @Html.TextBoxFor(c => c.NPWP, null, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.NPWP, null, new { @class = "text-danger" })
-                    <small class="text-danger">Jika Tidak ada isi dengan (-)</small>
                 </div>
                 <div class="form-group">
                     @Html.Label("Avaiable Join", new { @class = "title control-label" })
@@ -159,7 +161,7 @@
                 <div class="form-group">
                     @Html.Label("Expected Salary", new { @class = "title control-label" })
 
-                    @Html.TextBoxFor(c => c.ExpectedSalary, null, new { @class = "form-control", @type = "number" })
+                    @Html.TextBoxFor(c => c.ExpectedSalary, null, new { @class = "form-control"})
                     @Html.ValidationMessageFor(c => c.ExpectedSalary, null, new { @class = "text-danger" })
                 </div>
 
@@ -183,6 +185,6 @@
             <input class="btn btn-info btn-sm" type="submit" value="Update" />
 
         </div>
-        }
-    </div>
+    }
+</div>
 

@@ -6,14 +6,13 @@
 }
 
 
-<h2>form</h2>
+<h2>New User</h2>
 
 @using (Html.BeginForm("NewUser", "Users", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Users</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -44,7 +43,7 @@
             @Html.LabelFor(model => Model.Roleid, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
 
-              @*  @Html.DropDownListFor(model => model.Roleid, new SelectList(Model.rols, "ROLE_ID", "ROLE_NAME"), "Select Roles")*@
+                @*  @Html.DropDownListFor(model => model.Roleid, new SelectList(Model.rols, "ROLE_ID", "ROLE_NAME"), "Select Roles")*@
                 @Html.DropDownListFor(model => model.Roleid, new SelectList(roleid))
                 @Html.ValidationMessageFor(model => Model.Roleid, "", new { @class = "text-danger" })
             </div>
@@ -58,6 +57,13 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section scripts{
+    <script>
+        $(function () {
+            var status = '@TempData["message"]'
+            if (status != '') {
+                alertify.error(status);
+            }
+    });
+    </script>
+}

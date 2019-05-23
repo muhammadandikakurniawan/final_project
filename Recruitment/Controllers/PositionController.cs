@@ -30,7 +30,30 @@ namespace Recruitment.Controllers
         [ActionName("AddPosition")]
         public ActionResult NewPosition()
         {
-            return View("NewPosition");
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                List<PositionPoco> positions = db.POSITIONs.Select(e => new PositionPoco
+                {
+                    IdPosisi = e.POSITION_ID,
+                    Nama = e.POSITION_NAME
+                }).ToList();
+
+                string MaxId = positions.Max(e => e.IdPosisi);
+                int angka = 0;
+                if (positions.Count != 0)
+                {
+                    angka = int.Parse(MaxId.Substring(MaxId.Length - 3)) + 1;
+                }
+                string NewId = "PN" + string.Format("{0:D3}", angka);
+
+                PositionPoco ListPosition = new PositionPoco
+                {
+                    IdPosisi = NewId,
+                    Nama = null
+                };
+                return View("NewPosition", ListPosition);
+            }
+                
         }
 
 

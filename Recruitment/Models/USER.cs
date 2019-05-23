@@ -14,8 +14,9 @@ namespace Recruitment.Models
     
     public partial class USER
     {
-        public string USERNAME { get; set; }
+        public int USER_ID { get; set; }
         public string FULLNAME { get; set; }
+        public string USERNAME { get; set; }
         public string PASSWORD { get; set; }
         public string ROLE_ID { get; set; }
     

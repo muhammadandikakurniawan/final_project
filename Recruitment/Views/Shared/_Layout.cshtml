@@ -147,7 +147,7 @@
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li>
                                         @*<a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>*@
-                                        @*@Html.ActionLink(" Change Password", "Reset", "Home", new { id = ((Recruitment.Models.Users)Session["user"]).Username }, new { @class = "fa fa-lock pull-right" })*@
+                                        @Html.ActionLink(" Change Password", "Reset", "Home", new { id = ((Recruitment.Models.Users)Session["user"]).Username }, new { @class = "fa fa-lock pull-right" })
                                         @Html.ActionLink(" Logout", "Logout", "Login", null, new { @class = "fa fa-sign-out pull-right" })
                                     </li>
                                 </ul>
@@ -196,17 +196,17 @@
     @Scripts.Render("~/bundles/js")
 
     <!-- Bootstrap -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
     <!-- FastClick -->
-    <script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>
+    @*<script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>*@
     <!-- NProgress -->
-    <script src="~/Content/vendors/nprogress/nprogress.js"></script>
+    @*<script src="~/Content/vendors/nprogress/nprogress.js"></script>*@
 
     <!-- Custom Theme Scripts -->
     <script src="~/Content/build/js/custom.min.js"></script>
     <script src="~/Scripts/alertify.min.js"></script>
+
     @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="~/Content/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 

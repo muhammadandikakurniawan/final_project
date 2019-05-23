@@ -16,28 +16,14 @@ namespace Recruitment.Controllers
         [Route("")]
         public ActionResult ListAllStates()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:56339");
-
-                var get = client.GetAsync("api/state");
-                get.Wait();
-                var result = get.Result.Content.ReadAsAsync<List<STATE>>().Result;
-                List<StateDTO> stateDTOs = (List<StateDTO>)result.Select(s => new StateDTO()
-                {
-                    StateId = s.STATE_ID,
-                    StateName = s.STATE_NAME,
-                    StateNext = s.STATE_NEXT
-                }).ToList();
-
-                return View("ListStates", stateDTOs);
-            }
+            List<StateDTO> stateDTOs = PopulateStateDTOs();
+            return View("ListStates", stateDTOs);
         }
 
         [Route("add")]
         public ActionResult FormAddState()
         {
-            FormViewModel formViewModel = new FormViewModel
+            StateFormViewModel formViewModel = new StateFormViewModel
             {
                 StateDTOs = PopulateStateDTOs()
             };
@@ -48,26 +34,31 @@ namespace Recruitment.Controllers
 
         #region actions
         [ActionName("AddState")]
-        public ActionResult AddState(FormViewModel formViewModel)
+        public ActionResult AddState(StateFormViewModel formViewModel)
         {
             if (ModelState.IsValid)
             {
-                using (HttpClient client = new HttpClient())
+                using (RecruitmentEntities recruitment = new RecruitmentEntities())
                 {
-                    client.BaseAddress = new Uri("http://localhost:56339");
-
-
-                    STATE state = new STATE()
+                    try
                     {
-                        STATE_ID = formViewModel.FormState.StateId,
-                        STATE_NAME = formViewModel.FormState.StateName,
-                        STATE_NEXT = formViewModel.FormState.StateNext
-                    };
+                        STATE state = new STATE()
+                        {
+                            STATE_ID = formViewModel.FormState.StateId,
+                            STATE_NAME = formViewModel.FormState.StateName,
+                            STATE_NEXT = formViewModel.FormState.StateNext
+                        };
+                        recruitment.STATEs.Add(state);
+                        recruitment.SaveChanges();
 
-                    var post = client.PostAsJsonAsync<STATE>("api/state", state);
-                    post.Wait();
-
-                    return Redirect("~/state/add");
+                        return Redirect("~/state/add");
+                    }
+                    catch (Exception)
+                    {
+                        TempData["validasi"] = "Data Has been used";
+                        return View("FormAddState", formViewModel);
+                    }
+                    
                 }
             }
 
@@ -78,13 +69,10 @@ namespace Recruitment.Controllers
         [ActionName("DeleteState")]
         public ActionResult DeleteState(string stateId)
         {
-            using (HttpClient client = new HttpClient())
+            using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                client.BaseAddress = new Uri("http://localhost:56339");
-
-                var delete = client.DeleteAsync("api/state/" + stateId);
-                delete.Wait();
-
+                recruitment.STATEs.Remove(recruitment.STATEs.Find(stateId));
+                recruitment.SaveChanges();
                 return Redirect("~/state");
             }
         }
@@ -92,10 +80,9 @@ namespace Recruitment.Controllers
         [ActionName("EditState")]
         public ActionResult EditState(string stateId)
         {
-
             List<StateDTO> stateDTOs = PopulateStateDTOs();
 
-            FormViewModel formViewModel = new FormViewModel
+            StateFormViewModel formViewModel = new StateFormViewModel
             {
                 StateDTOs = stateDTOs,
                 FormState = stateDTOs.Find(s => s.StateId == stateId)
@@ -105,14 +92,12 @@ namespace Recruitment.Controllers
         }
 
         [ActionName("PutState")]
-        public ActionResult PutState(FormViewModel formViewModel)
+        public ActionResult PutState(StateFormViewModel formViewModel)
         {
             if (ModelState.IsValid)
             {
-                using (HttpClient client = new HttpClient())
+                using (RecruitmentEntities recruitment = new RecruitmentEntities())
                 {
-                    client.BaseAddress = new Uri("http://localhost:56339");
-
                     STATE state = new STATE()
                     {
                         STATE_ID = formViewModel.FormState.StateId,
@@ -120,29 +105,25 @@ namespace Recruitment.Controllers
                         STATE_NEXT = formViewModel.FormState.StateNext
                     };
 
-                    var put = client.PutAsJsonAsync("api/state/", state);
-                    put.Wait();
-
+                    recruitment.Entry(state).State = System.Data.Entity.EntityState.Modified;
+                    recruitment.SaveChanges();
                     return Redirect("~/state");
                 }
             }
+
             formViewModel.StateDTOs = PopulateStateDTOs();
             return View("FormEditState", formViewModel);
         }
+
         #endregion
 
         #region Support
 
         List<StateDTO> PopulateStateDTOs()
         {
-            using (HttpClient client = new HttpClient())
+            using (RecruitmentEntities recruitment = new RecruitmentEntities())
             {
-                client.BaseAddress = new Uri("http://localhost:56339");
-
-                var get = client.GetAsync("api/state");
-                get.Wait();
-                var result = get.Result.Content.ReadAsAsync<List<STATE>>().Result;
-                List<StateDTO> stateDTOs = (List<StateDTO>)result.Select(s => new StateDTO()
+                List<StateDTO> stateDTOs = recruitment.STATEs.Select(s => new StateDTO()
                 {
                     StateId = s.STATE_ID,
                     StateName = s.STATE_NAME,

@@ -12,10 +12,13 @@ namespace Recruitment.Models
         string stateName;
         string stateNext;
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Input is too long")]
         public string StateId { get => stateId; set => stateId = value; }
-        [Required]
+        [Required(ErrorMessage = "Required")]
+        [StringLength(50, ErrorMessage = "Input is too long")]
         public string StateName { get => stateName; set => stateName = value; }
+        [StringLength(500, ErrorMessage = "Input is too long")]
         public string StateNext { get => stateNext; set => stateNext = value; }
     }
 }
