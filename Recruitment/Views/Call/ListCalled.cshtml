@@ -5,11 +5,11 @@
 @{
     ViewBag.Title = "Call";
 }
-
-<h2>List Called Candidate</h2>
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
+<h2>Called Candidate List</h2>
 
 <ul class="nav nav-tabs">
-    <li><a href="~/call">List Candidate</a></li>
+    <li><a href="~/call">List Call Candidate</a></li>
     <li class="active"><a data-toggle="tab" href="#tabcalled">List Called Candidate</a></li>
 </ul>
 
@@ -32,13 +32,13 @@
                     </div>
                     <div class="col-sm-4">
                         <br />
-                        <input type="submit" value="Search" class="btn btn-primary input-sm" />
+                        <input type="submit" value="Search" class="btn btn-success input-sm" />
                     </div>
                 }
             </div>
         </div>
 
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
                 <th>
                     Name
@@ -65,7 +65,7 @@
                     Pra Selection Notes
                 </th>
                 <th>
-
+                    Button Action
                 </th>
             </tr>
 
@@ -97,9 +97,9 @@
                         @Html.DisplayFor(modelItem => item.Notes)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "NextProses", "Call", new { id = item.CandidateId, from = "call/called" }, new { @class = "btn btn-primary input-sm" })
-                        <button type="button" class="btn btn-primary glyphicon glyphicon-zoom-in input-sm" onclick="showDetail('@item.CandidateId')"></button>
-                        @Html.ActionLink("Email", "FormEmail", "Call", new { id = item.CandidateId }, new { @class = "btn btn-primary input-sm" })
+                        @Html.ActionLink("Edit", "NextProses", "Call", new { id = item.CandidateId, from = "call/called" }, new { @class = "btn btn-warning input-sm" })
+                        <button type="button" class="btn btn-info input-sm" onclick="showDetail('@item.CandidateId')">Details</button>
+                        @Html.ActionLink("Email", "FormEmail", "Call", new { id = item.CandidateId }, new { @class = "btn btn-default input-sm" })
                     </td>
                 </tr>
                 <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
@@ -130,6 +130,7 @@
                                         string startYear = (((DateTime)exp.START_DATE).Year).ToString();
                                         string endYear = (((DateTime)exp.END_DATE).Year).ToString();
                                         <textarea readonly="readonly">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
+                                        <br />
                                     }
                                 </td>
                             </tr>

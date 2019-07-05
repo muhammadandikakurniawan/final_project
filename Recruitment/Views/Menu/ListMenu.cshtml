@@ -12,57 +12,83 @@
     <title>ListMenu</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/build/css/table.css" rel="stylesheet" />
 </head>
 <body>
+    <h2><center>LIST MENU</center></h2>
+    <hr />
     <p>
-        @Html.ActionLink("Add Menu", "FormMenu","Menu", new { @class = "btn btn-success"})
+        @Html.ActionLink("Add New Menu", "FormMenu", "Menu", new { @class = "btn btn-primary" })
     </p>
-    <table class="table table-bordered">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MenuId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MenuName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Action)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Controller)
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MenuId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MenuName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Action)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Controller)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "FormEditMenu", new { id = item.MenuId }, new { @class ="btn btn-primary"})
-                @Html.ActionLink("Delete", "DeleteMenu", new { id = item.MenuId }, new { @class = "btn btn-danger"})
-            </td>
-        </tr>
-    }
-    
+    <table class="table table-striped table-responsive table-bordered">
+
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoleId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Action)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Controller)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Action)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Controller)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "FormEditMenu", new { id = item.MenuId }, new { @class = "btn btn-warning" })
+                    @*  @Html.ActionLink("Delete", "DeleteMenu", new { id = item.MenuId }, new { @class = "btn btn-danger", @onclick = "DeleteMenu"+item.MenuId })*@
+                    <a onclick="Delete('@item.MenuId')" class="btn btn-danger"><i class=""></i> Delete</a>
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
+@section scripts{
+    <script>
+        $(function () {
+            var status = '@TempData["status"]'
+            if (status != '') {
+                alertify.success(status);
+            }
+        });
+
+        function Delete(id) {
+            alertify.confirm('Confirmation Delete Menu', 'Delete Menu?', function () {
+                //alertify.success('Ok')
+                window.location.href = '@Url.Action("DeleteMenu", "Menu")/' + id;
+            }, null);
+        }
+    </script>
+}

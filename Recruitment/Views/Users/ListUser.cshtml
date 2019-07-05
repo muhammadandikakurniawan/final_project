@@ -4,19 +4,21 @@
     ViewBag.Title = "ListUser";
 }
 
-<h2>ListUser</h2>
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
 
 <body>
-    <table class="table table-bordered table-striped">
+    <h2><center>LIST USER</center></h2>
+    <hr />
+    <p>
+        @Html.ActionLink("Add New User", "new", "User", new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-striped table-responsive table-bordered">
         <thead>
-            <tr>
-                <th><a href="/users/new">Tambah</a></th>
-            </tr>
             <tr>
                 <th>Name</th>
                 <th>Full Name</th>
                 <th>Role Id</th>
-                <th>Button Function</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,15 +29,37 @@
                     <td>@users.Fullname</td>
                     <td>@users.Roleid</td>
                     <td>
-                        <form action="/users/@users.UserId/delete" method="post">
-                            <input type="submit" value="Delete" class="btn btn-primary" />
-                        </form>
-                        <form action="/users/@users.UserId/edit" method="get">
-                            <input type="submit" value="Edit" class="btn btn-primary" />
-                        </form>
+                        @Html.ActionLink("Edit", "EditUser", new { id = users.UserId }, new { @class = "btn btn-warning" })
+                        @*<a onclick="Delete('@users.UserId')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>*@
+
+                        @Html.ActionLink("Delete", "DeleteUser", new { id = users.UserId }, new { @class = "btn btn-danger" })
+
+                        @*<form action="/users/delete/@users.UserId" method="post">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>*@
+                        @*<form action="/users/@users.UserId/edit" method="get">
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </form>*@
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </body>
+@*@section scripts{
+        <script>
+            $(function () {
+                var status = '@TempData["status"]'
+                if (status != '') {
+                    alertify.success(status);
+                }
+            });
+
+            function Delete(id) {
+                alertify.confirm('Confirmation Delete Menu', 'Delete Menu?', function () {
+                    //alertify.success('Ok')
+                    window.location.href = '@Url.Action("DeleteUser", "Users")/' + id;
+                }, null);
+            }
+        </script>
+    }*@

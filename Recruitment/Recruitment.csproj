@@ -254,6 +254,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\build\css\custom.css" />
     <Content Include="Content\build\css\custom.min.css" />
+    <Content Include="Content\build\css\table.css" />
     <Content Include="Content\build\images\back_disabled.png" />
     <Content Include="Content\build\images\back_enabled.png" />
     <Content Include="Content\build\images\back_enabled_hover.png" />

@@ -2,6 +2,8 @@
 @using Recruitment.Models;
 
 @{
+    /**/
+
     ViewBag.Title = "Call Next";
 }
 
@@ -18,52 +20,55 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            @*<h4>CallModel</h4>*@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
                 <div class="col-md-6">
                     <h4 style="color:#0094ff">Caller Interview</h4>
                     <hr />
-                    <div class="form-group">
 
-                        @Html.HiddenFor(Model => Model.CandidateId)
+                    @Html.HiddenFor(Model => Model.CandidateId)
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(Model => Model.NamaLengkap, "Full Name")
+                        </div>
+                        @Html.EditorFor(Model => Model.NamaLengkap, new { htmlAttributes = new { @class = "form-control", @readonly = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NamaLengkap, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.NamaLengkap)
+                            @Html.LabelFor(Model => Model.NamaPanggilan, "Nick Name")
                         </div>
-                        @Html.EditorFor(Model => Model.NamaLengkap, new { htmlAttributes = new { @readonly = "form-control" } })
+                        @Html.EditorFor(Model => Model.NamaPanggilan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NamaPanggilan, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.NamaPanggilan)
+                            @Html.LabelFor(Model => Model.StatusPerkawinan, "Marital Status")
                         </div>
-                        @Html.EditorFor(Model => Model.NamaPanggilan)
+                        @Html.EditorFor(Model => Model.StatusPerkawinan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StatusPerkawinan, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.StatusPerkawinan)
+                            @Html.LabelFor(Model => Model.Agama, "Religion")
                         </div>
-                        @Html.EditorFor(Model => Model.StatusPerkawinan)
+                        @Html.EditorFor(Model => Model.Agama, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Agama, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.Agama)
+                            @Html.LabelFor(Model => Model.TempatLahir, "Place of Birth")
                         </div>
-                        @Html.EditorFor(Model => Model.Agama)
+                        @Html.EditorFor(Model => Model.TempatLahir, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TempatLahir, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.TempatLahir)
+                            @Html.LabelFor(Model => Model.TanggalLahir, "Date of Birth")
                         </div>
-                        @Html.EditorFor(Model => Model.TempatLahir)
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.TanggalLahir)
-                        </div>
-                        @Html.EditorFor(Model => Model.TanggalLahir)
+                        @Html.EditorFor(Model => Model.TanggalLahir, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     <hr />
                     <h4 style="color:#0094ff">Job Experienced</h4>
@@ -83,7 +88,7 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(model => exp.ExperienceName)</td>
-                                        <td>@Html.ActionLink("Edit", "EditExperience", "Call", new { id = exp.ExperienceId }, new { @class = "btn btn-warning fa fa-edit" })</td>
+                                        <td>@Html.ActionLink("Edit", "EditExperience", "Call", new { id = exp.ExperienceId }, new { @class = "btn btn-warning" })</td>
                                     </tr>
 
 
@@ -92,49 +97,48 @@
                         </table>
 
 
-
-
-                        <div id="listExpereince"></div>
-
                     </div>
 
                     <div>
-                        @Html.ActionLink("Add Experienced", "addExperienced", "Call", new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Add Experience", "addExperienced", "Call", new { @class = "btn btn-primary" })
                     </div>
 
                 </div>
 
                 <div class="col-md-6">
+                    <h4 style="color:#0094ff">Salary</h4>
+                    <hr />
                     <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(Model => Model.Salary)
                         </div>
-                        @Html.EditorFor(Model => Model.Salary)
+                        @Html.EditorFor(Model => Model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.ExpectedSalary)
+                            @Html.LabelFor(Model => Model.ExpectedSalary, "Expected Salary")
                         </div>
-                        @Html.EditorFor(Model => Model.ExpectedSalary)
+                        @Html.EditorFor(Model => Model.ExpectedSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ExpectedSalary, "", new { @class = "text-danger" })
                     </div>
                     <hr />
                     <h4 style="color:#0094ff">Benefit</h4>
 
                     <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.Benefit)
-                        </div>
-                        @Html.TextAreaFor(Model => Model.Benefit)
+                        @*<div class="col-md-3">
+            @Html.LabelFor(Model => Model.Benefit)
+        </div>*@
+                        @Html.TextAreaFor(Model => Model.Benefit, 5, 10, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Benefit, "", new { @class = "text-danger" })
                     </div>
-
                     <hr />
                     <h4 style="color:#0094ff">Caller Notes</h4>
-
                     <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.LabelFor(Model => Model.Catatan)
-                        </div>
-                        @Html.TextAreaFor(Model => Model.Catatan)
+                        @*<div class="col-md-3">
+                                @Html.LabelFor(Model => Model.Catatan)
+                            </div>*@
+                        @Html.TextAreaFor(Model => Model.Catatan, 5, 10, htmlAttributes: new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
@@ -143,13 +147,13 @@
                             @Html.LabelFor(Model => Model.StateId)
                         </div>
                         @*@Html.EditorFor(Model => Model.StateId)*@
-                        @Html.DropDownListFor(Model => Model.StateId, new DropListSource().DropListState(Model))
+                        @Html.DropDownListFor(Model => Model.StateId, new DropListSource().DropListState(Model), htmlAttributes: new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             @Html.LabelFor(Model => Model.AvailableJoin)
                         </div>
-                        @Html.EditorFor(Model => Model.AvailableJoin, new { htmlAttributes = new { @type = "date" } })
+                        @Html.EditorFor(Model => Model.AvailableJoin, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                     </div>
                 </div>
 
@@ -199,7 +203,7 @@
 
                 <div class="col-md-offset-2 col-md-10 text-right">
                     <input type="submit" value="Save" class="btn btn-success" />
-                    @Html.ActionLink("Cancel", "Cancel", "Call", new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Cancel", "Cancel", "Call", new { @class = "btn btn-danger" })
                 </div>
             </div>
 
@@ -210,28 +214,7 @@
 
     </div>
 </body>
-<script type="text/javascript">
-var experienceLoaded = false;
-$(document).ready(function () {
-    if ($('#listExpereince')[0].innerHTML.trim() == "")
-    {
-        $.ajax({
-            url: "@Url.Content("Call/ListExperience")",
-            type: "GET",
-            success: function (response, status, xhr)
-                {
-                    var listExpereince = $('#listExpereince');
-                    listExpereince.html(response);
-                    experienceLoaded = true;
-                },
-            error: function (XMLHttpRequest, textStatus, errorThrown)
-                {
-                    var listExpereince = $('#listExpereince');
-                    listExpereince.html(errorThrown);
-                }
-        });
-   }
- });
+
 
 </script>
 </html>

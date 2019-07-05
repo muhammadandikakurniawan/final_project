@@ -14,7 +14,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>STATE</h4>
+            <a href="~/state" class="btn btn-primary">Back</a>
+            <h2><center>CREATE NEW STATE</center></h2>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @if (TempData["validasi"] != null)
@@ -43,23 +44,21 @@
                 @Html.LabelFor(model => model.FormState.StateNext, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("ddStateNext", Model.StateListItems(), new { htmlAttributes = new { @class = "form-control", @id = "ddStateNext" } })
-                    <button type="button" onclick="addToTxt()">Add</button><br />
+                    <button type="button" onclick="addToTxt()" class="btn-primary">Add</button><br />
                     @Html.EditorFor(model => model.FormState.StateNext, new { htmlAttributes = new { @class = "form-control", @id = "txtStateNext", @readonly = "readonly" } })
-                    <button type="button" onclick="removeTxt()">Remove</button><br />
+                    <button type="button" onclick="removeTxt()" class="btn-danger">Remove</button><br />
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create New State" class="btn btn-success" />
                 </div>
             </div>
         </div>
     }
 
-    <div>
-        <a href="~/state">Back to list</a>
-    </div>
+
 </body>
 </html>
 

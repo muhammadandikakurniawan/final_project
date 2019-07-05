@@ -9,27 +9,27 @@
     List<string> position = (List<string>)TempData.Peek("position");
     List<string> state = (List<string>)TempData.Peek("state");
 }
-
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
 <div class="container">
-    <h2>List Candidate</h2>
+    <h2><center>LIST OF CANDIDATES</center></h2>
     <hr class="bg-blue" />
     <p>
-        @Html.ActionLink(" Add Candidate", "add", "Candidate", null, new { @class = "btn btn-primary fa fa-pencil" })
+        @Html.ActionLink(" Add Candidate", "add", "Candidate", null, new { @class = "btn btn-primary" })
     </p>
     @using (Html.BeginForm("Index", "Candidate", FormMethod.Post))
     {
         <div class="pull-right">
             @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
-            <input id="submit" type="submit" class="btn btn-danger btn-xs" value="Search" />
+            <input id="submit" type="submit" class="btn btn-success btn-xs" value="Search" />
             @Html.DropDownList("searchPosition", new SelectList(position), "", ViewBag.CurrentPosition as string)
             @Html.DropDownList("searchState", new SelectList(state), "", ViewBag.CurrentState as string)
-            <input id="submit" type="submit" class="btn btn-warning btn-xs" value="Filter" />            
+            <input id="submit" type="submit" class="btn btn-default btn-xs" value="Filter" />
         </div>
         <div>
 
         </div>
     }
-    <table class="table table-striped table-responsive" id="candidateTable">
+    <table class="table table-striped table-responsive table-bordered" id="candidateTable">
         <thead>
             <tr>
                 <th>No</th>
@@ -79,8 +79,8 @@
                     @Html.DisplayFor(modelItem => item.CandidateDetails.Catatan)
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "edit", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-warning fa fa-pencil" })
-                    @Html.ActionLink(" ", "getDetails", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-info fa fa-file-o" })
+                    @Html.ActionLink("Edit", "edit", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Details", "getDetails", "Candidate", new { id = item.CandidateDetails.CandidateId }, new { @class = "btn btn-info btn-xs" })
                     @*<i class="fa fa-id"></i><i class="fa fa-id-card"></i>
                         <a onclick="Delete('@item.CandidateDetails.CandidateId')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>*@
                     @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
@@ -93,7 +93,7 @@
 
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter= ViewBag.CurrentFilter, currentPosition = ViewBag.CurrentPosition, currentState = ViewBag.CurrentState }))
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter, currentPosition = ViewBag.CurrentPosition, currentState = ViewBag.CurrentState }))
 </div>
 @section scripts{
     <script>

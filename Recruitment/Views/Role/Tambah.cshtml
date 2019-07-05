@@ -4,7 +4,8 @@
 }
 
 <div class="container">
-    <h3>Halaman Role </h3>
+    <a href="/Role" class="btn btn-primary">Back</a>
+    <h2><center>CREATE NEW ROLE</center></h2>
     <hr />
     <div class="row">
         <div class="col-lg-6">
@@ -21,7 +22,7 @@
                     @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary btn-sm" />
+                    <input type="submit" value="Create New Role" class="btn btn-success" />
                 </div>
             }
         </div>

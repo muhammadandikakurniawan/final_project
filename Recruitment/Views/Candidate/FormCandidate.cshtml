@@ -6,7 +6,8 @@
     List<string> max = (List<string>)TempData.Peek("maxid");
 
 }
-<h3>Add Candidate</h3><strong style="color:darkgoldenrod">Note :</strong><h5 style="color:darkgoldenrod">If you don't have data use (-)</h5>
+<h2><center>ADD NEW CANDIDATE</center></h2><strong style="color:darkgoldenrod">Note :</strong>
+<h5 style="color:darkgoldenrod">If you don't have data use (-)</h5>
 <hr class="bg-blue">
 <div>
 
@@ -103,7 +104,6 @@
                         <div class="form-group">
                             <label for="file">Upload Image:</label>
                             <input type="file" name="CandidateDetails.GambarFile" id="filefoto" accept="image/png, image/jpeg, image/jpg" />
-                            @Html.ValidationMessageFor(c => c.CandidateDetails.GambarFile, null, new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4  col-sm-12">
@@ -159,7 +159,6 @@
                         <div class="form-group">
                             <label for="file">Upload CV:</label>
                             <input type="file" name="CandidateDetails.CvFile" id="CV" accept=".pdf,.docx" />
-                            @Html.ValidationMessageFor(c => c.CandidateDetails.CvFile, null, new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12">
@@ -203,7 +202,7 @@
                         <div class="form-group">
                             @Html.Label("Expected Salary", new { @class = "title control-label" })
 
-                            @Html.TextBoxFor(c => c.CandidateDetails.ExpectedSalary, null, new { @class = "form-control"})
+                            @Html.TextBoxFor(c => c.CandidateDetails.ExpectedSalary, null, new { @class = "form-control", @type = "number" })
                             @Html.ValidationMessageFor(c => c.CandidateDetails.ExpectedSalary, null, new { @class = "text-danger" })
                         </div>
 
@@ -246,13 +245,13 @@
 
                     <label class="col-lg-2 col-md-2 col-sm-12">Start Date</label>
                     <div class="col-lg-4 col-md-4 col-sm-12">
-                        @Html.TextBoxFor(model => model.Education.TahunMasuk, null, new { @class = "form-control", @type = "date" })
+                        @Html.TextBoxFor(model => model.Education.TahunMasuk, null, new { @class = "form-control", @type = "Month" })
                         @Html.ValidationMessageFor(model => model.Education.TahunMasuk, null, new { @class = "text-danger" })
                     </div>
 
                     <label class="col-lg-2 col-md-2 col-sm-12">End Date</label>
                     <div class="col-lg-4 col-md-4 col-sm-12">
-                        @Html.TextBoxFor(model => model.Education.TahunLulus, null, new { @class = "form-control", @type = "date" })
+                        @Html.TextBoxFor(model => model.Education.TahunLulus, null, new { @class = "form-control", @type = "Month" })
                         @Html.ValidationMessageFor(model => model.Education.TahunLulus, null, new { @class = "text-danger" })
                         <br />
 
@@ -299,14 +298,14 @@
                         <div class="form-group">
 
                             <label>Start Date</label>
-                            @Html.EditorFor(model => model.Experience.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.EditorFor(model => model.Experience.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "Month" } })
                             @Html.ValidationMessageFor(model => model.Experience.StartDate, "", new { @class = "text-danger" })
 
                         </div>
 
                         <div class="form-group">
                             <label>End Date</label>
-                            @Html.EditorFor(model => model.Experience.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.EditorFor(model => model.Experience.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "Month" } })
                             @Html.ValidationMessageFor(model => model.Experience.EndDate, "", new { @class = "text-danger" })
 
                         </div>
@@ -340,6 +339,7 @@
         <hr class="bg-blue" />
 
         <br />
+
     }
 
 </div>

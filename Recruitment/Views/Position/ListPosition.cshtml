@@ -3,13 +3,14 @@
 @{
     ViewBag.Title = "ListPosition";
 }
-
-<h2>ListPosition</h2>
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
+<h2><center>LIST POSITION</center></h2>
+    <hr />
 
 <p>
-    @Html.ActionLink("Create New", "AddPosition")
+    @Html.ActionLink("Add New Position", "AddPosition","Position", new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table table-striped table-responsive table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IdPosisi)
@@ -17,7 +18,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Nama)
         </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -29,10 +30,11 @@
             @Html.DisplayFor(modelItem => item.Nama)
         </td>
         <td>
-            @Html.ActionLink("Edit", "editposition", new { id = item.IdPosisi })
-            <form action="/delete/@item.IdPosisi" method="post">
-                <input type="submit" value="X" />
-            </form>
+            @Html.ActionLink("Edit", "editposition", new { id = item.IdPosisi}, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Delete", "DeletePosition", new { id = item.IdPosisi}, new { @class = "btn btn-danger" })
+            @*<form action="/delete/@item.IdPosisi"  method="post">
+                <input type="submit" class="btn btn-danger" value="Delete" />
+            </form>*@
         </td>
     </tr>
 }

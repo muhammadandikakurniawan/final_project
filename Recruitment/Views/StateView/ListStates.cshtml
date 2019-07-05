@@ -6,26 +6,34 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ListStates</title>
+    <link href="~/Content/build/css/table.css" rel="stylesheet" />
 </head>
 <body>
+    <h2><center>LIST STATE</center></h2>
+    <hr />
     <p>
-        <a href="~/state/add">Create New State</a>
+        <a href="~/state/add" class="btn btn-primary">Add New State</a>
     </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StateId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StateName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StateNext)
-            </th>
-            <th></th>
-        </tr>
+    <table class="table table-striped table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StateId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StateName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StateNext)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
 
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.StateId)
@@ -37,8 +45,8 @@
                     @Html.DisplayFor(modelItem => item.StateNext)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditState", new { item.StateId }) |
-                    @Html.ActionLink("Delete", "DeleteState", new { item.StateId })
+                    @Html.ActionLink("Edit", "EditState", new { item.StateId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "DeleteState", new { item.StateId }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

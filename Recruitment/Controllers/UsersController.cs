@@ -162,7 +162,7 @@ namespace Recruitment.Controllers
         }
 
         [Route("{id}/delete")]
-        [HttpPost]
+        //[HttpPost]
         public ActionResult DeleteUser(int id)
         {
             using (RecruitmentEntities recruitment = new RecruitmentEntities())

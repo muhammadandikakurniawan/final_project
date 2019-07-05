@@ -2,52 +2,52 @@
 @{
     ViewBag.Title = "Daftar Sumber";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    
 }
 
 @using Recruitment.Models;
+
 @model Recruitment.Models.Sumber
 
+
 @{List<Sumber> sumbers = (List<Sumber>)TempData.Peek("Sumbers");
- 
 
-<div class="container">
-    <a href="/source/post"><i class="fa fa-plus btn-sm btn-success"> Tambah</i></a>
-    <br />
-    <table id="cart" class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <td>Sumber ID</td>
-                <td>Sumber Nama</td>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var sumber in sumbers)
-            {
+<h2><center>LIST SOURCE</center></h2>
+    <hr />
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
+    <div class="container">
+        <a href="/source/post" class="btn btn-primary"> Add New Source</a>
+        <br />
+        <table id="cart" class="table table-bordered">
+            <thead>
                 <tr>
-
-                    <td>@sumber.SumberId</td>
-                    <td>@sumber.SumberNama</td>
-
-                    <td>
-                        <form action="/source/delete?id=@sumber.SumberId" method="post">
-                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
-                        </form>
-
-                        <a href="/source/put?id=@sumber.SumberId&name=@sumber.SumberNama"><i class="fa fa-pencil btn-sm btn-success"></i></a>
-                        <br />
-
-
-
-                    </td>
+                    <th>Source Id</th>
+                    <th>Source Name</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach (var sumber in sumbers)
+                {
+                    <tr>
 
-    </table>
-    @Html.DropDownListFor(m => m.SumberNama, new SelectList(new List<string>(sumbers.Select(m => m.SumberNama).ToList())))
+                        <td>@sumber.SumberId</td>
+                        <td>@sumber.SumberNama</td>
 
-</div>
+                        <td>
+                            <a href="/source/put?id=@sumber.SumberId&name=@sumber.SumberNama" class="btn btn-warning">Edit</a>
+                            <a href="/source/delete?id=@sumber.SumberId" class="btn btn-danger">Delete</a>
+                            @*<form action="/source/delete?id=@sumber.SumberId" method="post">
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        @*@Html.DropDownListFor(m => m.SumberNama, new SelectList(new List<string>(sumbers.Select(m => m.SumberNama).ToList())))*@
+
+    </div>
 
 }

@@ -3,15 +3,16 @@
 @using Recruitment.Models;
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Call";
+    ViewBag.Title = "Call";
 }
 
-<h2>List Candidate</h2>
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
+<h2>Call Candidate List</h2>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#tabcall">List Candidate</a></li>
+    <li class="active"><a data-toggle="tab" href="#tabcall">List Call Candidate</a></li>
     <li><a href="~/call/called">List Called Candidate</a></li>
 </ul>
 
@@ -23,24 +24,24 @@
             <div class="col-sm-5">
                 @using (Html.BeginForm())
                 {
-    <div class="col-sm-4">
-        Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
-    </div>
-    <div class="col-sm-4">
-        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
-    </div>
-    <div class="col-sm-4">
-        <br />
-        <input type="submit" value="Search" class="btn btn-primary input-sm" />
-    </div>
-}
+                    <div class="col-sm-4">
+                        Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
+                    </div>
+                    <div class="col-sm-4">
+                        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
+                    </div>
+                    <div class="col-sm-4">
+                        <br />
+                        <input type="submit" value="Search" class="btn btn-success input-sm" />
+                    </div>
+                }
             </div>
         </div>
 
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
                 <th>
-                    Name
+                    Full Name
                 </th>
                 <th>
                     Applied Position
@@ -64,77 +65,78 @@
                     Pra Selection Notes
                 </th>
                 <th>
-
+                    Button Action
                 </th>
             </tr>
 
             @foreach (var item in Model)
             {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Position)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Source)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Phone)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PreSelectPIC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.State)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Notes)
-    </td>
-    <td>
-        <button type="button" class="btn btn-primary glyphicon glyphicon-zoom-in input-sm" onclick="showDetail('@item.CandidateId')"></button>
-        @Html.ActionLink("Next", "NextProses", "Call", new { id = item.CandidateId, from = "call" }, new { @class = "btn btn-primary input-sm" })
-    </td>
-</tr>
-<tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
-    <td colspan="9" align="right">
-        <table frame="box">
-            <tr>
-                <td valign="top" style="padding:10px">
-                    <strong>Expected Salary</strong><br />
-                    <input value="@item.ExpectedSalary" readonly="readonly" /><br />
-                    <strong>Available to Join</strong><br />
-                    <input value="@item.AvaliableJoinDate" readonly="readonly" /> <br />
-                    <strong>Benefit</strong><br />
-                    <textarea readonly="readonly">@item.AllBenefits1Line</textarea>
-                </td>
-                <td valign="top" style="padding:10px">
-                    <strong>Skills Set</strong><br />
-                    <ul style="padding-left: 1.2em">
-                        @foreach (string skill in item.AllSkills)
-                        {
-        <li>@skill</li>
-    }
-                    </ul>
-                </td>
-                <td valign="top" style="padding:10px">
-                    <strong>Job Experiences</strong><br />
-                    @foreach (EXPERIENCE exp in item.Experiences)
-                    {
-                        string startYear = (((DateTime)exp.START_DATE).Year).ToString();
-                        string endYear = (((DateTime)exp.END_DATE).Year).ToString();
-                        <textarea readonly="readonly">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
-                    }
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>
-}
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PreSelectPIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info  input-sm" onclick="showDetail('@item.CandidateId')">Details</button>
+                        @Html.ActionLink("Next", "NextProses", "Call", new { id = item.CandidateId, from = "call" }, new { @class = "btn btn-primary input-sm" })
+                    </td>
+                </tr>
+                <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
+                    <td colspan="9" align="right">
+                        <table frame="box">
+                            <tr>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Expected Salary</strong><br />
+                                    <input value="@item.ExpectedSalary" readonly="readonly" /><br />
+                                    <strong>Available to Join</strong><br />
+                                    <input value="@item.AvaliableJoinDate" readonly="readonly" /> <br />
+                                    <strong>Benefit</strong><br />
+                                    <textarea readonly="readonly">@item.AllBenefits1Line</textarea>
+                                </td>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Skills Set</strong><br />
+                                    <ul style="padding-left: 1.2em">
+                                        @foreach (string skill in item.AllSkills)
+                                        {
+                                            <li>@skill</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td valign="top" style="padding:10px">
+                                    <strong>Job Experiences</strong><br />
+                                    @foreach (EXPERIENCE exp in item.Experiences)
+                                    {
+                                        string startYear = (((DateTime)exp.START_DATE).Year).ToString();
+                                        string endYear = (((DateTime)exp.END_DATE).Year).ToString();
+                                        <textarea readonly="readonly">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
+                                        <br />
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
 
         </table>
         <br />

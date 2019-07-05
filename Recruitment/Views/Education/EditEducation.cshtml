@@ -9,64 +9,61 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Update Education</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Update Education</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @Html.TextBoxFor(model => model.EducationId, new  { @type="hidden" })
+        @Html.TextBoxFor(model => model.EducationId, new { @type = "hidden" })
 
-    <label class="col-lg-2 col-md-2 col-sm-12">University / School</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.EditorFor(model => model.EducationName, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.EducationName, "", new { @class = "text-danger" })
+        <label class="col-lg-2 col-md-2 col-sm-12">University / School</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.EditorFor(model => model.EducationName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EducationName, "", new { @class = "text-danger" })
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-sm-12">Major</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
+            <br />
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-sm-12">Degree</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-sm-12">GPA</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.EditorFor(model => model.GPA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GPA, "", new { @class = "text-danger" })
+            <br />
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-sm-12">Start Date</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.TextBoxFor(model => model.TahunMasuk, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+            @Html.ValidationMessageFor(model => model.TahunMasuk, "", new { @class = "text-danger" })
+        </div>
+
+        <label class="col-lg-2 col-md-2 col-sm-12">End Date</label>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            @Html.TextBoxFor(model => model.TahunLulus, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+            @Html.ValidationMessageFor(model => model.TahunLulus, "", new { @class = "text-danger" })
+            <br />
+
+        </div>
     </div>
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Major</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
-        <br />
-    </div>
+   
+        @Html.HiddenFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+       
 
-    <label class="col-lg-2 col-md-2 col-sm-12">Degree</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
-    </div>
-
-    <label class="col-lg-2 col-md-2 col-sm-12">GPA</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.EditorFor(model => model.GPA, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.GPA, "", new { @class = "text-danger" })
-        <br />
-    </div>
-
-    <label class="col-lg-2 col-md-2 col-sm-12">Start Date</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.TextBoxFor(model => model.TahunMasuk, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
-        @Html.ValidationMessageFor(model => model.TahunMasuk, "", new { @class = "text-danger" })
-    </div>
-
-    <label class="col-lg-2 col-md-2 col-sm-12">End Date</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.TextBoxFor(model => model.TahunLulus, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
-        @Html.ValidationMessageFor(model => model.TahunLulus, "", new { @class = "text-danger" })
-        <br />
-
-    </div>
-</div>
-
-    <label class="col-lg-2 col-md-2 col-sm-12">Candidate Id</label>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        @Html.EditorFor(model => model.CandidateId, new { htmlAttributes = new { @class = "form-control", @readonly ="readonly" } })
-        @Html.ValidationMessageFor(model => model.CandidateId, "", new { @class = "text-danger" })
-        <br />
-    </div>
-    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-primary" />
+            <input type="submit" value="Update" class="btn btn-info" />
         </div>
     </div>
 

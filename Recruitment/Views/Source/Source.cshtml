@@ -5,25 +5,39 @@
 }
 
 
-    @model Recruitment.Models.Sumber
-    @using Recruitment.Models;
-<div class="mx-auto" style="width: 300px;">
-    <div class="card border-primary mb-3" style="max-width: 18rem;">
-        <div class="card-header bg-primary border-primary text-white">Tambah</div>
-        <div class="card-body ">
-            @using (Html.BeginForm("Insert", "Source", FormMethod.Post))
-            {<div class="mx-auto" style="width: 200px;">
-                 <div class="form-group">
-                     @Html.LabelFor(m => m.SumberNama, "Sumber Nama ", new { @class = "info-title" })
-                     @Html.EditorFor(m => m.SumberNama, new { @class = "form-control unicase-form-control text-input" })
-                     @Html.ValidationMessageFor(m => m.SumberNama)
-                 </div>
-                    <div class="form-group">
-                        <input class="btn-primary" type="submit" value="Tambah" />
-                    </div>
+@model Recruitment.Models.Sumber
+@using Recruitment.Models;
+
+
+<body>
+    @Html.ActionLink("Back", "getall",new { @id = "tessourceid"}, new { @class = "btn btn-primary" })
+    @using (Html.BeginForm("Insert", "Source", FormMethod.Post))
+    {
+        <h2><center>CREATE NEW SOURCE</center></h2>
+        <hr />
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SumberNama, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SumberNama, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumberNama, "", new { @class = "text-danger" })
                 </div>
-            }
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create New Source" class="btn btn-success" />
+
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
+        
+    }
+
+</body>
+
+
+
+
+
 
