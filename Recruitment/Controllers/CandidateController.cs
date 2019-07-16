@@ -12,6 +12,8 @@ namespace Recruitment.Controllers
 {
     public class CandidateController : Controller
     {
+ 
+        static private List<Dictionary<string, string>> ListItemTransaksi = new List<Dictionary<string, string>>();
         // GET: Candidate
         public ActionResult Index(string searchString, string searchState, string searchPosition, string CurrentFilter, string CurrentPosition, string CurrentState, int? page)
         {
@@ -256,6 +258,34 @@ namespace Recruitment.Controllers
             }
         }
 
+        [ActionName("getSkill")]
+        [HttpGet]
+        public ActionResult getSkill(string id)
+        {
+            using (RecruitmentEntities re = new RecruitmentEntities())
+            {
+                var result = (
+                // instance from context
+                from  CANDIDATE in re.CANDIDATEs
+                    // instance from navigation property
+                from SKILL in CANDIDATE.SKILLs
+                where CANDIDATE.CANDIDATE_ID == id
+                select new Candidate_Skill
+                {
+                    SkillId = SKILL.ID_SKILL,
+                    CandidateId = CANDIDATE.CANDIDATE_ID,
+                    NameSkill = SKILL.SKILL_NAME
+                }).ToList();
+
+                //TempData[] = id;
+                SkillAndList skillList= new SkillAndList();
+                skillList.ListSkill = result;
+                skillList.suram = new Candidate_Skill();
+                ViewBag.id_candidate = id;
+                return View("Skill", skillList);
+            }
+        }
+
         [ActionName("getEducation")]
         [HttpGet]
         public ActionResult EducationList(string id)
@@ -283,10 +313,11 @@ namespace Recruitment.Controllers
 
         [ActionName("Insert")]
         [HttpPost]
-        public ActionResult NewCandidate(CandidateJoin newCandidate)
+        public ActionResult NewCandidate(CandidateJoin newCandidate, int[] cbskill)
         {
             if (ModelState.IsValid)
             {
+
                 if (newCandidate.CandidateDetails.GambarFile != null && newCandidate.CandidateDetails.CvFile != null)
                 {
                     string fileNameFoto = newCandidate.CandidateDetails.NamaLengkap;
@@ -327,7 +358,7 @@ namespace Recruitment.Controllers
                     newCandidate.CandidateDetails.Foto = "~/Images/DEFAULT.png";
                     newCandidate.CandidateDetails.CV = "Cv belum di upload";
                 }
-                
+
                 using (RecruitmentEntities db = new RecruitmentEntities())
                 {
                     CANDIDATE candidate = new CANDIDATE
@@ -352,7 +383,7 @@ namespace Recruitment.Controllers
                         DATETIME_CREATE = DateTime.Now,
                         USER_UPDATE = (string)Session["name"],
                         DATETIME_UPDATE = DateTime.Now,
-                        KODE_POS = newCandidate.CandidateDetails.KodePos,
+                        KODE_POS = newCandidate.CandidateDetails.KodePos.GetValueOrDefault(),
                         EXPECTED_SALARY = newCandidate.CandidateDetails.ExpectedSalary,
                         JUDUL_POSISI = newCandidate.CandidateDetails.JudulPosisi,
                         CATATAN = newCandidate.CandidateDetails.Catatan,
@@ -374,7 +405,7 @@ namespace Recruitment.Controllers
                         TAHUN_LULUS = newCandidate.Education.TahunLulus,
                         CANDIDATE_ID = newCandidate.CandidateDetails.CandidateId
                     };
-                    
+
                     EXPERIENCE experience = new EXPERIENCE
                     {
                         EXPERIENCE_NAME = newCandidate.Experience.ExperienceName,
@@ -389,11 +420,23 @@ namespace Recruitment.Controllers
                         BENEFIT = newCandidate.Experience.Benefit,
                         CANDIDATE_ID = newCandidate.CandidateDetails.CandidateId
                     };
-
                     db.CANDIDATEs.Add(candidate);
                     db.EDUCATIONs.Add(education);
                     db.EXPERIENCEs.Add(experience);
                     db.SaveChanges();
+                    if (cbskill != null)
+                    { 
+                        foreach (int item in cbskill)
+                        {
+                            db.CANDIDATEs.Attach(candidate);
+                            SKILL s = new SKILL { ID_SKILL = item };
+                            db.SKILLs.Add(s);
+                            db.SKILLs.Attach(s);
+                            candidate.SKILLs.Add(s);
+                        }
+                        db.SaveChanges();
+                    }
+                    //AddNewCandidateSkill(cbskill, newCandidate.CandidateDetails.CandidateId, db);
                     TempData["status"] = "Data Berhasil Masuk";
                     return Redirect("~/candidate");
                 }
@@ -434,7 +477,7 @@ namespace Recruitment.Controllers
                     DateTimeCreate = candidate.DATETIME_CREATE,
                     UserUpdate = candidate.USER_UPDATE,
                     DateTimeUpdate = candidate.DATETIME_UPDATE,
-                    KodePos = candidate.KODE_POS,
+                    KodePos = candidate.KODE_POS, 
                     ExpectedSalary = candidate.EXPECTED_SALARY,
                     JudulPosisi = candidate.JUDUL_POSISI,
                     Catatan = candidate.CATATAN,
@@ -511,7 +554,7 @@ namespace Recruitment.Controllers
                         DATETIME_CREATE = temp.DateTimeCreate,
                         USER_UPDATE = (string)Session["name"],
                         DATETIME_UPDATE = DateTime.Now,
-                        KODE_POS = edittedCandidate.KodePos,
+                        KODE_POS = edittedCandidate.KodePos.GetValueOrDefault(),
                         EXPECTED_SALARY = edittedCandidate.ExpectedSalary,
                         JUDUL_POSISI = edittedCandidate.JudulPosisi,
                         CATATAN = edittedCandidate.Catatan,
@@ -615,5 +658,135 @@ namespace Recruitment.Controllers
             }
         }
 
+        public ActionResult AddItem(SkillModels skill)
+        {
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                Dictionary<string, string> detailTransaksi = new Dictionary<string, string>();
+                string name = db.SKILLs.Where(x => x.ID_SKILL == skill.SkillId).Select(x => x.SKILL_NAME).FirstOrDefault();
+                if (ListItemTransaksi.Count > 0)
+                {
+                    var i = ListItemTransaksi.Find(x => x.ContainsValue(skill.SkillId.ToString()));
+                    if (i == null)
+                    {
+                        detailTransaksi.Add("id_skill", skill.SkillId.ToString());
+                        detailTransaksi.Add("nama_skill", name);
+                        ListItemTransaksi.Add(detailTransaksi);
+                    }
+                    else if (i.Count != 2)
+                    {
+                        detailTransaksi.Add("id_skill", skill.SkillId.ToString());
+                        detailTransaksi.Add("nama_skill", name);
+                        ListItemTransaksi.Add(detailTransaksi);
+                    }
+                    else
+                    {
+                        TempData["status"] = "Skill Sudah Ada";
+                    }
+                }
+                else
+                {
+                    detailTransaksi.Add("id_skill", skill.SkillId.ToString());
+                    detailTransaksi.Add("nama_skill", name);
+                    ListItemTransaksi.Add(detailTransaksi);
+                }
+               
+               
+                TempData["listTransaksi"] = ListItemTransaksi;
+                TempData.Keep();
+           
+            return Redirect("~/Candidate/Add");
+            }
+        }
+
+        public ActionResult InsertCandidateSkill(SkillAndList skill, string id_candidate)
+        {
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                var cek_mas_bro = (from CANDIDATE in db.CANDIDATEs
+                              from SKILL in CANDIDATE.SKILLs
+                              where CANDIDATE.CANDIDATE_ID == id_candidate && SKILL.ID_SKILL == skill.suram.SkillId
+                              select new Candidate_Skill
+                              {
+                                SkillId = SKILL.ID_SKILL,
+                                CandidateId = CANDIDATE.CANDIDATE_ID,
+                                NameSkill = SKILL.SKILL_NAME
+                              }).Count();
+                if (cek_mas_bro == 0)
+                {
+                    CANDIDATE c = new CANDIDATE { CANDIDATE_ID = id_candidate };
+                    db.CANDIDATEs.Add(c);
+                    db.CANDIDATEs.Attach(c);
+                    SKILL s = new SKILL { ID_SKILL = skill.suram.SkillId };
+                    db.SKILLs.Add(s);
+                    db.SKILLs.Attach(s);
+                    c.SKILLs.Add(s);
+
+                    db.SaveChanges();
+                    TempData["status"] = "Data Berhasil Di Tambah";
+                }
+                else
+                {
+                    TempData["status"] = "Data Sudah ada!";
+                }
+                return Redirect("~/Candidate/getDetails/" + id_candidate);
+            }
+        }
+
+        [Route("DeleteSkill/{SkillId}/{CandidateId}")]
+        public ActionResult DeleteSkill(int SkillId, string CandidateId)
+        {
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                var product = db.CANDIDATEs.FirstOrDefault(p => p.CANDIDATE_ID == CandidateId);
+                var supplier = db.SKILLs.FirstOrDefault(s => s.ID_SKILL == SkillId);
+
+                product.SKILLs.Remove(supplier);
+
+                db.SaveChanges();
+                TempData["status"] = "Data Berhasil Di Hapus";
+
+                return Redirect("~/Candidate/getDetails/" + CandidateId);
+            }
+        }
+
+        [Route("RemoveItem/{id_skill}")]
+        public ActionResult RemoveItem(int id_skill)
+        {
+            using (RecruitmentEntities db = new RecruitmentEntities())
+            {
+                ListItemTransaksi.RemoveAt(id_skill);
+                TempData["listTransaksi"] = ListItemTransaksi;
+                TempData.Keep();
+
+                return Redirect("~/Candidate/Add");
+            }
+        }
+
+        private void AddNewCandidateSkill(int[] cbskill, string candidateid , RecruitmentEntities db)
+        {
+            try
+            {
+                if (cbskill != null)
+                {
+                    foreach (int item in cbskill)
+                    {
+                        CANDIDATE c = new CANDIDATE { CANDIDATE_ID = candidateid };
+                        db.CANDIDATEs.Add(c);
+                        db.CANDIDATEs.Attach(c);
+                        SKILL s = new SKILL { ID_SKILL = item };
+                        db.SKILLs.Add(s);
+                        db.SKILLs.Attach(s);
+                        c.SKILLs.Add(s);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+           
+            }
+
+        }
     }
 }

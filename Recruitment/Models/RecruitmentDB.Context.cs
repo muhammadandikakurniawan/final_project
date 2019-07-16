@@ -34,5 +34,6 @@ namespace Recruitment.Models
         public virtual DbSet<SOURCE> SOURCEs { get; set; }
         public virtual DbSet<STATE> STATEs { get; set; }
         public virtual DbSet<USER> USERs { get; set; }
+        public virtual DbSet<SKILL> SKILLs { get; set; }
     }
 }

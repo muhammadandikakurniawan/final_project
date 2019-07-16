@@ -100,7 +100,7 @@
                 <div class="form-group">
                     @Html.Label("ID Card Number", new { @class = "title control-label" })
 
-                    @Html.TextBoxFor(c => c.NoKTP, null, new { @class = "form-control", @type = "number" })
+                    @Html.TextBoxFor(c => c.NoKTP, null, new { @class = "form-control", @type = "number", @required = "required" })
                     @Html.ValidationMessageFor(c => c.NoKTP, null, new { @class = "text-danger" })
 
                 </div>

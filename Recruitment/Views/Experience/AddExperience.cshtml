@@ -15,29 +15,28 @@
                 @Html.Label("Company Name", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.ExperienceName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(c => c.ExperienceName,null, new { @class = "text-danger" })
+                @Html.ValidationMessageFor(c => c.ExperienceName, null, new { @class = "text-danger" })
 
             </div>
             <div class="form-group">
                 @Html.Label("Industi", new { @class = "title control-label" })
 
                 @Html.TextBoxFor(c => c.Industri, new { @class = "form-control" })
-                @Html.ValidationMessageFor(c => c.Industri,null, new { @class = "text-danger" })
+                @Html.ValidationMessageFor(c => c.Industri, null, new { @class = "text-danger" })
 
             </div>
 
             <div class="form-group">
                 @Html.Label("Start Date", new { @class = "title control-label" })
 
-                @Html.TextBoxFor(c => c.StartDate, new { @class = "form-control", @type = "date" })
+                @Html.TextBoxFor(c => c.StartDate, new { @class = "form-control", @type = "Month" })
                 @Html.ValidationMessageFor(c => c.StartDate, null, new { @class = "text-danger" })
             </div>
-
 
             <div class="form-group">
                 @Html.Label("End Date", new { @class = "title control-label" })
 
-                @Html.TextBoxFor(c => c.EndDate, new { @class = "form-control", @type = "date" })
+                @Html.TextBoxFor(c => c.EndDate, new { @class = "form-control", @type = "Month" })
                 @Html.ValidationMessageFor(c => c.EndDate, null, new { @class = "text-danger" })
             </div>
 

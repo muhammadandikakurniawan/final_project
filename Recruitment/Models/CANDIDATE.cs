@@ -14,6 +14,12 @@ namespace Recruitment.Models
     
     public partial class CANDIDATE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CANDIDATE()
+        {
+            this.SKILLs = new HashSet<SKILL>();
+        }
+    
         public string CANDIDATE_ID { get; set; }
         public string NAMA_LENGKAP { get; set; }
         public string NAMA_PANGGILAN { get; set; }
@@ -44,5 +50,8 @@ namespace Recruitment.Models
         public string NPWP { get; set; }
         public string CV { get; set; }
         public Nullable<System.DateTime> AVAIABLE_JOIN { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SKILL> SKILLs { get; set; }
     }
 }

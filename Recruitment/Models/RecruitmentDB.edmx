@@ -40,6 +40,14 @@
           <Property Name="CV" Type="varchar" MaxLength="255" />
           <Property Name="AVAIABLE_JOIN" Type="date" />
         </EntityType>
+        <EntityType Name="CANDIDATE_SKILL">
+          <Key>
+            <PropertyRef Name="CANDIDATE_ID" />
+            <PropertyRef Name="ID_SKILL" />
+          </Key>
+          <Property Name="CANDIDATE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID_SKILL" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="EDUCATION">
           <Key>
             <PropertyRef Name="EDUCATION_ID" />
@@ -94,6 +102,13 @@
           <Property Name="ROLE_ID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ROLE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="SKILL">
+          <Key>
+            <PropertyRef Name="ID_SKILL" />
+          </Key>
+          <Property Name="ID_SKILL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKILL_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="SOURCE">
           <Key>
             <PropertyRef Name="SOURCE_ID" />
@@ -119,6 +134,30 @@
           <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
           <Property Name="ROLE_ID" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK__CANDIDATE__CANDI__245D67DE">
+          <End Role="CANDIDATE" Type="Self.CANDIDATE" Multiplicity="1" />
+          <End Role="CANDIDATE_SKILL" Type="Self.CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CANDIDATE">
+              <PropertyRef Name="CANDIDATE_ID" />
+            </Principal>
+            <Dependent Role="CANDIDATE_SKILL">
+              <PropertyRef Name="CANDIDATE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CANDIDATE__ID_SK__25518C17">
+          <End Role="SKILL" Type="Self.SKILL" Multiplicity="1" />
+          <End Role="CANDIDATE_SKILL" Type="Self.CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKILL">
+              <PropertyRef Name="ID_SKILL" />
+            </Principal>
+            <Dependent Role="CANDIDATE_SKILL">
+              <PropertyRef Name="ID_SKILL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_USER_USER">
           <End Role="ROLE" Type="Self.ROLE" Multiplicity="0..1" />
           <End Role="USER" Type="Self.USER" Multiplicity="*" />
@@ -133,14 +172,24 @@
         </Association>
         <EntityContainer Name="RecruitmentModelStoreContainer">
           <EntitySet Name="CANDIDATE" EntityType="Self.CANDIDATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CANDIDATE_SKILL" EntityType="Self.CANDIDATE_SKILL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EDUCATION" EntityType="Self.EDUCATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EXPERIENCE" EntityType="Self.EXPERIENCE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="POSITION" EntityType="Self.POSITION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SKILL" EntityType="Self.SKILL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SOURCE" EntityType="Self.SOURCE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STATE" EntityType="Self.STATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CANDIDATE__CANDI__245D67DE" Association="Self.FK__CANDIDATE__CANDI__245D67DE">
+            <End Role="CANDIDATE" EntitySet="CANDIDATE" />
+            <End Role="CANDIDATE_SKILL" EntitySet="CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CANDIDATE__ID_SK__25518C17" Association="Self.FK__CANDIDATE__ID_SK__25518C17">
+            <End Role="SKILL" EntitySet="SKILL" />
+            <End Role="CANDIDATE_SKILL" EntitySet="CANDIDATE_SKILL" />
+          </AssociationSet>
           <AssociationSet Name="FK_USER_USER" Association="Self.FK_USER_USER">
             <End Role="ROLE" EntitySet="ROLE" />
             <End Role="USER" EntitySet="USER" />
@@ -184,6 +233,7 @@
           <Property Name="NPWP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CV" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AVAIABLE_JOIN" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="SKILLs" Relationship="RecruitmentModel.CANDIDATE_SKILL" FromRole="CANDIDATE" ToRole="SKILL" />
         </EntityType>
         <EntityType Name="EDUCATION">
           <Key>
@@ -292,7 +342,24 @@
             <End Role="ROLE" EntitySet="ROLEs" />
             <End Role="USER" EntitySet="USERs" />
           </AssociationSet>
+          <EntitySet Name="SKILLs" EntityType="RecruitmentModel.SKILL" />
+          <AssociationSet Name="CANDIDATE_SKILL" Association="RecruitmentModel.CANDIDATE_SKILL">
+            <End Role="CANDIDATE" EntitySet="CANDIDATEs" />
+            <End Role="SKILL" EntitySet="SKILLs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="SKILL">
+          <Key>
+            <PropertyRef Name="ID_SKILL" />
+          </Key>
+          <Property Name="ID_SKILL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKILL_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CANDIDATEs" Relationship="RecruitmentModel.CANDIDATE_SKILL" FromRole="SKILL" ToRole="CANDIDATE" />
+        </EntityType>
+        <Association Name="CANDIDATE_SKILL">
+          <End Type="RecruitmentModel.CANDIDATE" Role="CANDIDATE" Multiplicity="*" />
+          <End Type="RecruitmentModel.SKILL" Role="SKILL" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -422,7 +489,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="SKILLs">
+            <EntityTypeMapping TypeName="RecruitmentModel.SKILL">
+              <MappingFragment StoreEntitySet="SKILL">
+                <ScalarProperty Name="SKILL_NAME" ColumnName="SKILL_NAME" />
+                <ScalarProperty Name="ID_SKILL" ColumnName="ID_SKILL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CANDIDATE_SKILL" TypeName="RecruitmentModel.CANDIDATE_SKILL" StoreEntitySet="CANDIDATE_SKILL">
+            <EndProperty Name="SKILL">
+              <ScalarProperty Name="ID_SKILL" ColumnName="ID_SKILL" />
+            </EndProperty>
+            <EndProperty Name="CANDIDATE">
+              <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

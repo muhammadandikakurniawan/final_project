@@ -65,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -152,6 +153,7 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\ExperienceController.cs" />
+    <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="Models\AddCandidateDTO.cs" />
     <Compile Include="Models\AllowExtensionsAttribute.cs" />
     <Compile Include="Models\CallModelProses.cs" />
@@ -174,6 +176,7 @@
     </Compile>
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="Models\CandidateDTO.cs" />
+    <Compile Include="Models\Candidate_Skill.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DropListSource.cs" />
     <Compile Include="Models\EDUCATION.cs">
@@ -211,11 +214,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RecruitmentDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecruitmentEntities.cs" />
     <Compile Include="Models\ResetViewModel.cs" />
     <Compile Include="Models\ROLE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoleModels.cs" />
+    <Compile Include="Models\SKILL.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SkillAndList.cs" />
+    <Compile Include="Models\SkillModels.cs" />
     <Compile Include="Models\SOURCE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -4728,6 +4737,7 @@
     <Content Include="Models\RecruitmentDB.edmx.diagram">
       <DependentUpon>RecruitmentDB.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -4797,6 +4807,10 @@
     <Content Include="Views\Home\HomeRecruitment.cshtml" />
     <Content Include="Views\Candidate\Test.cshtml" />
     <Content Include="Views\Call\EditExperience.cshtml" />
+    <Content Include="Views\Skill\index.cshtml" />
+    <Content Include="Views\Skill\Tambah.cshtml" />
+    <Content Include="Views\Skill\Edit.cshtml" />
+    <Content Include="Views\Candidate\Skill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

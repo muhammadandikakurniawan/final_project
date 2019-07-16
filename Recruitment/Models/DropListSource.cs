@@ -19,7 +19,7 @@ namespace Recruitment.Models
                 SumberId = m.SOURCE_ID,
                 SumberNama = m.SOURCE_NAME
             }).ToList();
-            result.Add(new SelectListItem { Text = "None", Value = null });
+            //result.Add(new SelectListItem { Text = "None", Value = null });
             try
             {
                 foreach (Sumber sumber in sumbers)
@@ -44,7 +44,7 @@ namespace Recruitment.Models
                 IdPosisi = m.POSITION_ID,
                 Nama = m.POSITION_NAME
             }).ToList();
-            result.Add(new SelectListItem { Text = "None", Value = null });
+            //result.Add(new SelectListItem { Text = "None", Value = null });
             try
             {
                 foreach (PositionPoco posisi in positions)
@@ -96,6 +96,11 @@ namespace Recruitment.Models
                 try
                 {
                     stateNext = RE.STATEs.Find(candidate.StateId).STATE_NEXT.Split(',').ToList();
+                    if (stateNext[0] == "ST003")
+                    {
+                        stateNext.RemoveAt(0);
+                        stateNext.Add("ST002");
+                    }
                 }
                 catch (NullReferenceException)
                 {
@@ -170,6 +175,31 @@ namespace Recruitment.Models
                 foreach (RoleModels role in roles)
                 {
                     result.Add(new SelectListItem { Text = role.RoleId + " (" + role.RoleName + ")", Value = role.RoleId });
+                }
+            }
+            catch (NullReferenceException e)
+            {
+
+            }
+
+            return result;
+        }
+
+        public List<SelectListItem> DropListSkill()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            RecruitmentEntities db = new RecruitmentEntities();
+            List<SkillModels> skills = db.SKILLs.Select(m => new SkillModels
+            {
+                SkillId = m.ID_SKILL,
+                SkillName = m.SKILL_NAME
+            }).ToList();
+            //result.Add(new SelectListItem { Text = "None", Value = null });
+            try
+            {
+                foreach (SkillModels skill in skills)
+                {
+                    result.Add(new SelectListItem { Text = skill.SkillName, Value = skill.SkillId.ToString() });
                 }
             }
             catch (NullReferenceException e)

@@ -77,7 +77,7 @@ namespace Recruitment.Controllers
                     candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
                 }
             }
-
+           
             return View("ListCall", pagedCandidate);
         }
 
@@ -117,12 +117,12 @@ namespace Recruitment.Controllers
                                                    c.PreSelectPIC.ToUpper().Contains(searchString.ToUpper()) ||
                                                    c.Notes.ToUpper().Contains(searchString.ToUpper())
 
-                ).ToList();
+                ).OrderByDescending(c => c.Email).ToList();
             }
 
             if (!String.IsNullOrEmpty(filterPosition))
             {
-                candidates = candidates.Where(c => c.Position.ToUpper().Equals(filterPosition.ToUpper())).ToList();
+                candidates = candidates.Where(c => c.Position.ToUpper().Equals(filterPosition.ToUpper())).OrderByDescending(c => c.Email).ToList();
             }
 
             //PAGING
@@ -224,7 +224,7 @@ namespace Recruitment.Controllers
                                   Notes = c.CATATAN,
                                   ExpectedSalary = c.EXPECTED_SALARY,
                                   AvailableJoin = (DateTime)c.AVAIABLE_JOIN
-                              }).ToList();
+                              }).OrderByDescending(c => c.AvailableJoin).ToList();
 
                 //Insert each row of EXPERIENCE into List<EXPERIENCE>
                 //Needed for popup function
@@ -461,7 +461,7 @@ namespace Recruitment.Controllers
                 };
                 RE.Entry(EditExperience).State = EntityState.Modified;
                 RE.SaveChanges();
-                return Redirect("/Call/NextProses/" + id);
+                return Redirect("~/Call/NextProses/" + id);
             }
         }
         #endregion
@@ -495,7 +495,7 @@ namespace Recruitment.Controllers
                 };
                 RE.EXPERIENCEs.Add(addexperience);
                 RE.SaveChanges();
-                return Redirect("/Call/NextProses/" + id);
+                return Redirect("~/Call/NextProses/" + id);
             }
         }
         #endregion
@@ -545,6 +545,9 @@ namespace Recruitment.Controllers
         //}
 
 
+
         #endregion
+
+
     }
 }

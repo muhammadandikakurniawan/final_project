@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Recruitment.Models.SkillModels>
+
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/build/css/table.css" rel="stylesheet" />
+<h2><center>LIST SKILL</center></h2>
+<hr />
+<p>
+    @Html.ActionLink("Add New Skill", "Tambah", "Skill", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-responsive table-bordered">
+    <thead>
+        <tr>
+            <th>No</th>
+            @*<th>
+                Skill Id
+            </th>*@
+            <th>
+                Skill Name
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @{ int i = 1; }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@i</td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.SkillId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Skill", new { id = item.SkillId }, new { @class = "btn btn-warning" })
+                <a onclick="Delete('@item.SkillId')" class="btn btn-danger">Delete</a>
+                @*@Html.ActionLink(" Delete", "Delete", new { id = item.RoleId }, new { onclick = "return confirm('Yakin ingin Hapus Data?')", @class = "btn btn-danger fa fa-trash" })*@
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var status = '@TempData["status"]'
+            if (status != '') {
+                alertify.success(status);
+            }
+        });
+
+        function Delete(id) {
+            alertify.confirm('Confirmation Delete Skill', 'Delete Data?', function () {
+                //alertify.success('Ok')
+                window.location.href = '@Url.Action("Delete", "Skill")/' + id;
+            }, null);
+        }
+    </script>
+}

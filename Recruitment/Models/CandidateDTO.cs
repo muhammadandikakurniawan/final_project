@@ -130,8 +130,8 @@ namespace Recruitment.Models
         }
 
         //[Required(ErrorMessage = "Zip Code Is Required")]
-        [RegularExpression("-|[0-9]{5}", ErrorMessage = "Zip Code 5 Char")]
-        public int KodePos
+        [RegularExpression(".*|[0-9]{5}", ErrorMessage = "Zip Code 5 Char")]
+        public int? KodePos
         {
             get; set;
         }

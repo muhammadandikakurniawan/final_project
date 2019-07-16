@@ -16,7 +16,7 @@
     <hr />
 <link href="~/Content/build/css/table.css" rel="stylesheet" />
     <div class="container">
-        <a href="/source/post" class="btn btn-primary"> Add New Source</a>
+        <a href="~/source/post" class="btn btn-primary"> Add New Source</a>
         <br />
         <table id="cart" class="table table-bordered">
             <thead>
@@ -35,8 +35,8 @@
                         <td>@sumber.SumberNama</td>
 
                         <td>
-                            <a href="/source/put?id=@sumber.SumberId&name=@sumber.SumberNama" class="btn btn-warning">Edit</a>
-                            <a href="/source/delete?id=@sumber.SumberId" class="btn btn-danger">Delete</a>
+                            <a href="~/source/put?id=@sumber.SumberId&name=@sumber.SumberNama" class="btn btn-warning">Edit</a>
+                            <a href="~/source/delete?id=@sumber.SumberId" class="btn btn-danger">Delete</a>
                             @*<form action="/source/delete?id=@sumber.SumberId" method="post">
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>*@

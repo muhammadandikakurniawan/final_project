@@ -35,7 +35,7 @@
             <div class="form-group">
                 @Html.Label("Start Date", new { @class = "title control-label" })
 
-                @Html.TextBoxFor(c => c.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                @Html.TextBoxFor(c => c.StartDate, "{0:yyyy-MM}", new { @class = "form-control", @type = "Month" })
                 @Html.ValidationMessageFor(c => c.StartDate, null, new { @class = "text-danger" })
             </div>
 
@@ -43,7 +43,7 @@
             <div class="form-group">
                 @Html.Label("End Date", new { @class = "title control-label" })
 
-                @Html.TextBoxFor(c => c.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                @Html.TextBoxFor(c => c.EndDate, "{0:yyyy-MM}", new { @class = "form-control", @type = "Month" })
                 @Html.ValidationMessageFor(c => c.EndDate, null, new { @class = "text-danger" })
             </div>
 

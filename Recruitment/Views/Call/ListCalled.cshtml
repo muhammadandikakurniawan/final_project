@@ -56,6 +56,9 @@
                     Email
                 </th>
                 <th>
+                    Date
+                </th>
+                <th>
                     Pra Selection PIC
                 </th>
                 <th>
@@ -88,6 +91,9 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.AvaliableJoinDate)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.PreSelectPIC)
                     </td>
                     <td>
@@ -98,10 +104,84 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "NextProses", "Call", new { id = item.CandidateId, from = "call/called" }, new { @class = "btn btn-warning input-sm" })
-                        <button type="button" class="btn btn-info input-sm" onclick="showDetail('@item.CandidateId')">Details</button>
+                        @*<button type="button" class="btn btn-info input-sm" onclick="showDetail('@item.CandidateId')">Details</button>*@
+                        <button type="button" class="btn btn-info  input-sm" data-toggle="modal" data-target="#ModalDet_@item.CandidateId">Details</button>
                         @Html.ActionLink("Email", "FormEmail", "Call", new { id = item.CandidateId }, new { @class = "btn btn-default input-sm" })
                     </td>
                 </tr>
+
+                <div class="modal fade" id="ModalDet_@item.CandidateId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title text-center"><b>Details</b></h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Expected Salary</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" value="@item.ExpectedSalary" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Available to Join</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail2" value="@item.AvaliableJoinDate" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Benefit</label>
+                                    <textarea class="form-control" rows="3" readonly="readonly">@item.AllBenefits1Line</textarea>
+                                </div>
+
+                                <strong>Skills Set</strong><br />
+                                <ul style="padding-left: 1.2em">
+                                    @{
+                                        using (RecruitmentEntities db = new RecruitmentEntities())
+                                        {
+                                            var result = (
+                                            from CANDIDATE in db.CANDIDATEs
+                                            from SKILL in CANDIDATE.SKILLs
+                                            where CANDIDATE.CANDIDATE_ID == item.CandidateId
+                                            select new Candidate_Skill
+                                            {
+                                                SkillId = SKILL.ID_SKILL,
+                                                CandidateId = CANDIDATE.CANDIDATE_ID,
+                                                NameSkill = SKILL.SKILL_NAME
+                                            }).ToList();
+
+                                            if (result.Count() != 0)
+                                            {
+                                                foreach (var s in result)
+                                                {
+                                                    <li>@s.NameSkill</li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li><font color="red">Tidak Memiliki Skill</font></li>
+                                            }
+
+                                        }
+                                    }
+                                </ul>
+                                <label>Job Experiences</label>
+                                <div class="form-group">
+                                    @foreach (EXPERIENCE exp in item.Experiences)
+                                    {
+                                        string startYear = (((DateTime)exp.START_DATE).Year).ToString();
+                                        string endYear = (((DateTime)exp.END_DATE).Year).ToString();
+                                        <textarea readonly="readonly" class="form-control" rows="3">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
+
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
                     <td colspan="9" align="right">
                         <table frame="box">

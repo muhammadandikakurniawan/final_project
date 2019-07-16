@@ -21,6 +21,7 @@ namespace Recruitment.Models
         int expectedSalary;
         DateTime availableJoin;
         List<EXPERIENCE> experiences;
+        List<CANDIDATE> candidate;
 
         public string CandidateId { get => candidateId; set => candidateId = value; }
         public string Name { get => name; set => name = value; }

@@ -15,6 +15,8 @@
         <EntityTypeShape EntityType="RecruitmentModel.STATE" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentModel.USER" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="RecruitmentModel.FK_USER_USER" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecruitmentModel.SKILL" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="RecruitmentModel.CANDIDATE_SKILL" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

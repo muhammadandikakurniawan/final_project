@@ -56,6 +56,9 @@
                     Email
                 </th>
                 <th>
+                    Date
+                </th>
+                <th>
                     Pra Selection PIC
                 </th>
                 <th>
@@ -71,36 +74,121 @@
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Position)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Source)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PreSelectPIC)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.State)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Notes)
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-info  input-sm" onclick="showDetail('@item.CandidateId')">Details</button>
-                        @Html.ActionLink("Next", "NextProses", "Call", new { id = item.CandidateId, from = "call" }, new { @class = "btn btn-primary input-sm" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Source)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvaliableJoinDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PreSelectPIC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @*<button type="button" class="btn btn-info  input-sm" onclick="showDetail('@item.CandidateId')" data-toggle="modal" data-target="#Modalclient'@item.CandidateId">Details</button>*@
+                    <button type="button" class="btn btn-info  input-sm" data-toggle="modal" data-target="#Modalclient_@item.CandidateId">Details</button>
+                    @Html.ActionLink("Next", "NextProses", "Call", new { id = item.CandidateId, from = "call" }, new { @class = "btn btn-primary input-sm" })
+                </td>
+            </tr>
+
+                <div class="modal fade" id="Modalclient_@item.CandidateId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title text-center"><b>Details</b></h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Expected Salary</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" value="@item.ExpectedSalary" readonly="readonly">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Available to Join</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail2" value="@item.AvaliableJoinDate" readonly="readonly">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail3">Benefit</label>
+                                    <textarea class="form-control" rows="3" readonly="readonly">@item.AllBenefits1Line</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail4">Email</label>
+                                    <textarea class="form-control" rows="3" readonly="readonly">@item.Email</textarea>
+                                </div>
+
+                                <strong>Skills Set</strong><br />
+                                    <ul style="padding-left: 1.2em">
+                                        @{
+                                            using (RecruitmentEntities db = new RecruitmentEntities())
+                                            {
+                                                var result = (
+                                                from CANDIDATE in db.CANDIDATEs
+                                                from SKILL in CANDIDATE.SKILLs
+                                                where CANDIDATE.CANDIDATE_ID == item.CandidateId
+                                                select new Candidate_Skill
+                                                {
+                                                    SkillId = SKILL.ID_SKILL,
+                                                    CandidateId = CANDIDATE.CANDIDATE_ID,
+                                                    NameSkill = SKILL.SKILL_NAME
+                                                }).ToList();
+
+                                                if (result.Count() != 0)
+                                                {
+                                                    foreach (var s in result)
+                                                    {
+                                                        <li>@s.NameSkill</li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li><font color="red">Tidak Memiliki Skill</font></li>
+                                                }
+
+                                            }
+                                        }
+                                    </ul>
+
+                                <label>Job Experiences</label>
+                                <div class="form-group">
+                                    @foreach (EXPERIENCE exp in item.Experiences)
+                                    {
+                                        string startYear = (((DateTime)exp.START_DATE).Year).ToString();
+                                        string endYear = (((DateTime)exp.END_DATE).Year).ToString();
+                                        <textarea readonly="readonly" class="form-control" rows="3">@exp.EXPERIENCE_NAME &#10;As @exp.POSISI &#10;@startYear until @endYear </textarea><br />
+
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
                     <td colspan="9" align="right">
                         <table frame="box">
@@ -115,13 +203,30 @@
                                 </td>
                                 <td valign="top" style="padding:10px">
                                     <strong>Skills Set</strong><br />
-                                    <ul style="padding-left: 1.2em">
-                                        @foreach (string skill in item.AllSkills)
-                                        {
-                                            <li>@skill</li>
-                                        }
-                                    </ul>
+                                        <ul style="padding-left: 1.2em">
+                                            @{
+                                                using (RecruitmentEntities db = new RecruitmentEntities())
+                                                {
+                                                    var result = (
+                                                    from CANDIDATE in db.CANDIDATEs
+                                                    from SKILL in CANDIDATE.SKILLs
+                                                    where CANDIDATE.CANDIDATE_ID == item.CandidateId
+                                                    select new Candidate_Skill
+                                                    {
+                                                        SkillId = SKILL.ID_SKILL,
+                                                        CandidateId = CANDIDATE.CANDIDATE_ID,
+                                                        NameSkill = SKILL.SKILL_NAME
+                                                    }).ToList();
+
+                                                    foreach (var s in result)
+                                                    {
+                                                        <li>@s.NameSkill</li>
+                                                    }
+                                                }
+                                            }
+                                        </ul>
                                 </td>
+
                                 <td valign="top" style="padding:10px">
                                     <strong>Job Experiences</strong><br />
                                     @foreach (EXPERIENCE exp in item.Experiences)
@@ -132,7 +237,7 @@
                                         <br />
                                     }
                                 </td>
-                            </tr>
+</tr>
                         </table>
                     </td>
                 </tr>
