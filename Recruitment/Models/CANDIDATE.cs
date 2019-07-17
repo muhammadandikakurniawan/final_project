@@ -57,5 +57,6 @@ namespace Recruitment.Models
         public virtual ICollection<SELECTION_HISTORY> SELECTION_HISTORY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SKILL> SKILLs { get; set; }
+        public virtual POSITION POSITION { get; set; }
     }
 }

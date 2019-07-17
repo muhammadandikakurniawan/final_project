@@ -1,0 +1,14 @@
+﻿@*@model IEnumerable<Recruitment.Models.MenuModels>*@
+
+<ul class="nav side-menu">
+
+    @if (Session["menu"] != null)
+    {
+        var menus = (List<Recruitment.Models.MenuModels>)Session["menu"];
+
+        foreach (var menu in menus)
+        {
+            <li>@Html.ActionLink(menu.MenuName, menu.Action, menu.Controller)</li>
+        }
+    }
+</ul>

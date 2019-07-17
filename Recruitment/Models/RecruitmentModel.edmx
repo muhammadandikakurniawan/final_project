@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RecruitmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RecruitmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CANDIDATE">
           <Key>
             <PropertyRef Name="CANDIDATE_ID" />
@@ -39,7 +39,7 @@
           <Property Name="NPWP" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="CV" Type="varchar" MaxLength="255" />
           <Property Name="AVAIABLE_JOIN" Type="date" />
-          <Property Name="SUITABLE_POSITION" Type="varchar" MaxLength="50" />
+          <Property Name="SUITABLE_POSITION" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="CANDIDATE_SKILL">
           <Key>
@@ -111,6 +111,7 @@
           <Property Name="PIC_ID" Type="int" />
           <Property Name="CANDIDATE_ID" Type="varchar" MaxLength="20" />
           <Property Name="HISTORY_TIME" Type="datetime" />
+          <Property Name="STATE_ID" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="SKILL">
           <Key>
@@ -180,6 +181,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CANDIDATE_CANDIDATE">
+          <End Role="POSITION" Type="Self.POSITION" Multiplicity="0..1" />
+          <End Role="CANDIDATE" Type="Self.CANDIDATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSITION">
+              <PropertyRef Name="POSITION_ID" />
+            </Principal>
+            <Dependent Role="CANDIDATE">
+              <PropertyRef Name="SUITABLE_POSITION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SELECTION_HISTORY_USER">
           <End Role="USER" Type="Self.USER" Multiplicity="0..1" />
           <End Role="SELECTION_HISTORY" Type="Self.SELECTION_HISTORY" Multiplicity="*" />
@@ -229,6 +242,10 @@
             <End Role="CANDIDATE" EntitySet="CANDIDATE" />
             <End Role="SELECTION_HISTORY" EntitySet="SELECTION_HISTORY" />
           </AssociationSet>
+          <AssociationSet Name="FK_CANDIDATE_CANDIDATE" Association="Self.FK_CANDIDATE_CANDIDATE">
+            <End Role="POSITION" EntitySet="POSITION" />
+            <End Role="CANDIDATE" EntitySet="CANDIDATE" />
+          </AssociationSet>
           <AssociationSet Name="FK_SELECTION_HISTORY_USER" Association="Self.FK_SELECTION_HISTORY_USER">
             <End Role="USER" EntitySet="USER" />
             <End Role="SELECTION_HISTORY" EntitySet="SELECTION_HISTORY" />
@@ -238,8 +255,7 @@
             <End Role="USER" EntitySet="USER" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecruitmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -277,9 +293,10 @@
           <Property Name="NPWP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CV" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AVAIABLE_JOIN" Type="DateTime" Precision="0" />
-          <Property Name="SUITABLE_POSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SUITABLE_POSITION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SELECTION_HISTORY" Relationship="Self.FK__SELECTION__CANDI__2BFE89A6" FromRole="CANDIDATE" ToRole="SELECTION_HISTORY" />
           <NavigationProperty Name="SKILLs" Relationship="Self.CANDIDATE_SKILL" FromRole="CANDIDATE" ToRole="SKILL" />
+          <NavigationProperty Name="POSITION" Relationship="RecruitmentModel.FK_CANDIDATE_CANDIDATE" FromRole="CANDIDATE" ToRole="POSITION" />
         </EntityType>
         <EntityType Name="EDUCATION">
           <Key>
@@ -327,6 +344,7 @@
           </Key>
           <Property Name="POSITION_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="POSITION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CANDIDATEs" Relationship="RecruitmentModel.FK_CANDIDATE_CANDIDATE" FromRole="POSITION" ToRole="CANDIDATE" />
         </EntityType>
         <EntityType Name="ROLE">
           <Key>
@@ -346,6 +364,7 @@
           <Property Name="HISTORY_TIME" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CANDIDATE" Relationship="Self.FK__SELECTION__CANDI__2BFE89A6" FromRole="SELECTION_HISTORY" ToRole="CANDIDATE" />
           <NavigationProperty Name="USER" Relationship="Self.FK_SELECTION_HISTORY_USER" FromRole="SELECTION_HISTORY" ToRole="USER" />
+          <Property Name="STATE_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SKILL">
           <Key>
@@ -450,7 +469,23 @@
             <End Role="CANDIDATE" EntitySet="CANDIDATEs" />
             <End Role="SKILL" EntitySet="SKILLs" />
           </AssociationSet>
+          <AssociationSet Name="FK_CANDIDATE_CANDIDATE" Association="RecruitmentModel.FK_CANDIDATE_CANDIDATE">
+            <End Role="POSITION" EntitySet="POSITIONs" />
+            <End Role="CANDIDATE" EntitySet="CANDIDATEs" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_CANDIDATE_CANDIDATE">
+          <End Type="RecruitmentModel.POSITION" Role="POSITION" Multiplicity="0..1" />
+          <End Type="RecruitmentModel.CANDIDATE" Role="CANDIDATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSITION">
+              <PropertyRef Name="POSITION_ID" />
+            </Principal>
+            <Dependent Role="CANDIDATE">
+              <PropertyRef Name="SUITABLE_POSITION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -556,6 +591,7 @@
           <EntitySetMapping Name="SELECTION_HISTORY">
             <EntityTypeMapping TypeName="RecruitmentModel.SELECTION_HISTORY">
               <MappingFragment StoreEntitySet="SELECTION_HISTORY">
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
                 <ScalarProperty Name="HISTORY_ID" ColumnName="HISTORY_ID" />
                 <ScalarProperty Name="PIC_ID" ColumnName="PIC_ID" />
                 <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />

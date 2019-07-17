@@ -52,15 +52,7 @@ namespace Recruitment.Controllers
                                 RoleId = x.ROLE_ID
                             }).ToList();
 
-                            List<MenuModels> menus = new List<MenuModels>();
-                            foreach (MenuModels menuModels in tempMenus)
-                            {
-                                String[] roleArr = menuModels.RoleId.Split(',');
-                                if (roleArr.Contains(usr.Roleid))
-                                {
-                                    menus.Add(menuModels);
-                                }
-                            }
+                            List<MenuModels> menus = Utils.Utils.GetMenus(tempMenus, usr.Roleid);
 
                             Session["user"] = usr;
                             Session["menu"] = menus;
@@ -84,6 +76,8 @@ namespace Recruitment.Controllers
             }
             return View("Index");
         }
+
+        
 
         [ActionName("Logout")]
         public ActionResult Logout()

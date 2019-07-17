@@ -410,7 +410,8 @@ namespace Recruitment.Controllers
                 {
                     CANDIDATE_ID = call.CandidateId,
                     PIC_ID = user.UserId,
-                    HISTORY_TIME = DateTime.Now
+                    HISTORY_TIME = DateTime.Now,
+                    STATE_ID = "ST02"
                 };
                 RE.SELECTION_HISTORY.Add(SelectionHistory);
 

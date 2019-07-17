@@ -18,6 +18,7 @@ namespace Recruitment.Models
         public Nullable<int> PIC_ID { get; set; }
         public string CANDIDATE_ID { get; set; }
         public Nullable<System.DateTime> HISTORY_TIME { get; set; }
+        public string STATE_ID { get; set; }
     
         public virtual CANDIDATE CANDIDATE { get; set; }
         public virtual USER USER { get; set; }

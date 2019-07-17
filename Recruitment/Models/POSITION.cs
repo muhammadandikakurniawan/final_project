@@ -14,7 +14,16 @@ namespace Recruitment.Models
     
     public partial class POSITION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public POSITION()
+        {
+            this.CANDIDATEs = new HashSet<CANDIDATE>();
+        }
+    
         public string POSITION_ID { get; set; }
         public string POSITION_NAME { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CANDIDATE> CANDIDATEs { get; set; }
     }
 }

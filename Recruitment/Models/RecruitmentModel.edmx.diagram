@@ -20,6 +20,7 @@
         <AssociationConnector Association="RecruitmentModel.FK_USER_USER" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentModel.FK_SELECTION_HISTORY_USER" ManuallyRouted="false" />
         <AssociationConnector Association="RecruitmentModel.CANDIDATE_SKILL" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentModel.FK_CANDIDATE_CANDIDATE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
