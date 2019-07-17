@@ -14,6 +14,12 @@ namespace Recruitment.Models
     
     public partial class USER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public USER()
+        {
+            this.SELECTION_HISTORY = new HashSet<SELECTION_HISTORY>();
+        }
+    
         public int USER_ID { get; set; }
         public string FULLNAME { get; set; }
         public string USERNAME { get; set; }
@@ -21,5 +27,7 @@ namespace Recruitment.Models
         public string ROLE_ID { get; set; }
     
         public virtual ROLE ROLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SELECTION_HISTORY> SELECTION_HISTORY { get; set; }
     }
 }

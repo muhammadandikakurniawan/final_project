@@ -190,6 +190,9 @@ namespace Recruitment.Models
             get; set;
         }
 
+        
+        public string SuitablePosition { get; set; }
+
 
         [AllowExtensions(Extensions = "png,jpg,jpeg", ErrorMessage ="Supported Files Only .png | .jpeg | .jpg")]
         public HttpPostedFileBase GambarFile { get => gambarFile; set => gambarFile = value; }

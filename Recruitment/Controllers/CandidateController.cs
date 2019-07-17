@@ -315,6 +315,7 @@ namespace Recruitment.Controllers
         [HttpPost]
         public ActionResult NewCandidate(CandidateJoin newCandidate, int[] cbskill)
         {
+            ModelState.Remove("SuitablePosition");
             if (ModelState.IsValid)
             {
 
@@ -503,6 +504,7 @@ namespace Recruitment.Controllers
 
                 ModelState.Remove("TanggalLahir");
                 ModelState.Remove("AvailableJoin");
+                ModelState.Remove("SuitablePosition");
                 CandidateDTO temp = (CandidateDTO)TempData.Peek("candidateEdit");
                 if (edittedCandidate.Foto == null)
                 {

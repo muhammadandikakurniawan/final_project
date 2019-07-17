@@ -1,5 +1,5 @@
 ﻿@model Recruitment.Models.CandidateJoin
-
+@Html.ValidationSummary()
 @using Recruitment.Models;
 @{
     List<string> posisi = (List<string>)TempData.Peek("position");

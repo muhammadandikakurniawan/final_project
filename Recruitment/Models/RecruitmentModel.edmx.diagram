@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="66bb4615c3d740efb2e2befb6f2b3ffb" Name="Diagram1">
+        <EntityTypeShape EntityType="RecruitmentModel.CANDIDATE" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.EDUCATION" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.EXPERIENCE" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.MENU" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.POSITION" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.ROLE" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.SELECTION_HISTORY" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.SKILL" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.SOURCE" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.STATE" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentModel.USER" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="RecruitmentModel.FK__SELECTION__CANDI__2BFE89A6" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentModel.FK_USER_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentModel.FK_SELECTION_HISTORY_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentModel.CANDIDATE_SKILL" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

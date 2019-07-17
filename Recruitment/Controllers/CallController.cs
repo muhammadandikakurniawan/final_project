@@ -141,6 +141,7 @@ namespace Recruitment.Controllers
                 {
                     candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
                 }
+                
             }
 
             return View("ListCalled", pagedCandidate);
@@ -273,10 +274,17 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities RE = new RecruitmentEntities())
             {
+                ViewBag.ListPosition = RE.POSITIONs.Select(d => new {
+                    NAME = d.POSITION_NAME
+                }).ToList().Select(l => l.NAME).ToList();
+
+                
 
                 CANDIDATE c = RE.CANDIDATEs.Find(id);
                 EDUCATION e = RE.EDUCATIONs.Where(ed => ed.CANDIDATE_ID == id).FirstOrDefault();
                 EXPERIENCE x = RE.EXPERIENCEs.Where(xp => xp.CANDIDATE_ID == id).FirstOrDefault();
+                POSITION position = RE.POSITIONs.FirstOrDefault(p => p.POSITION_ID == c.JUDUL_POSISI);
+                ViewBag.SuitablePosition = position.POSITION_NAME;
                 CallModelProses candidate = new CallModelProses
                 {
                     CandidateId = c.CANDIDATE_ID,
@@ -328,8 +336,8 @@ namespace Recruitment.Controllers
                     Salary = (int)x.SALARY,
                     Project = x.PROJECT,
                     Benefit = x.BENEFIT,
-                    CandidateIdinExp = x.CANDIDATE_ID
-
+                    CandidateIdinExp = x.CANDIDATE_ID,
+                    SuitablePosition = position.POSITION_ID
                 };
                 TempData["from"] = from;
                 Session["candidateId"] = c.CANDIDATE_ID;
@@ -342,6 +350,7 @@ namespace Recruitment.Controllers
         {
             using (RecruitmentEntities RE = new RecruitmentEntities())
             {
+                POSITION position = RE.POSITIONs.Where(p => p.POSITION_NAME == call.SuitablePosition).FirstOrDefault();
                 CANDIDATE candidates = new CANDIDATE
                 {
                     CANDIDATE_ID = call.CandidateId,
@@ -373,7 +382,8 @@ namespace Recruitment.Controllers
                     REFERER = call.Referer,
                     NPWP = call.NPWP,
                     CV = call.CV,
-                    AVAIABLE_JOIN = call.AvailableJoin
+                    AVAIABLE_JOIN = call.AvailableJoin,
+                    SUITABLE_POSITION = position.POSITION_ID
                 };
                 RE.Entry(candidates).State = EntityState.Modified;
                 RE.SaveChanges();
@@ -394,12 +404,27 @@ namespace Recruitment.Controllers
                     CANDIDATE_ID = call.CandidateId
                 };
                 RE.Entry(experience).State = EntityState.Modified;
+
+                Users user = (Users)Session["user"];
+                SELECTION_HISTORY SelectionHistory = new SELECTION_HISTORY
+                {
+                    CANDIDATE_ID = call.CandidateId,
+                    PIC_ID = user.UserId,
+                    HISTORY_TIME = DateTime.Now
+                };
+                RE.SELECTION_HISTORY.Add(SelectionHistory);
+
                 RE.SaveChanges();
+
+                
+                
+
                 if (TempData.Peek("from") != null)
                 {
                     return Redirect("~/" + TempData["from"]);
                 }
                 return Redirect("~/call");
+
             }
         }
 

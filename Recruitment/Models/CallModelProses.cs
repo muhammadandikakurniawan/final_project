@@ -276,5 +276,6 @@ namespace Recruitment.Models
         {
             get; set;
         }
+        public string SuitablePosition { get; set; }
     }
 }

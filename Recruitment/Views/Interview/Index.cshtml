@@ -1,0 +1,42 @@
+﻿@model PagedList.IPagedList<Recruitment.Models.CandidateInterviewDTO>
+@section content{
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Applied Position</th>
+                <th scope="col">Suitable Position</th>
+                <th scope="col">Source</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">PraSelection Pic</th>
+                <th scope="col">Caller PIC</th>
+                <th scope="col">Caller Notes</th>
+                <th scope="col">Interview Date</th>
+                <th scope="col">State</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var candidate in Model)
+            {
+            <tr>
+                <td>@candidate.Name</td>
+                <td>@candidate.Position</td>
+                <td>@candidate.SuitablePosition</td>
+                <td>@candidate.Source</td>
+                <td>@candidate.Phone</td>
+                <td>@candidate.Email</td>
+                <td>@candidate.PreSelectPIC</td>
+                <td>@candidate</td>
+                <td>@candidate.NamaLengkap</td>
+                <td>@candidate.NamaLengkap</td>
+                <td>@candidate.NamaLengkap</td>
+                <td>@candidate.NamaLengkap</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+}

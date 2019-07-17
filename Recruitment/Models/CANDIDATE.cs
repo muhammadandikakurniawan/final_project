@@ -17,6 +17,7 @@ namespace Recruitment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CANDIDATE()
         {
+            this.SELECTION_HISTORY = new HashSet<SELECTION_HISTORY>();
             this.SKILLs = new HashSet<SKILL>();
         }
     
@@ -50,7 +51,10 @@ namespace Recruitment.Models
         public string NPWP { get; set; }
         public string CV { get; set; }
         public Nullable<System.DateTime> AVAIABLE_JOIN { get; set; }
+        public string SUITABLE_POSITION { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SELECTION_HISTORY> SELECTION_HISTORY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SKILL> SKILLs { get; set; }
     }

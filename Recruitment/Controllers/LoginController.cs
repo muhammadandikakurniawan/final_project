@@ -38,6 +38,7 @@ namespace Recruitment.Controllers
                                 Username = x.USERNAME,
                                 Fullname = x.FULLNAME,
                                 Roleid = x.ROLE_ID,
+                                UserId = x.USER_ID
                             }).FirstOrDefault();
 
                             //cek login
