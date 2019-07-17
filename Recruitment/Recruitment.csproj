@@ -162,6 +162,7 @@
       <DependentUpon>RecruitmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CandidateCallDTO.cs" />
+    <Compile Include="Models\CandidateInterviewDTO.cs" />
     <Compile Include="Models\CandidateJoin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -243,6 +244,7 @@
     </Compile>
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\alertifyjs\alertify.css" />
@@ -6582,14 +6584,17 @@
     <Content Include="Views\Skill\Tambah.cshtml" />
     <Content Include="Views\Skill\Edit.cshtml" />
     <Content Include="Views\Candidate\Skill.cshtml" />
-    <Content Include="Views\Interview\ListInterview.cshtml" />
-    <Content Include="Views\Interview\App.cshtml" />
+    <Content Include="Views\Interview\Index.cshtml" />
+    <Content Include="Views\Templates\_Layout.cshtml" />
+    <Content Include="Views\Templates\_Login.cshtml" />
+    <Content Include="Views\Templates\_MenuLayout.cshtml" />
+    <Content Include="Views\Templates\Error.cshtml" />
+    <Content Include="Views\Interview\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Cv\" />
     <Folder Include="Images\" />
-    <Folder Include="Views\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -65,63 +65,7 @@
                             <h3>General</h3>
                             <div id="navcontainer"></div>
                             <ul class="nav side-menu">
-                                <li>
-                                    @if (Session["username"] == null)
-                                    {
-                                        Response.Redirect("~/Login");
-                                    }
-                                    else
-                                    {
-                                        string url = Request.Url.AbsolutePath.ToLower();
-                                        if (url.Contains("/menu") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if (url.Contains("/role") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if (url.Contains("/users") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if (url.Contains("/source") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if (url.Contains("/position") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if (url.Contains("/state") && !Session["username"].Equals("RL001"))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if ((url.Contains("/call") && !Session["username"].Equals("RL001")) && (url.Contains("/call") && !Session["username"].Equals("RL003")))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-                                        else if ((url.Contains("/candidate") && !Session["username"].Equals("RL001")) && (url.Contains("/candidate") && !Session["username"].Equals("RL002")))
-                                        {
-                                            Response.Redirect("~/Login");
-                                        }
-
-
-                                        if (Session["username"].Equals("RL001"))
-                                        {
-                                            <a>Master Management<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li>@Html.ActionLink("MENU", "ListMenu", "Menu")</li>
-                                                <li>@Html.ActionLink("USER", "ListUser", "Users")</li>
-                                                <li>@Html.ActionLink("ROLE", "Index", "Role")</li>
-                                                <li>@Html.ActionLink("STATE", "ListAllStates", "StateView")</li>
-                                                <li>@Html.ActionLink("POSITION", "ListPosition", "Position")</li>
-                                                <li>@Html.ActionLink("SOURCE", "Index", "Source")</li>
-                                                <li>@Html.ActionLink("SKILL", "Index", "Skill")</li>
-                                            </ul>
-                                        }
-                                    }
-                                </li>
+                               
                             </ul>
                         </div>
 

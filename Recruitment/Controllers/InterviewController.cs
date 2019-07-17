@@ -21,6 +21,11 @@ namespace Recruitment.Controllers
                             new CandidateInterviewDTO {
                                 AppliedPosition = db.POSITIONs.FirstOrDefault(p => p.POSITION_ID == candidate.JUDUL_POSISI).POSITION_NAME,
                                 SuitablePosition = db.POSITIONs.FirstOrDefault(p => p.POSITION_ID == candidate.SUITABLE_POSITION).POSITION_NAME,
+                                Name = candidate.NAMA_LENGKAP,
+                                Source = db.SOURCEs.FirstOrDefault(s => s.SOURCE_ID == candidate.SOURCE_ID).SOURCE_NAME,
+                                PhoneNumber = candidate.NOHP,
+                                Email = candidate.EMAIL,
+                                PraSelectionPIC  = db.USERs.FirstOrDefault(u => u.ROLE_ID == db.SELECTION_HISTORY.FirstOrDefault(h => h.CANDIDATE_ID == candidate.CANDIDATE_ID && h.STATE_ID == "").PIC_ID)
                                 
                             }
                 ).ToList();
